@@ -32,3 +32,9 @@ out/
 .vscode/
 
 /src/main/resources/application-local.properties
+
+/src/main/resources/hibernate.cfg.xml
+
+/src/main/resources/hibernate.properties
+
+/src/main/resources/hibernate.reveng.xml
