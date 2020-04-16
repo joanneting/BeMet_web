@@ -3,8 +3,11 @@ package tw.com.business_meet.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import tw.com.business_meet.bean.UserInformationBean;
 import tw.com.business_meet.service.UserInformationService;
 
@@ -65,8 +68,15 @@ public class UserInformationController {
         return o.writeValueAsString(result);
     }
     @GetMapping(path = "/test")
-    public String test(){
-        return "success";
+    public ModelAndView test(){
+        ModelAndView modelAndView = new ModelAndView("searchPage");
+        try{
+            List<UserInformationBean> userInformationBeanList = userInformationService.searchAll();
+            modelAndView.addObject("dataList",userInformationBeanList);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return modelAndView;
     }
 
 
