@@ -9,4 +9,5 @@ public interface UserInformationService {
     public List<UserInformationBean> search(UserInformationBean userInformationBean);
     public UserInformationBean add(UserInformationBean userInformationBean);
     public void update(UserInformationBean userInformationBean);
+    public List<UserInformationBean> searchAll();
 }

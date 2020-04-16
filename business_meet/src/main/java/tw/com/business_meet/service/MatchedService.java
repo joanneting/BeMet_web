@@ -9,4 +9,5 @@ public interface MatchedService {
     public List<MatchedBean> search(MatchedBean matchedBean) throws Exception;
     public MatchedBean add(MatchedBean matchedBean) throws Exception;
     public void update(MatchedBean matchedBean) throws Exception;
+    public List<MatchedBean> searchAll() throws  Exception;
 }
