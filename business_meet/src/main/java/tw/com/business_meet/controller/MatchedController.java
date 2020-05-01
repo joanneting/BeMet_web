@@ -22,15 +22,18 @@ public class MatchedController {
     public String search(@RequestBody MatchedBean matchedBean) throws Exception{
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();
+        System.out.println("searchBlueTooth : " + matchedBean.getBlueTooth());
         try{
             List<MatchedBean> mbList = matchedService.search(matchedBean);
             result.put("result",true);
             ArrayNode arrayNode = result.putArray("data");
             for (MatchedBean mb:mbList){
+                System.out.println("search : " + mb.getBlueTooth()+" : "+mb.getMatchedBlueTooth());
                 arrayNode.addPOJO(mb);
             }
         }catch(Exception e){
             result.put("result",false);
+            result.putObject("data");
             e.printStackTrace();
         }
         return o.writeValueAsString(result);

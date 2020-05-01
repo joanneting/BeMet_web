@@ -27,20 +27,39 @@ public class UserInformationController {
             result.put("result",true);
             ArrayNode arrayNode = result.putArray("data");
             for (UserInformationBean ui : uibList) {
+                System.out.println("search : "+ ui.getBlueTooth()+" : "+ui.getUserName());
                 arrayNode.addPOJO(ui);
             }
         }catch (Exception e){
             result.put("result",false);
+            result.putObject("data");
             e.printStackTrace();
         }
         return o.writeValueAsString(result);
+    }
+    @PostMapping(path="/get/{blueTooth}", produces = "application/json;charset=utf-8")
+    public String getById(@PathVariable String blueTooth) throws  Exception{
+        ObjectMapper o = new ObjectMapper();
+        ObjectNode result = o.createObjectNode();
+        try {
+            UserInformationBean userInformationBean = userInformationService.getById(blueTooth);
+            result.put("result",true);
+            result.putPOJO("data",userInformationBean);
+
+        }catch(Exception e){
+            result.put("result",false);
+            result.putObject("data");
+            e.printStackTrace();
+        }
+        return o.writeValueAsString(result);
+
     }
 
     @PostMapping(path = "/add", produces = "application/json;charset=UTF-8")
     public String add(@RequestBody UserInformationBean userInformationBean) throws Exception{
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();
-        System.out.println("uib.getAvatar() = " + userInformationBean.getAvatar());
+        System.out.println("uib.getUserName() = " + userInformationBean.getUserName());
         try{
             UserInformationBean uib = userInformationService.add(userInformationBean);
 

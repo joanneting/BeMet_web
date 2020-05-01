@@ -65,4 +65,12 @@ public class UserInformationServiceImpl implements UserInformationService {
         }
         return userInformationBeanList;
     }
+
+    @Override
+    public UserInformationBean getById(String blueTooth) {
+        UserInformation userInformation = userInformationDAO.getById(blueTooth);
+        UserInformationBean userInformationBean = new UserInformationBean();
+        BeanUtility.copyProperties(userInformation,userInformationBean);
+        return userInformationBean;
+    }
 }
