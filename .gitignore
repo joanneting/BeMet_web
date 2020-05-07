@@ -4,3 +4,5 @@ business_meet/bin/
 business_meet/META-INF/MANIFEST.MF
 
 .idea/
+
+business_meet/gradle.properties

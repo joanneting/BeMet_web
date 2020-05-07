@@ -32,7 +32,6 @@ public class UserInformationController {
             }
         }catch (Exception e){
             result.put("result",false);
-            result.putObject("data");
             e.printStackTrace();
         }
         return o.writeValueAsString(result);
@@ -48,7 +47,7 @@ public class UserInformationController {
 
         }catch(Exception e){
             result.put("result",false);
-            result.putObject("data");
+//            result.putObject("data");
             e.printStackTrace();
         }
         return o.writeValueAsString(result);
