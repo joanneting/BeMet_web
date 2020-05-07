@@ -17,11 +17,13 @@ public class MatchedDAOImpl extends BaseDAOImpl<Matched> implements MatchedDAO {
         String blueTooth = matchedBean.getBlueTooth();
         String matchedBlueTooth = matchedBean.getMatchedBlueTooth();
         String memorandum = matchedBean.getMemorandum();
+        System.out.println("matched search bluetoth: " + blueTooth);
+        System.out.println("matched search matchedBluetoth: " + matchedBlueTooth);
         if(blueTooth!=null && !blueTooth.equals("")){
-            detachedCriteria.add(Restrictions.eq("blueTooth",blueTooth));
+            detachedCriteria.add(Restrictions.eq("userInformationByBlueTooth.blueTooth",blueTooth));
         }
         if(matchedBlueTooth!=null && !matchedBlueTooth.equals("")){
-            detachedCriteria.add(Restrictions.eq("matchedBlueTooth",matchedBlueTooth));
+            detachedCriteria.add(Restrictions.eq("userInformationByMatchedBlueTooth.blueTooth",matchedBlueTooth));
         }
         if(memorandum!=null && !memorandum.equals("")){
             detachedCriteria.add(Restrictions.eq("memorandum",memorandum));

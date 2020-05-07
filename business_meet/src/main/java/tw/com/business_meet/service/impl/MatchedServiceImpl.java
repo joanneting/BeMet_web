@@ -25,6 +25,10 @@ public class MatchedServiceImpl implements MatchedService {
         for (Matched m: mList) {
             MatchedBean mb = new MatchedBean();
             BeanUtility.copyProperties(m,mb);
+            mb.setBlueTooth(m.getUserInformationByBlueTooth().getBlueTooth());
+            mb.setMatchedBlueTooth(m.getUserInformationByMatchedBlueTooth().getBlueTooth());
+
+            System.out.println("matched search data : " + mb.getBlueTooth());
             mbList.add(mb);
         }
         return mbList;
