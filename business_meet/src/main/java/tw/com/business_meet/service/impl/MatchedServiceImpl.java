@@ -58,6 +58,12 @@ public class MatchedServiceImpl implements MatchedService {
     public void update(MatchedBean matchedBean) throws Exception {
         Matched m = matchedDAO.getById(matchedBean.getMSno());
         BeanUtility.copyProperties(matchedBean,m);
+        UserInformation matchedBlueTooth = new UserInformation();
+        UserInformation myBlueTooth = new UserInformation();
+        matchedBlueTooth.setBlueTooth(matchedBean.getBlueTooth());
+        myBlueTooth.setBlueTooth(matchedBean.getBlueTooth());
+        m.setUserInformationByBlueTooth(myBlueTooth);
+        m.setUserInformationByMatchedBlueTooth(matchedBlueTooth);
         m.setModifyDate(new Date());
         matchedDAO.update(m);
     }
