@@ -56,9 +56,29 @@ public class MatchedServiceImpl implements MatchedService {
 
     @Override
     public void update(MatchedBean matchedBean) throws Exception {
-        Matched m = matchedDAO.getById(matchedBean.getMSno());
-        BeanUtility.copyProperties(matchedBean,m);
-        m.setModifyDate(new Date());
+        Matched m = new Matched();
+        MatchedBean searchBean = new MatchedBean();
+        searchBean.setBlueTooth(matchedBean.getBlueTooth());
+        searchBean.setMatchedBlueTooth(matchedBean.getMatchedBlueTooth());
+        List<Matched> matchedList = matchedDAO.search(searchBean);
+        if(matchedList.size() > 0){
+            m = matchedList.get(0);
+            BeanUtility.copyProperties(matchedBean,m);
+            UserInformation matchedBlueTooth = new UserInformation();
+            UserInformation myBlueTooth = new UserInformation();
+            matchedBlueTooth.setBlueTooth(matchedBean.getMatchedBlueTooth());
+            myBlueTooth.setBlueTooth(matchedBean.getBlueTooth());
+            m.setUserInformationByBlueTooth(myBlueTooth);
+            m.setUserInformationByMatchedBlueTooth(matchedBlueTooth);
+            m.setModifyDate(new Date());
+
+        }
+        System.out.println("m : "+m.getMemorandum());
+
+        System.out.println("update : "+matchedBean.getBlueTooth());
+        System.out.println("update : "+matchedBean.getMatchedBlueTooth());
+        System.out.println("update : "+matchedBean.getMemorandum());
+
         matchedDAO.update(m);
     }
 
