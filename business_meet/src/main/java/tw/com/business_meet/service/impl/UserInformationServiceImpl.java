@@ -9,6 +9,7 @@ import tw.com.business_meet.service.UserInformationService;
 import tw.com.business_meet.utils.BeanUtility;
 import tw.com.business_meet.vo.UserInformation;
 
+import java.beans.BeanProperty;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,5 +52,25 @@ public class UserInformationServiceImpl implements UserInformationService {
         BeanUtility.copyProperties(userInformationBean, ui);
         ui.setModifyDate(new Date());
         userInformationDAO.update(ui);
+    }
+
+    @Override
+    public List<UserInformationBean> searchAll() {
+        List<UserInformation> userInformationList = userInformationDAO.searchAll();
+        List<UserInformationBean> userInformationBeanList = new ArrayList<>();
+        for(UserInformation ui : userInformationList){
+            UserInformationBean uib = new UserInformationBean();
+            BeanUtility.copyProperties(ui,uib);
+            userInformationBeanList.add(uib);
+        }
+        return userInformationBeanList;
+    }
+
+    @Override
+    public UserInformationBean getById(String blueTooth) {
+        UserInformation userInformation = userInformationDAO.getById(blueTooth);
+        UserInformationBean userInformationBean = new UserInformationBean();
+        BeanUtility.copyProperties(userInformation,userInformationBean);
+        return userInformationBean;
     }
 }
