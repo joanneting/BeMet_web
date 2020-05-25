@@ -2,11 +2,15 @@ package tw.com.business_meet.bean;
 
 import tw.com.business_meet.vo.UserInformation;
 
+import java.util.Date;
+
 public class MatchedBean {
     private Integer MSno;
     private String matchedBlueTooth;
     private String blueTooth;
     private String memorandum;
+    private Date createDate;
+    private Date modifyDate;
 
     public Integer getMSno() {
         return MSno;
@@ -38,5 +42,21 @@ public class MatchedBean {
 
     public void setMemorandum(String memorandum) {
         this.memorandum = memorandum;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getModifyDate() {
+        return modifyDate;
+    }
+
+    public void setModifyDate(Date modifyDate) {
+        this.modifyDate = modifyDate;
     }
 }
