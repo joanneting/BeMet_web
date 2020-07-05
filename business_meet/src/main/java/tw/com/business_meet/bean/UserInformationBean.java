@@ -4,70 +4,79 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class UserInformationBean {
-    private String blueTooth;
-    private String userName;
-    private String company;
-    private String position;
-    private String avatar;
-    private String tel;
-    private String email;
-    private Date createDate;
-    private Date modifyDate;
+	private Integer userNo;
+	private String account;
+	private String password;
+	private String name;
+	private String gender;
+	private String mail;
+	private String profession;
+	private String bluetooth;
+	private Date createDate;
+	private Date modifyDate;
 
-	public String getBlueTooth() {
-		return blueTooth;
+	public Integer getUserNo() {
+		return userNo;
 	}
 
-	public void setBlueTooth(String blueTooth) {
-		this.blueTooth = blueTooth;
+	public void setUserNo(Integer userNo) {
+		this.userNo = userNo;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getAccount() {
+		return account;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setAccount(String account) {
+		this.account = account;
 	}
 
-	public String getCompany() {
-		return company;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setCompany(String company) {
-		this.company = company;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getPosition() {
-		return position;
+	public String getName() {
+		return name;
 	}
 
-	public void setPosition(String position) {
-		this.position = position;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getAvatar() {
-		return avatar;
+	public String getGender() {
+		return gender;
 	}
 
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
-	public String getTel() {
-		return tel;
+	public String getMail() {
+		return mail;
 	}
 
-	public void setTel(String tel) {
-		this.tel = tel;
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getProfession() {
+		return profession;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setProfession(String profession) {
+		this.profession = profession;
+	}
+
+	public String getBluetooth() {
+		return bluetooth;
+	}
+
+	public void setBluetooth(String bluetooth) {
+		this.bluetooth = bluetooth;
 	}
 
 	public Date getCreateDate() {
