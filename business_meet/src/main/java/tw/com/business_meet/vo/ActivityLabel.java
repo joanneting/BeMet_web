@@ -106,7 +106,7 @@ public class ActivityLabel {
     }
 
     @ManyToOne
-    @JoinColumn(name = "activity_no", referencedColumnName = "timeline_no", nullable = false)
+    @JoinColumn(name = "activity_no", referencedColumnName = "timeline_no", nullable = false, insertable = false, updatable = false)
     public Timeline getTimelineByActivityNo() {
         return timelineByActivityNo;
     }

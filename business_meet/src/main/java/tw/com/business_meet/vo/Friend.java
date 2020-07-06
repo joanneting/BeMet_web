@@ -141,7 +141,7 @@ public class Friend {
     }
 
     @ManyToOne
-    @JoinColumn(name = "matchmaker_id", referencedColumnName = "user_id", nullable = false)
+    @JoinColumn(name = "matchmaker_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
     public UserInformation getUserInformationByMatchmakerId() {
         return userInformationByMatchmakerId;
     }
@@ -151,7 +151,7 @@ public class Friend {
     }
 
     @ManyToOne
-    @JoinColumn(name = "friend_id", referencedColumnName = "user_id", nullable = false)
+    @JoinColumn(name = "friend_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
     public UserInformation getUserInformationByFriendId() {
         return userInformationByFriendId;
     }

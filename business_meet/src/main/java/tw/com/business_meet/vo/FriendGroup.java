@@ -107,7 +107,7 @@ public class FriendGroup {
     }
 
     @ManyToOne
-    @JoinColumn(name = "group_no", referencedColumnName = "group_no", nullable = false)
+    @JoinColumn(name = "group_no", referencedColumnName = "group_no", nullable = false, insertable = false, updatable = false)
     public Groups getGroupsByGroupNo() {
         return groupsByGroupNo;
     }
@@ -117,7 +117,7 @@ public class FriendGroup {
     }
 
     @ManyToOne
-    @JoinColumn(name = "friend_no", referencedColumnName = "friend_no", nullable = false)
+    @JoinColumn(name = "friend_no", referencedColumnName = "friend_no", nullable = false, insertable = false, updatable = false)
     public Friend getFriendByFriendNo() {
         return friendByFriendNo;
     }

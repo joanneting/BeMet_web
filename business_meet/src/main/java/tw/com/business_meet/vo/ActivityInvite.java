@@ -107,7 +107,7 @@ public class ActivityInvite {
     }
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
     public UserInformation getUserInformationByUserId() {
         return userInformationByUserId;
     }
@@ -117,7 +117,7 @@ public class ActivityInvite {
     }
 
     @ManyToOne
-    @JoinColumn(name = "activity_no", referencedColumnName = "timeline_no", nullable = false)
+    @JoinColumn(name = "activity_no", referencedColumnName = "timeline_no", nullable = false, insertable = false, updatable = false)
     public Timeline getTimelineByActivityNo() {
         return timelineByActivityNo;
     }

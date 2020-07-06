@@ -108,7 +108,7 @@ public class FriendLabel {
     }
 
     @ManyToOne
-    @JoinColumn(name = "friend_customization_no", referencedColumnName = "friend_customization_no", nullable = false)
+    @JoinColumn(name = "friend_customization_no", referencedColumnName = "friend_customization_no", nullable = false, insertable = false, updatable = false)
     public FriendCustomization getFriendCustomizationByFriendCustomizationNo() {
         return friendCustomizationByFriendCustomizationNo;
     }

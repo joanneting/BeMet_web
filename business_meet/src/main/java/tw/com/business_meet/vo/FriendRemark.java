@@ -107,7 +107,7 @@ public class FriendRemark {
     }
 
     @ManyToOne
-    @JoinColumn(name = "friendLabel_no", referencedColumnName = "friend_label_no", nullable = false)
+    @JoinColumn(name = "friendLabel_no", referencedColumnName = "friend_label_no", nullable = false, insertable = false, updatable = false)
     public FriendLabel getFriendLabelByFriendLabelNo() {
         return friendLabelByFriendLabelNo;
     }
@@ -117,7 +117,7 @@ public class FriendRemark {
     }
 
     @ManyToOne
-    @JoinColumn(name = "friend_customization_no", referencedColumnName = "friend_customization_no", nullable = false)
+    @JoinColumn(name = "friend_customization_no", referencedColumnName = "friend_customization_no", nullable = false, insertable = false, updatable = false)
     public FriendCustomization getFriendCustomizationByFriendCustomizationNo() {
         return friendCustomizationByFriendCustomizationNo;
     }

@@ -125,7 +125,7 @@ public class FriendCustomization {
     }
 
     @ManyToOne
-    @JoinColumn(name = "friend_no", referencedColumnName = "friend_no", nullable = false)
+    @JoinColumn(name = "friend_no", referencedColumnName = "friend_no", nullable = false, insertable = false, updatable = false)
     public Friend getFriendByFriendNo() {
         return friendByFriendNo;
     }
@@ -135,7 +135,7 @@ public class FriendCustomization {
     }
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
     public UserInformation getUserInformationByUserId() {
         return userInformationByUserId;
     }

@@ -181,7 +181,7 @@ public class Timeline {
     }
 
     @ManyToOne
-    @JoinColumn(name = "timeline_properties_no", referencedColumnName = "timeline_properties_no", nullable = false)
+    @JoinColumn(name = "timeline_properties_no", referencedColumnName = "timeline_properties_no", nullable = false, insertable = false, updatable = false)
     public TimelineProperties getTimelinePropertiesByTimelinePropertiesNo() {
         return timelinePropertiesByTimelinePropertiesNo;
     }
