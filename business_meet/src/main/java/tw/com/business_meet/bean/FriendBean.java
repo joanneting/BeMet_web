@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class FriendBean {
     private Integer friendNo;
-    private Integer matchmaker;
-    private Integer friend;
+    private String matchmakerId;
+    private String friendId;
     private String remark;
     private Date createDate;
     private Date modifyDate;
@@ -18,20 +18,20 @@ public class FriendBean {
         this.friendNo = friendNo;
     }
 
-    public Integer getMatchmaker() {
-        return matchmaker;
+    public String getMatchmakerId() {
+        return matchmakerId;
     }
 
-    public void setMatchmaker(Integer matchmaker) {
-        this.matchmaker = matchmaker;
+    public void setMatchmakerId(String matchmakerId) {
+        this.matchmakerId = matchmakerId;
     }
 
-    public Integer getFriend() {
-        return friend;
+    public String getFriendId() {
+        return friendId;
     }
 
-    public void setFriend(Integer friend) {
-        this.friend = friend;
+    public void setFriendId(String friendId) {
+        this.friendId = friendId;
     }
 
     public String getRemark() {

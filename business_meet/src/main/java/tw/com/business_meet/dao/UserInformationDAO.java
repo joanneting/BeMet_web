@@ -7,6 +7,6 @@ import tw.com.business_meet.vo.UserInformation;
 import java.util.List;
 
 
-public interface UserInformationDAO extends BaseDAO<UserInformation>{
+public interface UserInformationDAO extends BaseDAO<UserInformation> {
     public List<UserInformation> search(UserInformationBean userInformationBean);
 }

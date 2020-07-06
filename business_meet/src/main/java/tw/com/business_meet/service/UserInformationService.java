@@ -6,8 +6,12 @@ import java.util.List;
 
 public interface UserInformationService {
     public List<UserInformationBean> search(UserInformationBean userInformationBean);
+
     public UserInformationBean add(UserInformationBean userInformationBean);
-    public void update(UserInformationBean userInformationBean);
+
+    public UserInformationBean update(UserInformationBean userInformationBean);
+
     public List<UserInformationBean> searchAll();
-    public UserInformationBean getById(String blueTooth);
+
+    public UserInformationBean getById(String userId);
 }
