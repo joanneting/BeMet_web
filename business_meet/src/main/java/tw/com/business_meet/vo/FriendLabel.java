@@ -46,6 +46,7 @@ public class FriendLabel {
     }
 
     @Basic
+    @Temporal(TemporalType.DATE)
     @Column(name = "create_date")
     public Date getCreateDate() {
         return createDate;
@@ -56,6 +57,7 @@ public class FriendLabel {
     }
 
     @Basic
+    @Temporal(TemporalType.DATE)
     @Column(name = "modify_date")
     public Date getModifyDate() {
         return modifyDate;

@@ -117,7 +117,7 @@ public class UserInformation {
     }
 
     @Basic
-    @Temporal(TemporalType.Date)
+    @Temporal(TemporalType.DATE)
     @Column(name = "create_date")
     public Date getCreateDate() {
         return createDate;
@@ -129,7 +129,7 @@ public class UserInformation {
 
 
     @Basic
-    @Temporal(TemporalType.Date)
+    @Temporal(TemporalType.DATE)
     @Column(name = "modify_date")
     public Date getModifyDate() {
         return modifyDate;

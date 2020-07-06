@@ -34,6 +34,7 @@ public class TimelineProperties {
     }
 
     @Basic
+    @Temporal(TemporalType.DATE)
     @Column(name = "create_date")
     public Date getCreateDate() {
         return createDate;
@@ -44,6 +45,7 @@ public class TimelineProperties {
     }
 
     @Basic
+    @Temporal(TemporalType.DATE)
     @Column(name = "modify_date")
     public Date getModifyDate() {
         return modifyDate;
