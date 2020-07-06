@@ -1,7 +1,6 @@
 package tw.com.business_meet.vo;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -30,10 +29,6 @@ public class ActivityRemind {
         return time;
     }
 
-    public void setTime(Timestamp time) {
-        this.time = time;
-    }
-
     public void setTime(Date time) {
         this.time = time;
     }
@@ -49,14 +44,9 @@ public class ActivityRemind {
     }
 
     @Basic
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")
     public Date getCreateDate() {
         return createDate;
-    }
-
-    public void setCreateDate(Timestamp createDate) {
-        this.createDate = createDate;
     }
 
     public void setCreateDate(Date createDate) {
@@ -64,14 +54,9 @@ public class ActivityRemind {
     }
 
     @Basic
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modify_date")
     public Date getModifyDate() {
         return modifyDate;
-    }
-
-    public void setModifyDate(Timestamp modifyDate) {
-        this.modifyDate = modifyDate;
     }
 
     public void setModifyDate(Date modifyDate) {

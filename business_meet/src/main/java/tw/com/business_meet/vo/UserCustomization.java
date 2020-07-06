@@ -1,20 +1,17 @@
 package tw.com.business_meet.vo;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
 @Table(name = "user_customization", schema = "dbo", catalog = "BeMet")
 public class UserCustomization {
     private Integer userCustomizationNo;
-    private Integer userNo;
+    private String userId;
     private String columnName;
     private String content;
     private Date createDate;
     private Date modifyDate;
-    private UserInformation userInformationByUserNo;
-    private String userId;
     private UserInformation userInformationByUserId;
 
     @Id
@@ -28,13 +25,13 @@ public class UserCustomization {
     }
 
     @Basic
-    @Column(name = "user_no")
-    public Integer getUserNo() {
-        return userNo;
+    @Column(name = "user_id")
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserNo(Integer userNo) {
-        this.userNo = userNo;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     @Basic
@@ -58,14 +55,9 @@ public class UserCustomization {
     }
 
     @Basic
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")
     public Date getCreateDate() {
         return createDate;
-    }
-
-    public void setCreateDate(Timestamp createDate) {
-        this.createDate = createDate;
     }
 
     public void setCreateDate(Date createDate) {
@@ -73,14 +65,9 @@ public class UserCustomization {
     }
 
     @Basic
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modify_date")
     public Date getModifyDate() {
         return modifyDate;
-    }
-
-    public void setModifyDate(Timestamp modifyDate) {
-        this.modifyDate = modifyDate;
     }
 
     public void setModifyDate(Date modifyDate) {
@@ -101,7 +88,7 @@ public class UserCustomization {
         if (userCustomizationNo != null ? !userCustomizationNo.equals(that.userCustomizationNo) : that.userCustomizationNo != null) {
             return false;
         }
-        if (userNo != null ? !userNo.equals(that.userNo) : that.userNo != null) {
+        if (userId != null ? !userId.equals(that.userId) : that.userId != null) {
             return false;
         }
         if (columnName != null ? !columnName.equals(that.columnName) : that.columnName != null) {
@@ -123,32 +110,12 @@ public class UserCustomization {
     @Override
     public int hashCode() {
         int result = userCustomizationNo != null ? userCustomizationNo.hashCode() : 0;
-        result = 31 * result + (userNo != null ? userNo.hashCode() : 0);
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
         result = 31 * result + (columnName != null ? columnName.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
         result = 31 * result + (modifyDate != null ? modifyDate.hashCode() : 0);
         return result;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_no", referencedColumnName = "user_no", nullable = false, updatable = false, insertable = false)
-    public UserInformation getUserInformationByUserNo() {
-        return userInformationByUserNo;
-    }
-
-    public void setUserInformationByUserNo(UserInformation userInformationByUserNo) {
-        this.userInformationByUserNo = userInformationByUserNo;
-    }
-
-    @Basic
-    @Column(name = "user_id")
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     @ManyToOne

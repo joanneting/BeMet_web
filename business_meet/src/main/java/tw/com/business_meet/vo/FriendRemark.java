@@ -1,7 +1,6 @@
 package tw.com.business_meet.vo;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -10,7 +9,6 @@ public class FriendRemark {
     private Integer friendRemarksNo;
     private Integer friendLabelNo;
     private Integer friendCustomizationNo;
-    private Integer friendNo;
     private Date createDate;
     private Date modifyDate;
     private FriendLabel friendLabelByFriendLabelNo;
@@ -47,24 +45,9 @@ public class FriendRemark {
     }
 
     @Basic
-    @Column(name = "friend_no")
-    public Integer getFriendNo() {
-        return friendNo;
-    }
-
-    public void setFriendNo(Integer friendNo) {
-        this.friendNo = friendNo;
-    }
-
-    @Basic
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")
     public Date getCreateDate() {
         return createDate;
-    }
-
-    public void setCreateDate(Timestamp createDate) {
-        this.createDate = createDate;
     }
 
     public void setCreateDate(Date createDate) {
@@ -72,14 +55,9 @@ public class FriendRemark {
     }
 
     @Basic
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modify_date")
     public Date getModifyDate() {
         return modifyDate;
-    }
-
-    public void setModifyDate(Timestamp modifyDate) {
-        this.modifyDate = modifyDate;
     }
 
     public void setModifyDate(Date modifyDate) {
@@ -106,9 +84,6 @@ public class FriendRemark {
         if (friendCustomizationNo != null ? !friendCustomizationNo.equals(that.friendCustomizationNo) : that.friendCustomizationNo != null) {
             return false;
         }
-        if (friendNo != null ? !friendNo.equals(that.friendNo) : that.friendNo != null) {
-            return false;
-        }
         if (createDate != null ? !createDate.equals(that.createDate) : that.createDate != null) {
             return false;
         }
@@ -124,7 +99,6 @@ public class FriendRemark {
         int result = friendRemarksNo != null ? friendRemarksNo.hashCode() : 0;
         result = 31 * result + (friendLabelNo != null ? friendLabelNo.hashCode() : 0);
         result = 31 * result + (friendCustomizationNo != null ? friendCustomizationNo.hashCode() : 0);
-        result = 31 * result + (friendNo != null ? friendNo.hashCode() : 0);
         result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
         result = 31 * result + (modifyDate != null ? modifyDate.hashCode() : 0);
         return result;

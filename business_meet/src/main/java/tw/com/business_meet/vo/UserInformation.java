@@ -24,6 +24,7 @@ public class UserInformation {
     private Collection<Groups> groupsByUserId;
     private Collection<ProblemReport> problemReportsByUserId;
     private Collection<UserCustomization> userCustomizationsByUserId;
+    private Collection<Friend> friendsByUserId_0;
 
     @Id
     @Column(name = "user_id")
@@ -116,7 +117,7 @@ public class UserInformation {
     }
 
     @Basic
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.Date)
     @Column(name = "create_date")
     public Date getCreateDate() {
         return createDate;
@@ -128,16 +129,16 @@ public class UserInformation {
 
 
     @Basic
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.Date)
     @Column(name = "modify_date")
     public Date getModifyDate() {
         return modifyDate;
     }
 
+
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
     }
-
 
     @OneToMany(mappedBy = "userInformationByUserId")
     public Collection<ActivityInvite> getActivityInvitesByUserId() {
@@ -191,5 +192,78 @@ public class UserInformation {
 
     public void setUserCustomizationsByUserId(Collection<UserCustomization> userCustomizationsByUserId) {
         this.userCustomizationsByUserId = userCustomizationsByUserId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        UserInformation that = (UserInformation) o;
+
+        if (userId != null ? !userId.equals(that.userId) : that.userId != null) {
+            return false;
+        }
+        if (password != null ? !password.equals(that.password) : that.password != null) {
+            return false;
+        }
+        if (name != null ? !name.equals(that.name) : that.name != null) {
+            return false;
+        }
+        if (gender != null ? !gender.equals(that.gender) : that.gender != null) {
+            return false;
+        }
+        if (mail != null ? !mail.equals(that.mail) : that.mail != null) {
+            return false;
+        }
+        if (avatar != null ? !avatar.equals(that.avatar) : that.avatar != null) {
+            return false;
+        }
+        if (tel != null ? !tel.equals(that.tel) : that.tel != null) {
+            return false;
+        }
+        if (profession != null ? !profession.equals(that.profession) : that.profession != null) {
+            return false;
+        }
+        if (bluetooth != null ? !bluetooth.equals(that.bluetooth) : that.bluetooth != null) {
+            return false;
+        }
+        if (createDate != null ? !createDate.equals(that.createDate) : that.createDate != null) {
+            return false;
+        }
+        if (modifyDate != null ? !modifyDate.equals(that.modifyDate) : that.modifyDate != null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = userId != null ? userId.hashCode() : 0;
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (gender != null ? gender.hashCode() : 0);
+        result = 31 * result + (mail != null ? mail.hashCode() : 0);
+        result = 31 * result + (tel != null ? tel.hashCode() : 0);
+        result = 31 * result + (profession != null ? profession.hashCode() : 0);
+        result = 31 * result + (bluetooth != null ? bluetooth.hashCode() : 0);
+        result = 31 * result + (avatar != null ? avatar.hashCode() : 0);
+        result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
+        result = 31 * result + (modifyDate != null ? modifyDate.hashCode() : 0);
+        return result;
+    }
+
+    @OneToMany(mappedBy = "userInformationByFriendId")
+    public Collection<Friend> getFriendsByUserId_0() {
+        return friendsByUserId_0;
+    }
+
+    public void setFriendsByUserId_0(Collection<Friend> friendsByUserId_0) {
+        this.friendsByUserId_0 = friendsByUserId_0;
     }
 }

@@ -1,7 +1,6 @@
 package tw.com.business_meet.vo;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
 
@@ -11,15 +10,13 @@ public class FriendCustomization {
     private Integer friendCustomizationNo;
     private String name;
     private Integer friendNo;
+    private String userId;
     private Date createDate;
     private Date modifyDate;
-    private Integer userNo;
     private Friend friendByFriendNo;
-    private UserInformation userInformationByUserNo;
+    private UserInformation userInformationByUserId;
     private Collection<FriendLabel> friendLabelsByFriendCustomizationNo;
     private Collection<FriendRemark> friendRemarksByFriendCustomizationNo;
-    private String userId;
-    private UserInformation userInformationByUserId;
 
     @Id
     @Column(name = "friend_customization_no")
@@ -52,14 +49,19 @@ public class FriendCustomization {
     }
 
     @Basic
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "user_id")
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    @Basic
     @Column(name = "create_date")
     public Date getCreateDate() {
         return createDate;
-    }
-
-    public void setCreateDate(Timestamp createDate) {
-        this.createDate = createDate;
     }
 
     public void setCreateDate(Date createDate) {
@@ -67,14 +69,9 @@ public class FriendCustomization {
     }
 
     @Basic
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modify_date")
     public Date getModifyDate() {
         return modifyDate;
-    }
-
-    public void setModifyDate(Timestamp modifyDate) {
-        this.modifyDate = modifyDate;
     }
 
     public void setModifyDate(Date modifyDate) {
@@ -101,6 +98,9 @@ public class FriendCustomization {
         if (friendNo != null ? !friendNo.equals(that.friendNo) : that.friendNo != null) {
             return false;
         }
+        if (userId != null ? !userId.equals(that.userId) : that.userId != null) {
+            return false;
+        }
         if (createDate != null ? !createDate.equals(that.createDate) : that.createDate != null) {
             return false;
         }
@@ -116,19 +116,10 @@ public class FriendCustomization {
         int result = friendCustomizationNo != null ? friendCustomizationNo.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (friendNo != null ? friendNo.hashCode() : 0);
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
         result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
         result = 31 * result + (modifyDate != null ? modifyDate.hashCode() : 0);
         return result;
-    }
-
-    @Basic
-    @Column(name = "user_no")
-    public Integer getUserNo() {
-        return userNo;
-    }
-
-    public void setUserNo(Integer userNo) {
-        this.userNo = userNo;
     }
 
     @ManyToOne
@@ -142,13 +133,13 @@ public class FriendCustomization {
     }
 
     @ManyToOne
-    @JoinColumn(name = "user_no", referencedColumnName = "user_no", nullable = false)
-    public UserInformation getUserInformationByUserNo() {
-        return userInformationByUserNo;
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    public UserInformation getUserInformationByUserId() {
+        return userInformationByUserId;
     }
 
-    public void setUserInformationByUserNo(UserInformation userInformationByUserNo) {
-        this.userInformationByUserNo = userInformationByUserNo;
+    public void setUserInformationByUserId(UserInformation userInformationByUserId) {
+        this.userInformationByUserId = userInformationByUserId;
     }
 
     @OneToMany(mappedBy = "friendCustomizationByFriendCustomizationNo")
@@ -167,25 +158,5 @@ public class FriendCustomization {
 
     public void setFriendRemarksByFriendCustomizationNo(Collection<FriendRemark> friendRemarksByFriendCustomizationNo) {
         this.friendRemarksByFriendCustomizationNo = friendRemarksByFriendCustomizationNo;
-    }
-
-    @Basic
-    @Column(name = "user_id")
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
-    public UserInformation getUserInformationByUserId() {
-        return userInformationByUserId;
-    }
-
-    public void setUserInformationByUserId(UserInformation userInformationByUserId) {
-        this.userInformationByUserId = userInformationByUserId;
     }
 }

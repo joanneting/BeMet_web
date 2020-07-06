@@ -15,10 +15,9 @@ public class UserInformationDAOImpl extends BaseDAOImpl<UserInformation> impleme
     public List<UserInformation> search(UserInformationBean userInformationBean) {
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(UserInformation.class);
         String blueTooth = userInformationBean.getBluetooth();
-        String account = userInformationBean.getAccount();
+        String userId = userInformationBean.getUserId();
         String password = userInformationBean.getPassword();
         String gender = userInformationBean.getGender();
-        Integer userNo = userInformationBean.getUserNo();
         String userName = userInformationBean.getName();
         String profession = userInformationBean.getProfession();
         String avatar = userInformationBean.getAvatar();
@@ -45,8 +44,8 @@ public class UserInformationDAOImpl extends BaseDAOImpl<UserInformation> impleme
         if (mail != null && !mail.equals("")) {
             detachedCriteria.add(Restrictions.eq("mail", mail));
         }
-        if (account != null && !account.equals("")) {
-            detachedCriteria.add(Restrictions.eq("account", account));
+        if (userId != null && !userId.equals("")) {
+            detachedCriteria.add(Restrictions.eq("userId", userId));
         }
         return (List<UserInformation>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
     }

@@ -1,20 +1,15 @@
 package tw.com.business_meet.vo;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
 
 @Entity
 public class Friend {
     private Integer friendNo;
-    private Integer matchmaker;
-    private Integer friend;
     private String remark;
     private Date createDate;
     private Date modifyDate;
-    private UserInformation userInformationByMatchmaker;
-    private UserInformation userInformationByFriend;
     private Collection<FriendCustomization> friendCustomizationsByFriendNo;
     private Collection<FriendGroup> friendGroupsByFriendNo;
     private String matchmakerId;
@@ -32,25 +27,6 @@ public class Friend {
         this.friendNo = friendNo;
     }
 
-    @Basic
-    @Column(name = "matchmaker")
-    public Integer getMatchmaker() {
-        return matchmaker;
-    }
-
-    public void setMatchmaker(Integer matchmaker) {
-        this.matchmaker = matchmaker;
-    }
-
-    @Basic
-    @Column(name = "friend")
-    public Integer getFriend() {
-        return friend;
-    }
-
-    public void setFriend(Integer friend) {
-        this.friend = friend;
-    }
 
     @Basic
     @Column(name = "remark")
@@ -63,30 +39,24 @@ public class Friend {
     }
 
     @Basic
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.Date)
     @Column(name = "create_date")
     public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Timestamp createDate) {
-        this.createDate = createDate;
-    }
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
     @Basic
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.Date)
     @Column(name = "modify_date")
     public Date getModifyDate() {
         return modifyDate;
     }
 
-    public void setModifyDate(Timestamp modifyDate) {
-        this.modifyDate = modifyDate;
-    }
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
@@ -106,12 +76,7 @@ public class Friend {
         if (friendNo != null ? !friendNo.equals(friend1.friendNo) : friend1.friendNo != null) {
             return false;
         }
-        if (matchmaker != null ? !matchmaker.equals(friend1.matchmaker) : friend1.matchmaker != null) {
-            return false;
-        }
-        if (friend != null ? !friend.equals(friend1.friend) : friend1.friend != null) {
-            return false;
-        }
+
         if (remark != null ? !remark.equals(friend1.remark) : friend1.remark != null) {
             return false;
         }
@@ -128,33 +93,14 @@ public class Friend {
     @Override
     public int hashCode() {
         int result = friendNo != null ? friendNo.hashCode() : 0;
-        result = 31 * result + (matchmaker != null ? matchmaker.hashCode() : 0);
-        result = 31 * result + (friend != null ? friend.hashCode() : 0);
+        result = 31 * result + (matchmakerId != null ? matchmakerId.hashCode() : 0);
+        result = 31 * result + (friendId != null ? friendId.hashCode() : 0);
         result = 31 * result + (remark != null ? remark.hashCode() : 0);
         result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
         result = 31 * result + (modifyDate != null ? modifyDate.hashCode() : 0);
         return result;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "matchmaker", referencedColumnName = "user_no", nullable = false)
-    public UserInformation getUserInformationByMatchmaker() {
-        return userInformationByMatchmaker;
-    }
-
-    public void setUserInformationByMatchmaker(UserInformation userInformationByMatchmaker) {
-        this.userInformationByMatchmaker = userInformationByMatchmaker;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "friend", referencedColumnName = "user_no", nullable = false)
-    public UserInformation getUserInformationByFriend() {
-        return userInformationByFriend;
-    }
-
-    public void setUserInformationByFriend(UserInformation userInformationByFriend) {
-        this.userInformationByFriend = userInformationByFriend;
-    }
 
     @OneToMany(mappedBy = "friendByFriendNo")
     public Collection<FriendCustomization> getFriendCustomizationsByFriendNo() {
