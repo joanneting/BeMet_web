@@ -41,10 +41,32 @@ public class UserInformationController {
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();
         try {
+            System.out.println(userId);
             UserInformationBean userInformationBean = userInformationService.getById(userId);
             result.put("result", true);
             result.putPOJO("data", userInformationBean);
 
+        } catch (Exception e) {
+            result.put("result", false);
+//            result.putObject("data");
+            e.printStackTrace();
+        }
+        return o.writeValueAsString(result);
+
+    }
+
+    @PostMapping(path = "/getBluetooth/{bluetooth}", produces = "application/json;charset=utf-8")
+    public String getByBluetooth(@PathVariable String bluetooth) throws Exception {
+        ObjectMapper o = new ObjectMapper();
+        ObjectNode result = o.createObjectNode();
+        try {
+            UserInformationBean userInformationBean = userInformationService.getByBluetooth(bluetooth);
+            if (userInformationBean != null) {
+                result.put("result", true);
+                result.putPOJO("data", userInformationBean);
+            } else {
+                result.put("result", false);
+            }
         } catch (Exception e) {
             result.put("result", false);
 //            result.putObject("data");

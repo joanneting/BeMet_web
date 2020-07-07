@@ -14,19 +14,19 @@ public class FriendDAOImpl extends BaseDAOImpl<Friend> implements FriendDAO {
     @Override
     public List<Friend> search(FriendBean friendBean) {
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Friend.class);
-        String matchmaker = friendBean.getMatchmakerId();
-        String friend = friendBean.getFriendId();
+        String matchmakerId = friendBean.getMatchmakerId();
+        String friendId = friendBean.getFriendId();
         String remark = friendBean.getRemark();
-        System.out.println("matched search bluetoth: " + matchmaker);
-        System.out.println("matched search matchedBluetoth: " + friend);
-        if (matchmaker != null && !matchmaker.equals("")) {
-            detachedCriteria.add(Restrictions.eq("matchmaker", matchmaker));
+        System.out.println("matched search matchmakerId: " + matchmakerId);
+        System.out.println("matched search friendId: " + friendId);
+        if (matchmakerId != null && !matchmakerId.equals("")) {
+            detachedCriteria.add(Restrictions.eq("matchmakerId", matchmakerId));
         }
-        if (friend != null && !friend.equals("")) {
-            detachedCriteria.add(Restrictions.eq("friend", friend));
+        if (friendId != null && !friendId.equals("")) {
+            detachedCriteria.add(Restrictions.eq("friendId", friendId));
         }
         if (remark != null && !remark.equals("")) {
-            detachedCriteria.add(Restrictions.eq("memorandum", remark));
+            detachedCriteria.add(Restrictions.eq("remark", remark));
         }
         return (List<Friend>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
     }

@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 
 @Entity
+@Table(name = "friend", schema = "dbo", catalog = "BeMet")
 public class Friend {
     private Integer friendNo;
     private String remark;
@@ -18,6 +19,7 @@ public class Friend {
     private UserInformation userInformationByFriendId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "friend_no")
     public Integer getFriendNo() {
         return friendNo;

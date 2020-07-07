@@ -32,15 +32,14 @@ public class UserInformationServiceImpl implements UserInformationService {
 
     @Override
     public UserInformationBean add(UserInformationBean userInformationBean) {
-        System.out.println(userInformationBean.getName());
+        System.out.println("userInformationBean.getName()" + userInformationBean.getName());
         UserInformation ui = new UserInformation();
         BeanUtility.copyProperties(userInformationBean, ui);
         ui.setCreateDate(new Date());
         ui = userInformationDAO.saveAndReturn(ui);
         UserInformationBean uib = new UserInformationBean();
         BeanUtility.copyProperties(ui, uib);
-        System.out.println("ui.getAvatar() = " + ui.getAvatar());
-        System.out.println("uib.getAvatar() = " + uib.getAvatar());
+
         return uib;
     }
 
@@ -73,5 +72,19 @@ public class UserInformationServiceImpl implements UserInformationService {
         UserInformationBean userInformationBean = new UserInformationBean();
         BeanUtility.copyProperties(userInformation, userInformationBean);
         return userInformationBean;
+    }
+
+    @Override
+    public UserInformationBean getByBluetooth(String bluetooth) {
+        UserInformationBean userInformationBean = new UserInformationBean();
+        userInformationBean.setBluetooth(bluetooth);
+        List<UserInformation> userInformationBeanList = userInformationDAO.search(userInformationBean);
+        if (userInformationBeanList.size() != 0) {
+            BeanUtility.copyProperties(userInformationBeanList.get(0), userInformationBean);
+            System.out.println("userinformationServicce");
+            System.out.println(userInformationBean.getUserId());
+            return userInformationBean;
+        }
+        return null;
     }
 }

@@ -24,7 +24,7 @@ public class UserInformationDAOImpl extends BaseDAOImpl<UserInformation> impleme
         String tel = userInformationBean.getTel();
         String mail = userInformationBean.getMail();
         if (blueTooth != null && !blueTooth.equals("")) {
-            detachedCriteria.add(Restrictions.eq("blueTooth", blueTooth));
+            detachedCriteria.add(Restrictions.eq("bluetooth", blueTooth));
         }
         if (userName != null && !userName.equals("")) {
             detachedCriteria.add(Restrictions.eq("name", userName));

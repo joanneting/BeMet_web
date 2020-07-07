@@ -14,4 +14,6 @@ public interface UserInformationService {
     public List<UserInformationBean> searchAll();
 
     public UserInformationBean getById(String userId);
+
+    public UserInformationBean getByBluetooth(String blurtooth);
 }
