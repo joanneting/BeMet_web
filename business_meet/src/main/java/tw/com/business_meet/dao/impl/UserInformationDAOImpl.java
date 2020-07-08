@@ -7,7 +7,6 @@ import tw.com.business_meet.bean.UserInformationBean;
 import tw.com.business_meet.dao.UserInformationDAO;
 import tw.com.business_meet.vo.UserInformation;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Repository
@@ -15,35 +14,39 @@ public class UserInformationDAOImpl extends BaseDAOImpl<UserInformation> impleme
     @Override
     public List<UserInformation> search(UserInformationBean userInformationBean) {
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(UserInformation.class);
-         String blueTooth = userInformationBean.getBlueTooth();
-         String userName = userInformationBean.getUserName();
-         String company = userInformationBean.getCompany();
-         String position = userInformationBean.getPosition();
-         String avatar = userInformationBean.getAvatar();
-         String tel = userInformationBean.getTel();
-         String email = userInformationBean.getEmail();
-        if(blueTooth != null && !blueTooth.equals("")){
-            detachedCriteria.add(Restrictions.eq("blueTooth",blueTooth));
+        String blueTooth = userInformationBean.getBluetooth();
+        String userId = userInformationBean.getUserId();
+        String password = userInformationBean.getPassword();
+        String gender = userInformationBean.getGender();
+        String userName = userInformationBean.getName();
+        String profession = userInformationBean.getProfession();
+        String avatar = userInformationBean.getAvatar();
+        String tel = userInformationBean.getTel();
+        String mail = userInformationBean.getMail();
+        if (blueTooth != null && !blueTooth.equals("")) {
+            detachedCriteria.add(Restrictions.eq("bluetooth", blueTooth));
         }
-        if(userName != null && !userName.equals("")){
-            detachedCriteria.add(Restrictions.eq("userName",userName));
+        if (userName != null && !userName.equals("")) {
+            detachedCriteria.add(Restrictions.eq("name", userName));
         }
-        if(company != null && !company.equals("")){
-            detachedCriteria.add(Restrictions.eq("company",company));
+        if (gender != null && !gender.equals("")) {
+            detachedCriteria.add(Restrictions.eq("company", gender));
         }
-        if(position != null && !position.equals("")){
-            detachedCriteria.add(Restrictions.eq("position",position));
+        if (profession != null && !profession.equals("")) {
+            detachedCriteria.add(Restrictions.eq("profession", profession));
         }
-        if(avatar != null && !avatar.equals("")){
-            detachedCriteria.add(Restrictions.eq("avatar",avatar));
+        if (avatar != null && !avatar.equals("")) {
+            detachedCriteria.add(Restrictions.eq("avatar", avatar));
         }
-        if(tel != null && !tel.equals("")){
-            detachedCriteria.add(Restrictions.eq("tel",tel));
+        if (tel != null && !tel.equals("")) {
+            detachedCriteria.add(Restrictions.eq("tel", tel));
         }
-        if(email != null && !email.equals("")){
-            detachedCriteria.add(Restrictions.eq("email",email));
+        if (mail != null && !mail.equals("")) {
+            detachedCriteria.add(Restrictions.eq("mail", mail));
         }
-
+        if (userId != null && !userId.equals("")) {
+            detachedCriteria.add(Restrictions.eq("userId", userId));
+        }
         return (List<UserInformation>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
     }
 }
