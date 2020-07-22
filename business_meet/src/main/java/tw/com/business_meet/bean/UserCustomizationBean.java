@@ -4,11 +4,12 @@ import java.util.Date;
 
 public class UserCustomizationBean {
     private Integer userCustomizationNo;
-    private Integer userNo;
+    private String userId;
     private String columnName;
     private String content;
     private Date createDate;
     private Date modifyDate;
+    private Integer statusCode;
 
     public Integer getUserCustomizationNo() {
         return userCustomizationNo;
@@ -18,12 +19,12 @@ public class UserCustomizationBean {
         this.userCustomizationNo = userCustomizationNo;
     }
 
-    public Integer getUserNo() {
-        return userNo;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserNo(Integer userNo) {
-        this.userNo = userNo;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getColumnName() {
@@ -56,5 +57,13 @@ public class UserCustomizationBean {
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public Integer getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(Integer statusCode) {
+        this.statusCode = statusCode;
     }
 }

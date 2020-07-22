@@ -5,9 +5,10 @@ import java.util.Date;
 public class ProblemReportBean {
     private Integer problemReportNo;
     private String content;
-    private Integer userNo;
+    private String userId;
     private Date createDate;
     private Date modifyDate;
+    private Integer statusCode;
 
     public Integer getProblemReportNo() {
         return problemReportNo;
@@ -25,12 +26,12 @@ public class ProblemReportBean {
         this.content = content;
     }
 
-    public Integer getUserNo() {
-        return userNo;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserNo(Integer userNo) {
-        this.userNo = userNo;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public Date getCreateDate() {
@@ -47,5 +48,13 @@ public class ProblemReportBean {
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public Integer getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(Integer statusCode) {
+        this.statusCode = statusCode;
     }
 }

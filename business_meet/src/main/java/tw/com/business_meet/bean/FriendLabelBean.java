@@ -8,6 +8,7 @@ public class FriendLabelBean {
     private Integer friendCustomizationNo;
     private Date createDate;
     private Date modifyDate;
+    private Integer statusCode;
 
     public Integer getFriendLabelNo() {
         return friendLabelNo;
@@ -47,5 +48,13 @@ public class FriendLabelBean {
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public Integer getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(Integer statusCode) {
+        this.statusCode = statusCode;
     }
 }
