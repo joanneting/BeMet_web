@@ -1,7 +1,6 @@
 package tw.com.business_meet.bean;
 
 import java.util.Date;
-import java.util.Date;
 
 public class ActivityInviteBean {
     private Integer activityInviteNo;
@@ -9,6 +8,7 @@ public class ActivityInviteBean {
     private Integer activityNo;
     private Date createDate;
     private Date modifyDate;
+    private Integer statusCode;
 
     public Integer getActivityInviteNo() {
         return activityInviteNo;
@@ -48,5 +48,13 @@ public class ActivityInviteBean {
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public Integer getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(Integer statusCode) {
+        this.statusCode = statusCode;
     }
 }

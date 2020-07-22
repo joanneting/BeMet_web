@@ -8,6 +8,7 @@ public class FriendCustomizationBean {
     private Integer friendNo;
     private Date createDate;
     private Date modifyDate;
+    private Integer statusCode;
 
     public Integer getFriendCustomizationNo() {
         return friendCustomizationNo;
@@ -47,5 +48,13 @@ public class FriendCustomizationBean {
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public Integer getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(Integer statusCode) {
+        this.statusCode = statusCode;
     }
 }

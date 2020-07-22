@@ -8,6 +8,7 @@ public class ActivityLabelBean {
     private String content;
     private Date createDate;
     private Date modifyDate;
+    private Integer statusCode;
 
     public Integer getActivityLabelNo() {
         return activityLabelNo;
@@ -47,5 +48,13 @@ public class ActivityLabelBean {
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public Integer getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(Integer statusCode) {
+        this.statusCode = statusCode;
     }
 }

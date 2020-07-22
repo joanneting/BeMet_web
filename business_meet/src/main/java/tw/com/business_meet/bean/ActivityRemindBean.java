@@ -8,6 +8,7 @@ public class ActivityRemindBean {
     private Integer activityNo;
     private Date createDate;
     private Date modifyDate;
+    private Integer statusCode;
 
     public Integer getActivityRemindNo() {
         return activityRemindNo;
@@ -47,5 +48,13 @@ public class ActivityRemindBean {
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public Integer getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(Integer statusCode) {
+        this.statusCode = statusCode;
     }
 }

@@ -7,6 +7,7 @@ public class TimelinePropertiesBean {
     private String name;
     private Date createDate;
     private Date modifyDate;
+    private Integer statusCode;
 
     public Integer getTimelinePropertiesNo() {
         return timelinePropertiesNo;
@@ -38,5 +39,13 @@ public class TimelinePropertiesBean {
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public Integer getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(Integer statusCode) {
+        this.statusCode = statusCode;
     }
 }
