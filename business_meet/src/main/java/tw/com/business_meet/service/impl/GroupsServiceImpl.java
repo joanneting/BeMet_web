@@ -28,7 +28,7 @@ public class GroupsServiceImpl implements GroupsService {
     }
 
     @Override
-    public GroupsBean updated(GroupsBean groupsBean) throws Exception {
+    public GroupsBean update(GroupsBean groupsBean) throws Exception {
         Groups groups = groupsDAO.getById(groupsBean.getGroupNo());
         groupsBean.setModifyDate(new Date());
         BeanUtility.copyProperties(groupsBean, groups);

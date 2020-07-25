@@ -1,6 +1,7 @@
 package tw.com.business_meet.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import tw.com.business_meet.bean.ActivityInviteBean;
 import tw.com.business_meet.dao.ActivityInviteDAO;
 import tw.com.business_meet.service.ActivityInviteService;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class ActivityInviteServiceImpl implements ActivityInviteService {
     @Autowired
     ActivityInviteDAO activityInviteDAO;
