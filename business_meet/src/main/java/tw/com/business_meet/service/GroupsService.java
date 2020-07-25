@@ -7,7 +7,7 @@ import java.util.List;
 public interface GroupsService {
     public GroupsBean add(GroupsBean groupsBean) throws Exception;
 
-    public GroupsBean updated(GroupsBean groupsBean) throws Exception;
+    public GroupsBean update(GroupsBean groupsBean) throws Exception;
 
     public List<GroupsBean> search(GroupsBean groupsBean) throws Exception;
 
