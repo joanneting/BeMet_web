@@ -142,7 +142,7 @@ public class Friend {
         this.friendId = friendId;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "matchmaker_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
     public UserInformation getUserInformationByMatchmakerId() {
         return userInformationByMatchmakerId;
@@ -152,7 +152,7 @@ public class Friend {
         this.userInformationByMatchmakerId = userInformationByMatchmakerId;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "friend_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
     public UserInformation getUserInformationByFriendId() {
         return userInformationByFriendId;

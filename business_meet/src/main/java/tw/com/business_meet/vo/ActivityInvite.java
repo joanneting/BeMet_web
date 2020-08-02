@@ -106,7 +106,7 @@ public class ActivityInvite {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
     public UserInformation getUserInformationByUserId() {
         return userInformationByUserId;
@@ -116,7 +116,7 @@ public class ActivityInvite {
         this.userInformationByUserId = userInformationByUserId;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "activity_no", referencedColumnName = "timeline_no", nullable = false, insertable = false, updatable = false)
     public Timeline getTimelineByActivityNo() {
         return timelineByActivityNo;

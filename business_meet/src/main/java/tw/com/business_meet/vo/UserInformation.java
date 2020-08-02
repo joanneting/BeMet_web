@@ -158,14 +158,6 @@ public class UserInformation {
         this.friendsByUserId = friendsByUserId;
     }
 
-    @OneToMany(mappedBy = "userInformationByUserId")
-    public Collection<FriendCustomization> getFriendCustomizationsByUserId() {
-        return friendCustomizationsByUserId;
-    }
-
-    public void setFriendCustomizationsByUserId(Collection<FriendCustomization> friendCustomizationsByUserId) {
-        this.friendCustomizationsByUserId = friendCustomizationsByUserId;
-    }
 
     @OneToMany(mappedBy = "userInformationByUserId")
     public Collection<Groups> getGroupsByUserId() {

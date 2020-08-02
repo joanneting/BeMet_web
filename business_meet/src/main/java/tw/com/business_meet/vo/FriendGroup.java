@@ -106,7 +106,7 @@ public class FriendGroup {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_no", referencedColumnName = "group_no", nullable = false, insertable = false, updatable = false)
     public Groups getGroupsByGroupNo() {
         return groupsByGroupNo;
@@ -116,7 +116,7 @@ public class FriendGroup {
         this.groupsByGroupNo = groupsByGroupNo;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "friend_no", referencedColumnName = "friend_no", nullable = false, insertable = false, updatable = false)
     public Friend getFriendByFriendNo() {
         return friendByFriendNo;

@@ -106,7 +106,7 @@ public class FriendRemark {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "friendLabel_no", referencedColumnName = "friend_label_no", nullable = false, insertable = false, updatable = false)
     public FriendLabel getFriendLabelByFriendLabelNo() {
         return friendLabelByFriendLabelNo;
@@ -116,7 +116,7 @@ public class FriendRemark {
         this.friendLabelByFriendLabelNo = friendLabelByFriendLabelNo;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "friend_customization_no", referencedColumnName = "friend_customization_no", nullable = false, insertable = false, updatable = false)
     public FriendCustomization getFriendCustomizationByFriendCustomizationNo() {
         return friendCustomizationByFriendCustomizationNo;

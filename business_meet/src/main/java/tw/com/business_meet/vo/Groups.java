@@ -115,7 +115,7 @@ public class Groups {
         this.friendGroupsByGroupNo = friendGroupsByGroupNo;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
     public UserInformation getUserInformationByUserId() {
         return userInformationByUserId;

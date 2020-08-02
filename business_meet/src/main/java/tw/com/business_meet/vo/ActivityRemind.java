@@ -105,7 +105,7 @@ public class ActivityRemind {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "activity_no", referencedColumnName = "timeline_no", nullable = false, insertable = false, updatable = false)
     public Timeline getTimelineByActivityNo() {
         return timelineByActivityNo;

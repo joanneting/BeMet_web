@@ -107,7 +107,7 @@ public class FriendLabel {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "friend_customization_no", referencedColumnName = "friend_customization_no", nullable = false, insertable = false, updatable = false)
     public FriendCustomization getFriendCustomizationByFriendCustomizationNo() {
         return friendCustomizationByFriendCustomizationNo;

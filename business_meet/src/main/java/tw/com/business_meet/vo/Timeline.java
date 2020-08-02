@@ -200,7 +200,7 @@ public class Timeline {
         this.activityRemindsByTimelineNo = activityRemindsByTimelineNo;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "timeline_properties_no", referencedColumnName = "timeline_properties_no", nullable = false, insertable = false, updatable = false)
     public TimelineProperties getTimelinePropertiesByTimelinePropertiesNo() {
         return timelinePropertiesByTimelinePropertiesNo;
