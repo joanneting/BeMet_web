@@ -34,6 +34,7 @@ public class FriendCustomizationBean {
         this.friendNo = friendNo;
     }
 
+
     public Date getCreateDate() {
         return createDate;
     }

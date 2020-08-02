@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class ActivityInviteBean {
     private Integer activityInviteNo;
-    private Integer userNo;
+    private String userId;
     private Integer activityNo;
     private Date createDate;
     private Date modifyDate;
@@ -18,12 +18,12 @@ public class ActivityInviteBean {
         this.activityInviteNo = activityInviteNo;
     }
 
-    public Integer getUserNo() {
-        return userNo;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserNo(Integer userNo) {
-        this.userNo = userNo;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public Integer getActivityNo() {

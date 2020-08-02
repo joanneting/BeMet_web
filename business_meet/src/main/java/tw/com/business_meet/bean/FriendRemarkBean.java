@@ -6,7 +6,6 @@ public class FriendRemarkBean {
     private Integer friendRemarksNo;
     private Integer friendLabelNo;
     private Integer friendCustomizationNo;
-    private Integer friendNo;
     private Date createDate;
     private Date modifyDate;
     private Integer statusCode;
@@ -35,13 +34,6 @@ public class FriendRemarkBean {
         this.friendCustomizationNo = friendCustomizationNo;
     }
 
-    public Integer getFriendNo() {
-        return friendNo;
-    }
-
-    public void setFriendNo(Integer friendNo) {
-        this.friendNo = friendNo;
-    }
 
     public Date getCreateDate() {
         return createDate;

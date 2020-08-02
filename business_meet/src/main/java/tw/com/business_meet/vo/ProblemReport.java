@@ -9,6 +9,9 @@ public class ProblemReport {
     private Integer problemReportNo;
     private String content;
     private String userId;
+    private String status;
+    private String startDate;
+    private Date endDate;
     private Date createDate;
     private Date modifyDate;
     private UserInformation userInformationByUserId;
@@ -41,6 +44,34 @@ public class ProblemReport {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    @Column(name = "status", nullable = false)
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @Column(name = "start_date")
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "end_date", nullable = true)
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     @Basic

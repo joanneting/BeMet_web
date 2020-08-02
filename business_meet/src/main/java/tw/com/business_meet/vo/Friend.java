@@ -8,13 +8,13 @@ import java.util.Date;
 @Table(name = "friend", schema = "dbo", catalog = "BeMet")
 public class Friend {
     private Integer friendNo;
+    private String matchmakerId;
+    private String friendId;
     private String remark;
     private Date createDate;
     private Date modifyDate;
     private Collection<FriendCustomization> friendCustomizationsByFriendNo;
     private Collection<FriendGroup> friendGroupsByFriendNo;
-    private String matchmakerId;
-    private String friendId;
     private UserInformation userInformationByMatchmakerId;
     private UserInformation userInformationByFriendId;
 

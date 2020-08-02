@@ -7,6 +7,8 @@ import java.util.Date;
 @Entity
 public class Timeline {
     private Integer timelineNo;
+    private String matchmakerId;
+    private String friendId;
     private String place;
     private String title;
     private String remark;
@@ -27,6 +29,24 @@ public class Timeline {
 
     public void setTimelineNo(Integer timelineNo) {
         this.timelineNo = timelineNo;
+    }
+
+    @Column(name = "matchmaker_id", nullable = false)
+    public String getMatchmakerId() {
+        return matchmakerId;
+    }
+
+    public void setMatchmakerId(String matchmakerId) {
+        this.matchmakerId = matchmakerId;
+    }
+
+    @Column(name = "friend_id", nullable = true)
+    public String getFriendId() {
+        return friendId;
+    }
+
+    public void setFriendId(String friendId) {
+        this.friendId = friendId;
     }
 
     @Basic

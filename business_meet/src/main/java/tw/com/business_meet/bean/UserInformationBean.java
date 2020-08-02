@@ -8,10 +8,10 @@ public class UserInformationBean {
     private String name;
     private String gender;
     private String mail;
-    private String avatar;
-    private String tel;
     private String profession;
     private String bluetooth;
+    private String avatar;
+    private String tel;
     private Date createDate;
     private Date modifyDate;
     private Integer statusCode;
