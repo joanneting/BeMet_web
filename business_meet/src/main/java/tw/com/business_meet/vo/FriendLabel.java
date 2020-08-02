@@ -16,6 +16,7 @@ public class FriendLabel {
     private Collection<FriendRemark> friendRemarksByFriendLabelNo;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "friend_label_no")
     public Integer getFriendLabelNo() {
         return friendLabelNo;

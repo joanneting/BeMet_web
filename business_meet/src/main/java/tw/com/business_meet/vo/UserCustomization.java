@@ -15,6 +15,7 @@ public class UserCustomization {
     private UserInformation userInformationByUserId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_customization_no")
     public Integer getUserCustomizationNo() {
         return userCustomizationNo;

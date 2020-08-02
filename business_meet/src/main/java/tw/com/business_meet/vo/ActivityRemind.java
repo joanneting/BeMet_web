@@ -14,6 +14,7 @@ public class ActivityRemind {
     private Timeline timelineByActivityNo;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "activity_remind_no")
     public Integer getActivityRemindNo() {
         return activityRemindNo;

@@ -14,6 +14,7 @@ public class ActivityLabel {
     private Timeline timelineByActivityNo;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "activityLabel_no")
     public Integer getActivityLabelNo() {
         return activityLabelNo;

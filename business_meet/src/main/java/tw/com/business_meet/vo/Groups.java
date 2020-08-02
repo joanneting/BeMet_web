@@ -15,6 +15,7 @@ public class Groups {
     private UserInformation userInformationByUserId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "group_no")
     public Integer getGroupNo() {
         return groupNo;

@@ -14,6 +14,7 @@ public class TimelineProperties {
     private Collection<Timeline> timelinesByTimelinePropertiesNo;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "timeline_properties_no")
     public Integer getTimelinePropertiesNo() {
         return timelinePropertiesNo;

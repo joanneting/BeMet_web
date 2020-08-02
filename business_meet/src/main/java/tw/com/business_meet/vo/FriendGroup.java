@@ -15,6 +15,7 @@ public class FriendGroup {
     private Friend friendByFriendNo;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "friendGroup_no")
     public Integer getFriendGroupNo() {
         return friendGroupNo;

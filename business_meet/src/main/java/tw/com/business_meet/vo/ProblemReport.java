@@ -17,6 +17,7 @@ public class ProblemReport {
     private UserInformation userInformationByUserId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "problem_report_no")
     public Integer getProblemReportNo() {
         return problemReportNo;

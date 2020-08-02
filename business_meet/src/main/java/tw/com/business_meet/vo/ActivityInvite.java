@@ -15,6 +15,7 @@ public class ActivityInvite {
     private Timeline timelineByActivityNo;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "activityInvite_no")
     public Integer getActivityInviteNo() {
         return activityInviteNo;

@@ -15,6 +15,7 @@ public class FriendRemark {
     private FriendCustomization friendCustomizationByFriendCustomizationNo;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "friendRemarks_no")
     public Integer getFriendRemarksNo() {
         return friendRemarksNo;
