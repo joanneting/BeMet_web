@@ -14,6 +14,7 @@ public class UserInformationBean {
     private String tel;
     private Date createDate;
     private Date modifyDate;
+    private Integer roleNo;
     private Integer statusCode;
 
     public String getUserId() {
@@ -88,6 +89,14 @@ public class UserInformationBean {
         this.bluetooth = bluetooth;
     }
 
+    public Integer getRoleNo() {
+        return roleNo;
+    }
+
+    public void setRoleNo(Integer roleNo) {
+        this.roleNo = roleNo;
+    }
+
     public Date getCreateDate() {
         return createDate;
     }
@@ -103,6 +112,7 @@ public class UserInformationBean {
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
     }
+
 
     public Integer getStatusCode() {
         return statusCode;

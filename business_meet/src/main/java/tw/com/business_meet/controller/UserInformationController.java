@@ -17,6 +17,7 @@ public class UserInformationController {
     @Autowired
     UserInformationService userInformationService;
 
+
     @PostMapping(path = "/search", produces = "application/json;charset=UTF-8")
     public String search(@RequestBody UserInformationBean userInformationBean) throws Exception {
         ObjectMapper o = new ObjectMapper();

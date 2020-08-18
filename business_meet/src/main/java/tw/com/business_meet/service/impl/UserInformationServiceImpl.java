@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import tw.com.business_meet.bean.UserInformationBean;
 import tw.com.business_meet.dao.UserInformationDAO;
 import tw.com.business_meet.service.UserInformationService;
+import tw.com.business_meet.utils.BCryUtility;
 import tw.com.business_meet.utils.BeanUtility;
 import tw.com.business_meet.vo.UserInformation;
 
@@ -32,14 +33,15 @@ public class UserInformationServiceImpl implements UserInformationService {
 
     @Override
     public UserInformationBean add(UserInformationBean userInformationBean) {
-        System.out.println("userInformationBean.getName()" + userInformationBean.getName());
         UserInformation ui = new UserInformation();
+        userInformationBean.setPassword(BCryUtility.encode(userInformationBean.getPassword()));
         BeanUtility.copyProperties(userInformationBean, ui);
         ui.setCreateDate(new Date());
         ui = userInformationDAO.saveAndReturn(ui);
         UserInformationBean uib = new UserInformationBean();
         BeanUtility.copyProperties(ui, uib);
-
+        System.out.println("userInformationBean.getName() : " + uib.getName());
+        System.out.println("uib.getRoleNo() = " + uib.getRoleNo());
         return uib;
     }
 

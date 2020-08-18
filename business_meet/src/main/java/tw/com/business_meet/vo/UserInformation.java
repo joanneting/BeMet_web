@@ -1,12 +1,20 @@
 package tw.com.business_meet.vo;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "user_information", schema = "dbo", catalog = "BeMet")
-public class UserInformation {
+public class UserInformation implements UserDetails {
+    @ElementCollection(targetClass = GrantedAuthority.class)
+    private Collection<GrantedAuthority> authorities;
     private String userId;
     private String password;
     private String name;
@@ -16,11 +24,12 @@ public class UserInformation {
     private String bluetooth;
     private String avatar;
     private String tel;
+    private Integer roleNo;
     private Date createDate;
     private Date modifyDate;
+    private UserRole userRoleByRoleNo;
     private Collection<ActivityInvite> activityInvitesByUserId;
     private Collection<Friend> friendsByUserId;
-    private Collection<FriendCustomization> friendCustomizationsByUserId;
     private Collection<Groups> groupsByUserId;
     private Collection<ProblemReport> problemReportsByUserId;
     private Collection<UserCustomization> userCustomizationsByUserId;
@@ -36,6 +45,7 @@ public class UserInformation {
         this.userId = userId;
     }
 
+    @Override
     @Basic
     @Column(name = "password")
     public String getPassword() {
@@ -96,6 +106,15 @@ public class UserInformation {
         this.tel = tel;
     }
 
+    @Column(name = "role_no")
+    public Integer getRoleNo() {
+        return roleNo;
+    }
+
+    public void setRoleNo(Integer roleNo) {
+        this.roleNo = roleNo;
+    }
+
     @Basic
     @Column(name = "profession")
     public String getProfession() {
@@ -138,6 +157,16 @@ public class UserInformation {
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "role_no", nullable = false, insertable = false, updatable = false)
+    public UserRole getUserRoleByRoleNo() {
+        return userRoleByRoleNo;
+    }
+
+    public void setUserRoleByRoleNo(UserRole userRoleByRoleNo) {
+        this.userRoleByRoleNo = userRoleByRoleNo;
     }
 
     @OneToMany(mappedBy = "userInformationByUserId")
@@ -185,6 +214,7 @@ public class UserInformation {
     public void setUserCustomizationsByUserId(Collection<UserCustomization> userCustomizationsByUserId) {
         this.userCustomizationsByUserId = userCustomizationsByUserId;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -257,5 +287,51 @@ public class UserInformation {
 
     public void setFriendsByUserId_0(Collection<Friend> friendsByUserId_0) {
         this.friendsByUserId_0 = friendsByUserId_0;
+    }
+
+    @Transient
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Collection<GrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
+
+    public void setAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(userRoleByRoleNo.getRoleName()));
+        this.authorities = authorities;
+    }
+
+    @Transient
+    @Override
+    public String getUsername() {
+        return userId;
+    }
+
+    @Transient
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Transient
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Transient
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Transient
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
