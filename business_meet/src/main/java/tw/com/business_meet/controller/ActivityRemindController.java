@@ -3,6 +3,7 @@ package tw.com.business_meet.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.firebase.messaging.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tw.com.business_meet.bean.ActivityRemindBean;
@@ -81,4 +82,32 @@ public class ActivityRemindController {
         return o.writeValueAsString(result);
     }
 
+    @GetMapping(value = "/set/firebase/message", produces = "applicaiton/json;charset=UTF-8")
+    public void sendFirebaseMessage() throws Exception {
+        String registrationToken = "dVVECXwPQ-KSGiBXbnJojv:APA91bGe3zpcJyE5aDkfQeGdKgQkSWnOvB0IVT7PGzsZPN6A795zOJUpKH2stWGExsF5JzqKIK6WeZ_NVT36s6B0jsLfPePYVeZOt-jcgexQ7ZD2DY_d2N1L96aPPcse88p8AkRTPrmC";
+
+        // See documentation on defining a message payload.
+        AndroidConfig androidConfig = getAndroidConfig("activity1");
+
+        Message message = Message.builder()
+                .setAndroidConfig(androidConfig).setNotification(
+                        new Notification("測試", "測試")).setToken(registrationToken)
+                .build();
+        ;
+
+        // Send a message to the device corresponding to the provided
+        // registration token.
+        String response = FirebaseMessaging.getInstance().sendAsync(message).get();
+        // Response is a message ID string.
+        System.out.println("Successfully sent message: " + response);
+
+    }
+
+    private AndroidConfig getAndroidConfig(String topic) {
+        AndroidConfig build = AndroidConfig.builder()
+                .setCollapseKey(topic)
+                .setPriority(AndroidConfig.Priority.HIGH)
+                .setNotification(AndroidNotification.builder().build()).build();
+        return build;
+    }
 }
