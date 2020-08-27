@@ -11,6 +11,7 @@ public class ResponseUtils {
     private static final Integer RESPONSE_SUCCESS = 1;
     private final Integer RESPONSE_ERROR = 2;
     private final Integer RESPONSE_NODATA = 3;
+    private final Integer RESPONSE_NOLOGIN = 4;
 
     private ResponseUtils() {
 
@@ -21,6 +22,7 @@ public class ResponseUtils {
     }
 
     public static void response(HttpServletResponse response, int status, boolean isSuccess, String errorCode, String message, JsonNode data) throws IOException {
+        System.out.println("status = " + status);
         response.setCharacterEncoding("UTF-8");
         response.setHeader("Content-Type", "application/json;charset=UTF-8");
         response.setStatus(status);

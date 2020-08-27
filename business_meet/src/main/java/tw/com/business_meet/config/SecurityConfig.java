@@ -75,13 +75,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout", "GET"))// 設定Logout
                 // URL
                 // .invalidateHttpSession(true)
-                .logoutSuccessUrl("/logout")// 設定登出成功後的URL
-                .deleteCookies("JSESSIONID").and().sessionManagement()// Session管理
+                .logoutSuccessUrl("/login")// 設定登出成功後的URL
+                .deleteCookies("JSESSIONID")
+                .and()
+                .sessionManagement()// Session管理
                 .sessionFixation()// Session固定ID保護
                 // .newSession()// 產生新的，不複製
                 // .none()// 不會產生新的
                 .migrateSession()// 每次登入，都會產生新的，並將舊的屬性複製，預設值
-                .invalidSessionUrl("/logout")// Session過期時的URL導向
+//                .invalidSessionUrl("/timeout")// Session過期時的URL導向
                 .maximumSessions(1)// 設定Session數只能一個
                 .expiredUrl("/timeout")// 設定因為再次登入而導致的URL過期的URL導向
                 .and()
