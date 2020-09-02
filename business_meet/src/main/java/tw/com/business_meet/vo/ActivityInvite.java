@@ -9,6 +9,7 @@ public class ActivityInvite {
     private Integer activityInviteNo;
     private String userId;
     private Integer activityNo;
+    private Integer status;
     private Date createDate;
     private Date modifyDate;
     private UserInformation userInformationByUserId;
@@ -43,6 +44,16 @@ public class ActivityInvite {
 
     public void setActivityNo(Integer activityNo) {
         this.activityNo = activityNo;
+    }
+
+    @Basic
+    @Column(name="status")
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     @Basic

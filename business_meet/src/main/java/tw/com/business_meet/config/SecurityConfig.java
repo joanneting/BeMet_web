@@ -85,7 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .migrateSession()// 每次登入，都會產生新的，並將舊的屬性複製，預設值
 //                .invalidSessionUrl("/timeout")// Session過期時的URL導向
                 .maximumSessions(1)// 設定Session數只能一個
-                .expiredUrl("/timeout")// 設定因為再次登入而導致的URL過期的URL導向
+//                .expiredUrl("/timeout")// 設定因為再次登入而導致的URL過期的URL導向
                 .and()
                 .and()
                 .rememberMe().tokenValiditySeconds(Integer.MAX_VALUE)//設定保持長時間登入

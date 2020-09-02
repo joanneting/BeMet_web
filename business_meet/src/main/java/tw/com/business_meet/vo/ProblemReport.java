@@ -9,7 +9,7 @@ public class ProblemReport {
     private Integer problemReportNo;
     private String content;
     private String userId;
-    private String status;
+    private Integer status;
     private String startDate;
     private Date endDate;
     private Date createDate;
@@ -48,11 +48,11 @@ public class ProblemReport {
     }
 
     @Column(name = "status", nullable = false)
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
