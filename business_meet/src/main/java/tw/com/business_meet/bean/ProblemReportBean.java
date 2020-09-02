@@ -6,7 +6,7 @@ public class ProblemReportBean {
     private Integer problemReportNo;
     private String content;
     private String userId;
-    private String status;
+    private Integer status;
     private String startDate;
     private Date endDate;
     private Date createDate;
@@ -37,11 +37,11 @@ public class ProblemReportBean {
         this.userId = userId;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
