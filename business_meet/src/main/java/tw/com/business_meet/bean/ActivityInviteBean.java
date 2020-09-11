@@ -10,6 +10,8 @@ public class ActivityInviteBean {
     private Date createDate;
     private Date modifyDate;
     private Integer statusCode;
+    private String userName;
+    private String avatar;
 
     public Integer getActivityInviteNo() {
         return activityInviteNo;
@@ -65,5 +67,21 @@ public class ActivityInviteBean {
 
     public void setStatusCode(Integer statusCode) {
         this.statusCode = statusCode;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }
