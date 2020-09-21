@@ -9,11 +9,15 @@ public class ProblemReport {
     private Integer problemReportNo;
     private String content;
     private String userId;
+    private Integer status;
+    private String startDate;
+    private Date endDate;
     private Date createDate;
     private Date modifyDate;
     private UserInformation userInformationByUserId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "problem_report_no")
     public Integer getProblemReportNo() {
         return problemReportNo;
@@ -43,8 +47,36 @@ public class ProblemReport {
         this.userId = userId;
     }
 
+    @Column(name = "status", nullable = false)
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    @Column(name = "start_date")
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "end_date", nullable = true)
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
     @Basic
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")
     public Date getCreateDate() {
         return createDate;
@@ -55,7 +87,7 @@ public class ProblemReport {
     }
 
     @Basic
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modify_date")
     public Date getModifyDate() {
         return modifyDate;
@@ -105,7 +137,7 @@ public class ProblemReport {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
     public UserInformation getUserInformationByUserId() {
         return userInformationByUserId;

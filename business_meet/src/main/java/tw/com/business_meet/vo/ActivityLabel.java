@@ -14,6 +14,7 @@ public class ActivityLabel {
     private Timeline timelineByActivityNo;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "activityLabel_no")
     public Integer getActivityLabelNo() {
         return activityLabelNo;
@@ -44,7 +45,7 @@ public class ActivityLabel {
     }
 
     @Basic
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")
     public Date getCreateDate() {
         return createDate;
@@ -55,7 +56,7 @@ public class ActivityLabel {
     }
 
     @Basic
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modify_date")
     public Date getModifyDate() {
         return modifyDate;
@@ -105,7 +106,7 @@ public class ActivityLabel {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "activity_no", referencedColumnName = "timeline_no", nullable = false, insertable = false, updatable = false)
     public Timeline getTimelineByActivityNo() {
         return timelineByActivityNo;

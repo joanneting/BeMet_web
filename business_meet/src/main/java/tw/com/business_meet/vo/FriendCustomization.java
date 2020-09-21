@@ -10,15 +10,13 @@ public class FriendCustomization {
     private Integer friendCustomizationNo;
     private String name;
     private Integer friendNo;
-    private String userId;
     private Date createDate;
     private Date modifyDate;
     private Friend friendByFriendNo;
-    private UserInformation userInformationByUserId;
-    private Collection<FriendLabel> friendLabelsByFriendCustomizationNo;
-    private Collection<FriendRemark> friendRemarksByFriendCustomizationNo;
+    private String content;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "friend_customization_no")
     public Integer getFriendCustomizationNo() {
         return friendCustomizationNo;
@@ -48,18 +46,9 @@ public class FriendCustomization {
         this.friendNo = friendNo;
     }
 
-    @Basic
-    @Column(name = "user_id")
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
     @Basic
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")
     public Date getCreateDate() {
         return createDate;
@@ -70,7 +59,7 @@ public class FriendCustomization {
     }
 
     @Basic
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modify_date")
     public Date getModifyDate() {
         return modifyDate;
@@ -78,6 +67,16 @@ public class FriendCustomization {
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    @Basic
+    @Column(name = "content")
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     @Override
@@ -100,9 +99,6 @@ public class FriendCustomization {
         if (friendNo != null ? !friendNo.equals(that.friendNo) : that.friendNo != null) {
             return false;
         }
-        if (userId != null ? !userId.equals(that.userId) : that.userId != null) {
-            return false;
-        }
         if (createDate != null ? !createDate.equals(that.createDate) : that.createDate != null) {
             return false;
         }
@@ -118,13 +114,12 @@ public class FriendCustomization {
         int result = friendCustomizationNo != null ? friendCustomizationNo.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (friendNo != null ? friendNo.hashCode() : 0);
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
         result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
         result = 31 * result + (modifyDate != null ? modifyDate.hashCode() : 0);
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "friend_no", referencedColumnName = "friend_no", nullable = false, insertable = false, updatable = false)
     public Friend getFriendByFriendNo() {
         return friendByFriendNo;
@@ -134,31 +129,4 @@ public class FriendCustomization {
         this.friendByFriendNo = friendByFriendNo;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
-    public UserInformation getUserInformationByUserId() {
-        return userInformationByUserId;
-    }
-
-    public void setUserInformationByUserId(UserInformation userInformationByUserId) {
-        this.userInformationByUserId = userInformationByUserId;
-    }
-
-    @OneToMany(mappedBy = "friendCustomizationByFriendCustomizationNo")
-    public Collection<FriendLabel> getFriendLabelsByFriendCustomizationNo() {
-        return friendLabelsByFriendCustomizationNo;
-    }
-
-    public void setFriendLabelsByFriendCustomizationNo(Collection<FriendLabel> friendLabelsByFriendCustomizationNo) {
-        this.friendLabelsByFriendCustomizationNo = friendLabelsByFriendCustomizationNo;
-    }
-
-    @OneToMany(mappedBy = "friendCustomizationByFriendCustomizationNo")
-    public Collection<FriendRemark> getFriendRemarksByFriendCustomizationNo() {
-        return friendRemarksByFriendCustomizationNo;
-    }
-
-    public void setFriendRemarksByFriendCustomizationNo(Collection<FriendRemark> friendRemarksByFriendCustomizationNo) {
-        this.friendRemarksByFriendCustomizationNo = friendRemarksByFriendCustomizationNo;
-    }
 }

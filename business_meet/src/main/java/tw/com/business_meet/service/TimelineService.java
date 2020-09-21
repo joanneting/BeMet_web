@@ -8,6 +8,7 @@ public interface TimelineService {
     public TimelineBean add(TimelineBean timelineBean) throws Exception;
 
     public TimelineBean update(TimelineBean timelineBean) throws Exception;
+    public TimelineBean getById(Integer timelineNo) throws Exception;
 
     public List<TimelineBean> search(TimelineBean timelineBean) throws Exception;
 

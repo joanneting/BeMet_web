@@ -14,6 +14,7 @@ public class TimelineProperties {
     private Collection<Timeline> timelinesByTimelinePropertiesNo;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "timeline_properties_no")
     public Integer getTimelinePropertiesNo() {
         return timelinePropertiesNo;
@@ -34,7 +35,7 @@ public class TimelineProperties {
     }
 
     @Basic
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")
     public Date getCreateDate() {
         return createDate;
@@ -45,7 +46,7 @@ public class TimelineProperties {
     }
 
     @Basic
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modify_date")
     public Date getModifyDate() {
         return modifyDate;

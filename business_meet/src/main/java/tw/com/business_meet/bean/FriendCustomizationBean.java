@@ -1,6 +1,7 @@
 package tw.com.business_meet.bean;
 
 import java.util.Date;
+import java.util.List;
 
 public class FriendCustomizationBean {
     private Integer friendCustomizationNo;
@@ -8,7 +9,10 @@ public class FriendCustomizationBean {
     private Integer friendNo;
     private Date createDate;
     private Date modifyDate;
+    private String content;
+
     private Integer statusCode;
+
 
     public Integer getFriendCustomizationNo() {
         return friendCustomizationNo;
@@ -34,6 +38,7 @@ public class FriendCustomizationBean {
         this.friendNo = friendNo;
     }
 
+
     public Date getCreateDate() {
         return createDate;
     }
@@ -48,6 +53,15 @@ public class FriendCustomizationBean {
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Integer getStatusCode() {

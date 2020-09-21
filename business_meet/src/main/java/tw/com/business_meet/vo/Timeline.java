@@ -7,6 +7,8 @@ import java.util.Date;
 @Entity
 public class Timeline {
     private Integer timelineNo;
+    private String matchmakerId;
+    private String friendId;
     private String place;
     private String title;
     private String remark;
@@ -20,6 +22,7 @@ public class Timeline {
     private TimelineProperties timelinePropertiesByTimelinePropertiesNo;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "timeline_no")
     public Integer getTimelineNo() {
         return timelineNo;
@@ -27,6 +30,24 @@ public class Timeline {
 
     public void setTimelineNo(Integer timelineNo) {
         this.timelineNo = timelineNo;
+    }
+
+    @Column(name = "matchmaker_id", nullable = false)
+    public String getMatchmakerId() {
+        return matchmakerId;
+    }
+
+    public void setMatchmakerId(String matchmakerId) {
+        this.matchmakerId = matchmakerId;
+    }
+
+    @Column(name = "friend_id", nullable = true)
+    public String getFriendId() {
+        return friendId;
+    }
+
+    public void setFriendId(String friendId) {
+        this.friendId = friendId;
     }
 
     @Basic
@@ -80,7 +101,7 @@ public class Timeline {
     }
 
     @Basic
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")
     public Date getCreateDate() {
         return createDate;
@@ -91,7 +112,7 @@ public class Timeline {
     }
 
     @Basic
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modify_date")
     public Date getModifyDate() {
         return modifyDate;
@@ -180,7 +201,7 @@ public class Timeline {
         this.activityRemindsByTimelineNo = activityRemindsByTimelineNo;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "timeline_properties_no", referencedColumnName = "timeline_properties_no", nullable = false, insertable = false, updatable = false)
     public TimelineProperties getTimelinePropertiesByTimelinePropertiesNo() {
         return timelinePropertiesByTimelinePropertiesNo;

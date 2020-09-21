@@ -4,11 +4,14 @@ import java.util.Date;
 
 public class ActivityInviteBean {
     private Integer activityInviteNo;
-    private Integer userNo;
+    private String userId;
     private Integer activityNo;
+    private Integer status;
     private Date createDate;
     private Date modifyDate;
     private Integer statusCode;
+    private String userName;
+    private String avatar;
 
     public Integer getActivityInviteNo() {
         return activityInviteNo;
@@ -18,12 +21,12 @@ public class ActivityInviteBean {
         this.activityInviteNo = activityInviteNo;
     }
 
-    public Integer getUserNo() {
-        return userNo;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserNo(Integer userNo) {
-        this.userNo = userNo;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public Integer getActivityNo() {
@@ -32,6 +35,14 @@ public class ActivityInviteBean {
 
     public void setActivityNo(Integer activityNo) {
         this.activityNo = activityNo;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Date getCreateDate() {
@@ -56,5 +67,21 @@ public class ActivityInviteBean {
 
     public void setStatusCode(Integer statusCode) {
         this.statusCode = statusCode;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

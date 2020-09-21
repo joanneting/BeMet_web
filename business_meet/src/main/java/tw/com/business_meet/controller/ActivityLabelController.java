@@ -34,6 +34,8 @@ public class ActivityLabelController {
         return o.writeValueAsString(result);
     }
 
+
+
     @PostMapping(value = "/update", produces = "applicaiton/json;charset=UTF-8")
     public String update(ActivityLabelBean activityLabelBean) throws Exception {
         ObjectMapper o = new ObjectMapper();

@@ -6,6 +6,9 @@ public class ProblemReportBean {
     private Integer problemReportNo;
     private String content;
     private String userId;
+    private Integer status;
+    private String startDate;
+    private Date endDate;
     private Date createDate;
     private Date modifyDate;
     private Integer statusCode;
@@ -32,6 +35,30 @@ public class ProblemReportBean {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public Date getCreateDate() {

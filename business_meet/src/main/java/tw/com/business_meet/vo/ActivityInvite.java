@@ -9,12 +9,14 @@ public class ActivityInvite {
     private Integer activityInviteNo;
     private String userId;
     private Integer activityNo;
+    private Integer status;
     private Date createDate;
     private Date modifyDate;
     private UserInformation userInformationByUserId;
     private Timeline timelineByActivityNo;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "activityInvite_no")
     public Integer getActivityInviteNo() {
         return activityInviteNo;
@@ -45,7 +47,17 @@ public class ActivityInvite {
     }
 
     @Basic
-    @Temporal(TemporalType.DATE)
+    @Column(name="status")
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")
     public Date getCreateDate() {
         return createDate;
@@ -56,7 +68,7 @@ public class ActivityInvite {
     }
 
     @Basic
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modify_date")
     public Date getModifyDate() {
         return modifyDate;
@@ -106,7 +118,7 @@ public class ActivityInvite {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
     public UserInformation getUserInformationByUserId() {
         return userInformationByUserId;
@@ -116,7 +128,7 @@ public class ActivityInvite {
         this.userInformationByUserId = userInformationByUserId;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "activity_no", referencedColumnName = "timeline_no", nullable = false, insertable = false, updatable = false)
     public Timeline getTimelineByActivityNo() {
         return timelineByActivityNo;

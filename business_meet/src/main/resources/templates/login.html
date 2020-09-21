@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.springframework.org/security/tags">
+<head>
+    <sec:authentication property="principal.userId" var="user"></sec:authentication>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/login" method="POST">
+    帳號 : <input type="text" name="userId">
+    密碼 : <input type="text" name="password">
+    <input type="submit" value="確定" id="action">
+</form>
+未登入
+</body>
+<script>
+    var user = "${user}";
+    console.log(user);
+</script>
+</html>
