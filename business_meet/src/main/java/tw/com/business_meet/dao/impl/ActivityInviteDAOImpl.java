@@ -16,15 +16,15 @@ public class ActivityInviteDAOImpl extends BaseDAOImpl<ActivityInvite> implement
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(ActivityInvite.class);
         Integer activityNo = activityInviteBean.getActivityNo();
         Integer statusCode = activityInviteBean.getStatusCode();
-        Integer userNo = activityInviteBean.getUserNo();
+        String userId = activityInviteBean.getUserId();
         if (activityNo != null && activityNo != 0) {
             detachedCriteria.add(Restrictions.eq("activityNo", activityNo));
         }
         if (statusCode != null && statusCode != 0) {
             detachedCriteria.add(Restrictions.eq("statusCode", statusCode));
         }
-        if (userNo != null && userNo != 0) {
-            detachedCriteria.add(Restrictions.eq("userNo", userNo));
+        if (userId != null && !userId.equals("")) {
+            detachedCriteria.add(Restrictions.eq("userId", userId));
         }
 
         return (List<ActivityInvite>) this.getHibernateTemplate().findByCriteria(detachedCriteria);

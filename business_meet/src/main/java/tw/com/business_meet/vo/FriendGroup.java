@@ -15,6 +15,7 @@ public class FriendGroup {
     private Friend friendByFriendNo;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "friendGroup_no")
     public Integer getFriendGroupNo() {
         return friendGroupNo;
@@ -45,7 +46,7 @@ public class FriendGroup {
     }
 
     @Basic
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")
     public Date getCreateDate() {
         return createDate;
@@ -56,7 +57,7 @@ public class FriendGroup {
     }
 
     @Basic
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modify_date")
     public Date getModifyDate() {
         return modifyDate;
@@ -106,7 +107,7 @@ public class FriendGroup {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_no", referencedColumnName = "group_no", nullable = false, insertable = false, updatable = false)
     public Groups getGroupsByGroupNo() {
         return groupsByGroupNo;
@@ -116,7 +117,7 @@ public class FriendGroup {
         this.groupsByGroupNo = groupsByGroupNo;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "friend_no", referencedColumnName = "friend_no", nullable = false, insertable = false, updatable = false)
     public Friend getFriendByFriendNo() {
         return friendByFriendNo;

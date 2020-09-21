@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tw.com.business_meet.bean.ActivityInviteBean;
 import tw.com.business_meet.dao.ActivityInviteDAO;
+import tw.com.business_meet.dao.UserInformationDAO;
 import tw.com.business_meet.service.ActivityInviteService;
 import tw.com.business_meet.utils.BeanUtility;
 import tw.com.business_meet.vo.ActivityInvite;
+import tw.com.business_meet.vo.UserInformation;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,7 +18,8 @@ import java.util.List;
 public class ActivityInviteServiceImpl implements ActivityInviteService {
     @Autowired
     ActivityInviteDAO activityInviteDAO;
-
+    @Autowired
+    UserInformationDAO userInformationDAO;
     @Override
     public List<ActivityInviteBean> search(ActivityInviteBean activityInviteBean) throws Exception {
         List<ActivityInvite> activityInviteList = activityInviteDAO.search(activityInviteBean);
@@ -24,6 +27,9 @@ public class ActivityInviteServiceImpl implements ActivityInviteService {
         for (ActivityInvite activityInvite : activityInviteList) {
             ActivityInviteBean aib = new ActivityInviteBean();
             BeanUtility.copyProperties(activityInvite, aib);
+            UserInformation userInformation = userInformationDAO.getById(aib.getUserId());
+            aib.setUserName(userInformation.getName());
+            aib.setAvatar(userInformation.getAvatar());
             activityInviteBeanList.add(aib);
         }
         return activityInviteBeanList;
@@ -66,5 +72,13 @@ public class ActivityInviteServiceImpl implements ActivityInviteService {
     public void delete(Integer activityInviteNo) throws Exception {
         ActivityInvite activityInvite = activityInviteDAO.getById(activityInviteNo);
         activityInviteDAO.delete(activityInvite);
+    }
+
+    @Override
+    public ActivityInviteBean getById(Integer activityInviteNo) throws Exception {
+        ActivityInvite activityInvite = activityInviteDAO.getById(activityInviteNo);
+        ActivityInviteBean activityInviteBean = new ActivityInviteBean();
+        BeanUtility.copyProperties(activityInvite,activityInviteBean);
+        return activityInviteBean;
     }
 }

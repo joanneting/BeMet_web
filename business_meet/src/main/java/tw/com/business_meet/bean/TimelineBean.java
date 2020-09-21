@@ -1,16 +1,28 @@
 package tw.com.business_meet.bean;
 
+import tw.com.business_meet.vo.ActivityInvite;
+import tw.com.business_meet.vo.ActivityLabel;
+
 import java.util.Date;
+import java.util.List;
 
 public class TimelineBean {
     private Integer timelineNo;
+    private String matchmakerId;
+    private String friendId;
     private String place;
     private String title;
     private String remark;
     private Integer timelinePropertiesNo;
     private String color;
     private Date createDate;
+    private String createDateStr;
     private Date modifyDate;
+    private String modifyDateStr;
+    private String startDate;
+    private String endDate;
+    private List<ActivityLabelBean> activityLabelBeanList;
+    private List<ActivityInviteBean> activityInviteBeanList;
     private Integer statusCode;
 
     public Integer getTimelineNo() {
@@ -19,6 +31,22 @@ public class TimelineBean {
 
     public void setTimelineNo(Integer timelineNo) {
         this.timelineNo = timelineNo;
+    }
+
+    public String getMatchmakerId() {
+        return matchmakerId;
+    }
+
+    public void setMatchmakerId(String matchmakerId) {
+        this.matchmakerId = matchmakerId;
+    }
+
+    public String getFriendId() {
+        return friendId;
+    }
+
+    public void setFriendId(String friendId) {
+        this.friendId = friendId;
     }
 
     public String getPlace() {
@@ -69,12 +97,62 @@ public class TimelineBean {
         this.createDate = createDate;
     }
 
+    public String getCreateDateStr() {
+        return createDateStr;
+    }
+
+    public void setCreateDateStr(String createDateStr) {
+        this.createDateStr = createDateStr;
+    }
+
+    public String getModifyDateStr() {
+        return modifyDateStr;
+    }
+
+    public void setModifyDateStr(String modifyDateStr) {
+        this.modifyDateStr = modifyDateStr;
+    }
+
     public Date getModifyDate() {
         return modifyDate;
     }
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public List<ActivityLabelBean> getActivityLabelBeanList() {
+        return activityLabelBeanList;
+    }
+
+    public void setActivityLabelBeanList(List<ActivityLabelBean> activityLabelBeanList) {
+        this.activityLabelBeanList = activityLabelBeanList;
+    }
+
+    public List<ActivityInviteBean> getActivityInviteBeanList() {
+        return activityInviteBeanList;
+    }
+
+    public void setActivityInviteBeanList(List<ActivityInviteBean> activityInviteBeanList) {
+        this.activityInviteBeanList = activityInviteBeanList;
     }
 
     public Integer getStatusCode() {

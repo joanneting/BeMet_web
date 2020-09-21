@@ -12,6 +12,7 @@ public interface ActivityInviteService {
     public ActivityInviteBean add(ActivityInviteBean activityInviteBean) throws Exception;
 
     public ActivityInviteBean update(ActivityInviteBean activityInviteBean) throws Exception;
+    public ActivityInviteBean getById(Integer activityInviteNo) throws Exception;
 
     public void delete(Integer activityInviteNo) throws Exception;
 

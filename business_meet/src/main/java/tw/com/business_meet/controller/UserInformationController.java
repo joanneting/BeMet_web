@@ -17,6 +17,7 @@ public class UserInformationController {
     @Autowired
     UserInformationService userInformationService;
 
+
     @PostMapping(path = "/search", produces = "application/json;charset=UTF-8")
     public String search(@RequestBody UserInformationBean userInformationBean) throws Exception {
         ObjectMapper o = new ObjectMapper();
@@ -80,7 +81,6 @@ public class UserInformationController {
     public String add(@RequestBody UserInformationBean userInformationBean) throws Exception {
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();
-        System.out.println("uib.getName() = " + userInformationBean.getName());
         try {
             UserInformationBean uib = userInformationService.add(userInformationBean);
 

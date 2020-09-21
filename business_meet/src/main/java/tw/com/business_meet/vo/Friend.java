@@ -8,13 +8,13 @@ import java.util.Date;
 @Table(name = "friend", schema = "dbo", catalog = "BeMet")
 public class Friend {
     private Integer friendNo;
+    private String matchmakerId;
+    private String friendId;
     private String remark;
     private Date createDate;
     private Date modifyDate;
     private Collection<FriendCustomization> friendCustomizationsByFriendNo;
     private Collection<FriendGroup> friendGroupsByFriendNo;
-    private String matchmakerId;
-    private String friendId;
     private UserInformation userInformationByMatchmakerId;
     private UserInformation userInformationByFriendId;
 
@@ -41,7 +41,7 @@ public class Friend {
     }
 
     @Basic
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")
     public Date getCreateDate() {
         return createDate;
@@ -53,7 +53,7 @@ public class Friend {
     }
 
     @Basic
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modify_date")
     public Date getModifyDate() {
         return modifyDate;
@@ -142,7 +142,7 @@ public class Friend {
         this.friendId = friendId;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "matchmaker_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
     public UserInformation getUserInformationByMatchmakerId() {
         return userInformationByMatchmakerId;
@@ -152,7 +152,7 @@ public class Friend {
         this.userInformationByMatchmakerId = userInformationByMatchmakerId;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "friend_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
     public UserInformation getUserInformationByFriendId() {
         return userInformationByFriendId;

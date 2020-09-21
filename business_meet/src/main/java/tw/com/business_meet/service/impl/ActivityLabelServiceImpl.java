@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tw.com.business_meet.bean.ActivityLabelBean;
 import tw.com.business_meet.dao.ActivityLabelDAO;
+import tw.com.business_meet.dao.UserInformationDAO;
 import tw.com.business_meet.service.ActivityLabelService;
 import tw.com.business_meet.utils.BeanUtility;
 import tw.com.business_meet.vo.ActivityLabel;

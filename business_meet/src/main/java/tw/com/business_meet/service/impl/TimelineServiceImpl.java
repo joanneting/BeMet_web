@@ -8,9 +8,11 @@ import tw.com.business_meet.service.TimelineService;
 import tw.com.business_meet.utils.BeanUtility;
 import tw.com.business_meet.vo.Timeline;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.SimpleFormatter;
 
 @Service
 public class TimelineServiceImpl implements TimelineService {
@@ -45,10 +47,17 @@ public class TimelineServiceImpl implements TimelineService {
                 timelineList) {
             TimelineBean tb = new TimelineBean();
             BeanUtility.copyProperties(timeline, tb);
-            timelineBeanList.add(tb);
+           timelineBeanList.add(tb);
         }
 
         return timelineBeanList;
+    }
+@Override
+    public TimelineBean getById(Integer timelineNo) throws Exception {
+        Timeline timeline = timelineDAO.getById(timelineNo);
+        TimelineBean timelineBean = new TimelineBean();
+        BeanUtility.copyProperties(timeline,timelineBean);
+        return timelineBean;
     }
 
     @Override
