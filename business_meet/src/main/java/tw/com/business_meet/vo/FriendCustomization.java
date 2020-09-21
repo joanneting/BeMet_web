@@ -13,8 +13,7 @@ public class FriendCustomization {
     private Date createDate;
     private Date modifyDate;
     private Friend friendByFriendNo;
-    private Collection<FriendLabel> friendLabelsByFriendCustomizationNo;
-    private Collection<FriendRemark> friendRemarksByFriendCustomizationNo;
+    private String content;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,6 +69,16 @@ public class FriendCustomization {
         this.modifyDate = modifyDate;
     }
 
+    @Basic
+    @Column(name = "content")
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -120,22 +129,4 @@ public class FriendCustomization {
         this.friendByFriendNo = friendByFriendNo;
     }
 
-
-    @OneToMany(mappedBy = "friendCustomizationByFriendCustomizationNo")
-    public Collection<FriendLabel> getFriendLabelsByFriendCustomizationNo() {
-        return friendLabelsByFriendCustomizationNo;
-    }
-
-    public void setFriendLabelsByFriendCustomizationNo(Collection<FriendLabel> friendLabelsByFriendCustomizationNo) {
-        this.friendLabelsByFriendCustomizationNo = friendLabelsByFriendCustomizationNo;
-    }
-
-    @OneToMany(mappedBy = "friendCustomizationByFriendCustomizationNo")
-    public Collection<FriendRemark> getFriendRemarksByFriendCustomizationNo() {
-        return friendRemarksByFriendCustomizationNo;
-    }
-
-    public void setFriendRemarksByFriendCustomizationNo(Collection<FriendRemark> friendRemarksByFriendCustomizationNo) {
-        this.friendRemarksByFriendCustomizationNo = friendRemarksByFriendCustomizationNo;
-    }
 }
