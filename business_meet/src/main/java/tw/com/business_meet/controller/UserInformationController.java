@@ -82,10 +82,23 @@ public class UserInformationController {
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();
         try {
-            UserInformationBean uib = userInformationService.add(userInformationBean);
+            UserInformationBean check = userInformationService.getById(userInformationBean.getUserId());
+            if(check == null) {
+                check = userInformationService.getByBluetooth(userInformationBean.getBluetooth());
+                System.out.println(check.getBluetooth());
+                if(check == null) {
+                    UserInformationBean uib = userInformationService.add(userInformationBean);
 
-            result.put("result", true);
-            result.putPOJO("data", uib);
+                    result.put("result", true);
+                    result.putPOJO("data", uib);
+                }else {
+                    result.put("result", false);
+                    result.put("message", "此手機藍牙位置已註冊");
+                }
+            }else {
+                result.put("result", false);
+                result.put("message", "此帳號已被註冊");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             result.put("result", false);
