@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.util.Assert;
+import tw.com.business_meet.dao.UserInformationDAO;
 import tw.com.business_meet.filter.CustomAuthenticationProvider;
 import tw.com.business_meet.filter.CustomEntryPoint;
 import tw.com.business_meet.filter.CustomLoginFilter;
@@ -27,7 +28,8 @@ import javax.transaction.Transactional;
 @EnableGlobalMethodSecurity(prePostEnabled = true) // 表示可使用@PreAuthority註解
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
-
+@Autowired
+private UserInformationDAO userInformationDAO;
     // private UserAccountService userService;//帳號
     @Autowired
     public SecurityConfig(DataSource dataSource, UserInformationService userService) {
@@ -54,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(new CustomerAccessDeniedHandler())// 偵測權限不足的處理
                 .authenticationEntryPoint(new CustomEntryPoint())//自定義未登入處理
                 .and().authenticationProvider(new CustomAuthenticationProvider())// 內部是寫add，所以可以多個//權限設定，額外登入判斷處理
-                .addFilterBefore(new CustomLoginFilter(authenticationManager()),
+                .addFilterBefore(new CustomLoginFilter(authenticationManager(),userInformationDAO),
                         UsernamePasswordAuthenticationFilter.class)//取request傳送的值//設定登入驗證參數//設定自定義登入(失敗&成功)處理
                 .authorizeRequests()// 設定Requests的權限需求
                 .antMatchers(HttpMethod.GET, "/logout", "/timeout", "/error**")
