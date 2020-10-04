@@ -19,6 +19,17 @@ public class TimelineDAOImpl extends BaseDAOImpl<Timeline> implements TimelineDA
         String remark = timelineBean.getRemark();
         Integer timelinePropertiesNo = timelineBean.getTimelinePropertiesNo();
         String title = timelineBean.getTitle();
+        String friendId = timelineBean.getFriendId();
+        String matchmakerId = timelineBean.getMatchmakerId();
+        if (matchmakerId != null && !matchmakerId.equals("")) {
+            detachedCriteria.add(Restrictions.eq("matchmakerId",matchmakerId));
+        }
+        if (friendId != null && !friendId.equals("")) {
+            detachedCriteria.add(Restrictions.eq("friendId",friendId));
+        }else{
+            detachedCriteria.add(Restrictions.isNull("friendId"));
+        }
+
         if (color != null && !color.equals("")) {
             detachedCriteria.add(Restrictions.eq("color", color));
         }
