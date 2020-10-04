@@ -11,7 +11,7 @@ import tw.com.business_meet.service.ActivityDateService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/activityDate")
+@RequestMapping("/activitydate")
 public class ActivityDateController {
     @Autowired
     ActivityDateService activityDateService;
