@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.util.Assert;
+import tw.com.business_meet.dao.UserInformationDAO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,13 +18,13 @@ import java.io.BufferedReader;
 public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
     private HttpSession session;
 
-    public CustomLoginFilter(AuthenticationManager authenticationManager) {
+    public CustomLoginFilter(AuthenticationManager authenticationManager, UserInformationDAO userInformationDAO) {
         Assert.notNull(authenticationManager, "AuthenticationManager不能為null");
         setAuthenticationManager(authenticationManager);
         System.out.println("login");
         setUsernameParameter("userId");
         setPasswordParameter("password");
-        setAuthenticationSuccessHandler(new CustomAuthenticationSuccessHandler());
+        setAuthenticationSuccessHandler(new CustomAuthenticationSuccessHandler(userInformationDAO));
         setAuthenticationFailureHandler(new CustomAuthenticationFailureHandler());
     }
 

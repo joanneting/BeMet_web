@@ -71,6 +71,9 @@ public class UserInformationServiceImpl implements UserInformationService {
     @Override
     public UserInformationBean getById(String userId) {
         UserInformation userInformation = userInformationDAO.getById(userId);
+        if(userInformation == null){
+            return null;
+        }
         UserInformationBean userInformationBean = new UserInformationBean();
         BeanUtility.copyProperties(userInformation, userInformationBean);
         return userInformationBean;
