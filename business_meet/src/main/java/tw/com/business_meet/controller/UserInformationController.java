@@ -85,7 +85,7 @@ public class UserInformationController {
             UserInformationBean check = userInformationService.getById(userInformationBean.getUserId());
             if(check == null) {
                 check = userInformationService.getByBluetooth(userInformationBean.getBluetooth());
-                System.out.println(check.getBluetooth());
+
                 if(check == null) {
                     UserInformationBean uib = userInformationService.add(userInformationBean);
 
