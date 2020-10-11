@@ -20,6 +20,7 @@ import tw.com.business_meet.vo.ActivityInvite;
 import tw.com.business_meet.vo.ActivityLabel;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -39,6 +40,28 @@ public class TimelineController {
         ObjectNode result = o.createObjectNode();
         try {
             TimelineBean tb = timelineService.add(timelineBean);
+            List<ActivityInviteBean> resultInviteList = new ArrayList<>();
+            if(timelineBean.getTimelinePropertiesNo() == 1){
+                List<ActivityInviteBean> activityInviteBeanList = timelineBean.getActivityInviteBeanList();
+                for (ActivityInviteBean activityInviteBean : activityInviteBeanList) {
+                   activityInviteBean.setActivityNo(tb.getTimelineNo());
+                   activityInviteBean.setStatus(1);
+                    ActivityInviteBean resultBean = activityInviteService.add(activityInviteBean);
+                    resultInviteList.add(resultBean);
+                }
+                ActivityDateBean activityDate = new ActivityDateBean();
+                activityDate.setActivityNo(tb.getTimelineNo());
+//                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                System.out.println("timelineBean.getCreateDate() = " + timelineBean.getCreateDate());
+                activityDate.setStartDate(timelineBean.getStartDate());
+                activityDate.setEndDate(timelineBean.getEndDate());
+                activityDateService.add(activityDate);
+                ActivityLabelBean activityLabelBean = timelineBean.getActivityLabelBean();
+                activityLabelBean.setActivityNo(tb.getTimelineNo());
+                activityLabelBean = activityLabelService.add(activityLabelBean);
+                tb.setActivityInviteBeanList(resultInviteList);
+                tb.setActivityLabelBean(activityLabelBean);
+            }
             result.put("result", true);
             result.putPOJO("data", tb);
         } catch (Exception e) {
@@ -89,22 +112,25 @@ public class TimelineController {
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E M月d日 aa h:m");
             TimelineBean timelineBean = timelineService.getById(timelineNo);
+            System.out.println("timelineBean.getTimelinePropertiesNo() = " + timelineBean.getTimelinePropertiesNo());
             if(timelineBean.getTimelinePropertiesNo()==1) {
                 ActivityInviteBean activityInviteBean = new ActivityInviteBean();
                 activityInviteBean.setActivityNo(timelineNo);
+
+                List<ActivityInviteBean> activityInviteList = activityInviteService.search(activityInviteBean);
                 ActivityLabelBean activityLabelBean = new ActivityLabelBean();
                 activityLabelBean.setActivityNo(timelineNo);
-                List<ActivityInviteBean> activityInviteList = activityInviteService.search(activityInviteBean);
-                List<ActivityLabelBean> activityLabelList = activityLabelService.search(activityLabelBean);
+                activityLabelBean = activityLabelService.search(activityLabelBean).get(0);
+                System.out.println("activityLabelBean.getContent() = " + activityLabelBean.getContent());
                 timelineBean.setActivityInviteBeanList(activityInviteList);
-                timelineBean.setActivityLabelBeanList(activityLabelList);
+                timelineBean.setActivityLabelBean(activityLabelBean);
                 ActivityDateBean activityDateBean = new ActivityDateBean();
                 activityDateBean.setActivityNo(timelineNo);
                 ActivityDateBean adb = activityDateService.search(activityDateBean).get(0);
 
 
-                timelineBean.setStartDate(simpleDateFormat.format(adb.getStartDate()));
-                timelineBean.setEndDate(simpleDateFormat.format(adb.getEndDate()));
+                timelineBean.setStartDateStr(simpleDateFormat.format(adb.getStartDate()));
+                timelineBean.setEndDateStr(simpleDateFormat.format(adb.getEndDate()));
                 System.out.println("timelineBean.getEndDate() = " + timelineBean.getEndDate());
             }
             timelineBean.setCreateDateStr(simpleDateFormat.format(timelineBean.getCreateDate()));

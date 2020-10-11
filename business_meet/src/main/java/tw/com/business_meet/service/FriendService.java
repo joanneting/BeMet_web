@@ -7,6 +7,8 @@ import java.util.List;
 public interface FriendService {
     public List<FriendBean> search(FriendBean friendBean) throws Exception;
 
+    public List<FriendBean> searchInviteList(FriendBean friendBean) throws Exception;
+
     public FriendBean add(FriendBean friendBean) throws Exception;
 
     public FriendBean update(FriendBean friendBean) throws Exception;

@@ -87,4 +87,27 @@ public class FriendController {
         }
         return modelAndView;
     }
+
+    @PostMapping(path = "/search/invitelist", produces = "application/json;charset=UTF-8")
+    public String searchInviteList(@RequestBody FriendBean friendBean) throws Exception {
+        ObjectMapper o = new ObjectMapper();
+        ObjectNode result = o.createObjectNode();
+        try {
+            System.out.println("searchinviteList");
+            List<FriendBean> fbList = friendService.searchInviteList(friendBean);
+            result.put("result", true);
+            ArrayNode arrayNode = result.putArray("data");
+
+            for (FriendBean fb : fbList) {
+                System.out.println("search : " + fb.getMatchmakerId() + " : " + fb.getFriendId());
+                arrayNode.addPOJO(fb);
+            }
+
+        } catch (Exception e) {
+            result.put("result", false);
+            result.putObject("data");
+            e.printStackTrace();
+        }
+        return o.writeValueAsString(result);
+    }
 }
