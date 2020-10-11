@@ -151,6 +151,11 @@ public class TimelineBean {
     }
 
     public void setStartDateStr(String startDateStr) {
+        try {
+            startDate = simpleDateFormat.parse(startDateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         this.startDateStr = startDateStr;
     }
 
@@ -173,6 +178,12 @@ public class TimelineBean {
     }
 
     public void setEndDateStr(String endDateStr) {
+
+        try {
+            endDate = simpleDateFormat.parse(endDateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         this.endDateStr = endDateStr;
     }
 
