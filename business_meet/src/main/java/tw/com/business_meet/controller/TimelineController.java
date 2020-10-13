@@ -18,6 +18,7 @@ import tw.com.business_meet.service.TimelineService;
 import tw.com.business_meet.vo.ActivityDate;
 import tw.com.business_meet.vo.ActivityInvite;
 import tw.com.business_meet.vo.ActivityLabel;
+import tw.com.business_meet.vo.Timeline;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -112,7 +113,6 @@ public class TimelineController {
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E M月d日 aa h:m");
             TimelineBean timelineBean = timelineService.getById(timelineNo);
-            System.out.println("timelineBean.getTimelinePropertiesNo() = " + timelineBean.getTimelinePropertiesNo());
             if(timelineBean.getTimelinePropertiesNo()==1) {
                 ActivityInviteBean activityInviteBean = new ActivityInviteBean();
                 activityInviteBean.setActivityNo(timelineNo);
@@ -121,7 +121,6 @@ public class TimelineController {
                 ActivityLabelBean activityLabelBean = new ActivityLabelBean();
                 activityLabelBean.setActivityNo(timelineNo);
                 activityLabelBean = activityLabelService.search(activityLabelBean).get(0);
-                System.out.println("activityLabelBean.getContent() = " + activityLabelBean.getContent());
                 timelineBean.setActivityInviteBeanList(activityInviteList);
                 timelineBean.setActivityLabelBean(activityLabelBean);
                 ActivityDateBean activityDateBean = new ActivityDateBean();
@@ -131,7 +130,6 @@ public class TimelineController {
 
                 timelineBean.setStartDateStr(simpleDateFormat.format(adb.getStartDate()));
                 timelineBean.setEndDateStr(simpleDateFormat.format(adb.getEndDate()));
-                System.out.println("timelineBean.getEndDate() = " + timelineBean.getEndDate());
             }
             timelineBean.setCreateDateStr(simpleDateFormat.format(timelineBean.getCreateDate()));
             ArrayNode arrayNode = result.putArray("data");
@@ -152,6 +150,13 @@ public class TimelineController {
             List<TimelineBean> timelineBeanList = timelineService.search(timelineBean);
             for (int i = 0; i < timelineBeanList.size(); i++) {
                 TimelineBean tlb  = timelineBeanList.get(i);
+                if(tlb.getTimelinePropertiesNo() == 1){
+                    ActivityDateBean activityDateBean = new ActivityDateBean();
+                    activityDateBean.setActivityNo(tlb.getTimelineNo());
+                    List<ActivityDateBean> activityDateBeanList = activityDateService.search(activityDateBean);
+                    if(activityDateBeanList.size() > 0)
+                        tlb.setStartDateStr(new SimpleDateFormat("MM/dd").format(activityDateBeanList.get(0).getStartDate()));
+                }
                 tlb.setCreateDateStr(new SimpleDateFormat("MM/dd").format(tlb.getCreateDate()));
                 timelineBeanList.set(i,tlb);
             }
@@ -168,11 +173,33 @@ public class TimelineController {
         return o.writeValueAsString(result);
     }
 
-    @PostMapping(path = "/{timelineNp}/delete", produces = "application/json;charset=UTF-8")
+    @PostMapping(path = "/{timelineNo}/delete", produces = "application/json;charset=UTF-8")
     public String delete(@PathVariable Integer timelineNo) throws Exception {
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();
         try {
+            TimelineBean timelineBean = timelineService.getById(timelineNo);
+            if(timelineBean.getTimelinePropertiesNo() == 1){
+                ActivityDateBean activityDateBean = new ActivityDateBean();
+                activityDateBean.setActivityNo(timelineNo);
+                ActivityLabelBean activityLabelBean = new ActivityLabelBean();
+                activityLabelBean.setActivityNo(timelineNo);
+                ActivityInviteBean activityInviteBean = new ActivityInviteBean();
+                activityInviteBean.setActivityNo(timelineNo);
+
+                List<ActivityDateBean> activityDateBeanList = activityDateService.search(activityDateBean);
+                for (ActivityDateBean adb : activityDateBeanList) {
+                    activityDateService.delete(adb.getActivityDateNo());
+                }
+                List<ActivityLabelBean> activityLabelBeanList = activityLabelService.search(activityLabelBean);
+                for (ActivityLabelBean alb : activityLabelBeanList) {
+                    activityLabelService.delete(alb.getActivityLabelNo());
+                }
+                List<ActivityInviteBean> activityInviteBeanList = activityInviteService.search(activityInviteBean);
+                for (ActivityInviteBean inviteBean : activityInviteBeanList) {
+                    activityInviteService.delete(inviteBean.getActivityInviteNo());
+                }
+            }
             timelineService.delete(timelineNo);
             result.put("result", true);
         } catch (Exception e) {
