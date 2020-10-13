@@ -14,7 +14,7 @@ public class UserInformationDAOImpl extends BaseDAOImpl<UserInformation> impleme
     @Override
     public List<UserInformation> search(UserInformationBean userInformationBean) {
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(UserInformation.class);
-        String blueTooth = userInformationBean.getBluetooth();
+        String identifier = userInformationBean.getIdentifier();
         String userId = userInformationBean.getUserId();
         String password = userInformationBean.getPassword();
         String gender = userInformationBean.getGender();
@@ -23,8 +23,8 @@ public class UserInformationDAOImpl extends BaseDAOImpl<UserInformation> impleme
         String avatar = userInformationBean.getAvatar();
         String tel = userInformationBean.getTel();
         String mail = userInformationBean.getMail();
-        if (blueTooth != null && !blueTooth.equals("")) {
-            detachedCriteria.add(Restrictions.eq("bluetooth", blueTooth));
+        if (identifier != null && !identifier.equals("")) {
+            detachedCriteria.add(Restrictions.eq("identifier", identifier));
         }
         if (userName != null && !userName.equals("")) {
             detachedCriteria.add(Restrictions.eq("name", userName));

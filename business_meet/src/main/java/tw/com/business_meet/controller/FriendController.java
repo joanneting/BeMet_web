@@ -22,7 +22,6 @@ public class FriendController {
     public String search(@RequestBody FriendBean friendBean) throws Exception {
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();
-        System.out.println("searchBlueTooth : " + friendBean.getMatchmakerId());
         try {
             List<FriendBean> fbList = friendService.search(friendBean);
             result.put("result", true);

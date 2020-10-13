@@ -9,7 +9,7 @@ public class UserInformationBean {
     private String gender;
     private String mail;
     private String profession;
-    private String bluetooth;
+    private String identifier;
     private String avatar;
     private String tel;
     private Date createDate;
@@ -81,12 +81,12 @@ public class UserInformationBean {
         this.profession = profession;
     }
 
-    public String getBluetooth() {
-        return bluetooth;
+    public String getIdentifier() {
+        return identifier;
     }
 
-    public void setBluetooth(String bluetooth) {
-        this.bluetooth = bluetooth;
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 
     public Integer getRoleNo() {
