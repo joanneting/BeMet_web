@@ -57,7 +57,7 @@ public class TimelineServiceImpl implements TimelineService {
         Timeline timeline = timelineDAO.getById(timelineNo);
         TimelineBean timelineBean = new TimelineBean();
         BeanUtility.copyProperties(timeline,timelineBean);
-        return timelineBean;
+    return timelineBean;
     }
 
     @Override

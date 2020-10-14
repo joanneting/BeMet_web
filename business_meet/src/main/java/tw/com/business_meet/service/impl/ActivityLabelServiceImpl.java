@@ -70,4 +70,15 @@ public class ActivityLabelServiceImpl implements ActivityLabelService {
         activityLabelDAO.delete(activityLabel);
 
     }
+
+    @Override
+    public ActivityLabelBean getById(Integer activityLabelNo) throws Exception {
+        ActivityLabel activityLabel = activityLabelDAO.getById(activityLabelNo);
+        if(activityLabel == null){
+            return null;
+        }
+        ActivityLabelBean activityLabelBean = new ActivityLabelBean();
+        BeanUtility.copyProperties(activityLabel,activityLabelBean);
+        return activityLabelBean;
+    }
 }

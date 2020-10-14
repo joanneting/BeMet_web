@@ -34,12 +34,12 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
         CustomAuthenticationToken customAuthenticationToken =
                 ((CustomAuthenticationToken) authentication);
 
-        String blueTooth = customAuthenticationToken.getBluetooth();
+        String identifier = customAuthenticationToken.getIdentifier();
         String password = (String) customAuthenticationToken.getCredentials();
         UserInformation user = userInformationDAO.getById(userId);
 
-        if (blueTooth != "" && !user.getBluetooth().equals(blueTooth)) {
-            throw new AuthenticationServiceException("請確認該帳號的藍芽是目前手機的藍芽。");
+        if (identifier != "" && !user.getIdentifier().equals(identifier)) {
+            throw new AuthenticationServiceException("請確認該帳號的識別碼是目前手機的識別碼。");
         }
         if (user != null && !user.getUserId().isEmpty()
                 && BCryUtility.matches(password, user.getPassword())) {

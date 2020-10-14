@@ -1,12 +1,16 @@
 package tw.com.business_meet.bean;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import tw.com.business_meet.vo.ActivityInvite;
 import tw.com.business_meet.vo.ActivityLabel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 public class TimelineBean {
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     private Integer timelineNo;
     private String matchmakerId;
     private String friendId;
@@ -19,9 +23,13 @@ public class TimelineBean {
     private String createDateStr;
     private Date modifyDate;
     private String modifyDateStr;
-    private String startDate;
-    private String endDate;
-    private List<ActivityLabelBean> activityLabelBeanList;
+//    @DateTimeFormat(pattern = "MMM dd, yyyy a hh:mm")
+    private Date startDate;
+    private String startDateStr;
+//    @DateTimeFormat(pattern = "MMM dd, yyyy a hh:mm")
+    private Date endDate;
+    private String endDateStr;
+    private ActivityLabelBean activityLabelBean;
     private List<ActivityInviteBean> activityInviteBeanList;
     private Integer statusCode;
 
@@ -122,29 +130,69 @@ public class TimelineBean {
     }
 
 
-
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public void setStartDate(String startDate) {
+        try {
+            this.startDate = simpleDateFormat.parse(startDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getStartDateStr() {
+        return startDateStr;
+    }
+
+    public void setStartDateStr(String startDateStr) {
+        try {
+            startDate = simpleDateFormat.parse(startDateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        this.startDateStr = startDateStr;
+    }
+
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }  public void setEndDate(String endDate) {
+        try {
+            this.endDate = simpleDateFormat.parse(endDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
-    public List<ActivityLabelBean> getActivityLabelBeanList() {
-        return activityLabelBeanList;
+    public String getEndDateStr() {
+        return endDateStr;
     }
 
-    public void setActivityLabelBeanList(List<ActivityLabelBean> activityLabelBeanList) {
-        this.activityLabelBeanList = activityLabelBeanList;
+    public void setEndDateStr(String endDateStr) {
+
+        try {
+            endDate = simpleDateFormat.parse(endDateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        this.endDateStr = endDateStr;
+    }
+
+    public ActivityLabelBean getActivityLabelBean() {
+        return activityLabelBean;
+    }
+
+    public void setActivityLabelBean(ActivityLabelBean activityLabelBean) {
+        this.activityLabelBean = activityLabelBean;
     }
 
     public List<ActivityInviteBean> getActivityInviteBeanList() {

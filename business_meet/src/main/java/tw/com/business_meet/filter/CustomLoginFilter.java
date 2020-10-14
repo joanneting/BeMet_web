@@ -38,7 +38,7 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
             String userId = obtainUsername(request);
             String password = obtainPassword(request);
             CustomAuthenticationToken authentication;
-            String blueTooth;
+            String identifier;
             if (request.getContentType().startsWith("application/json")) {
 
                 authentication = resolveAuthenticationFromRequestBody(request);
@@ -70,11 +70,10 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
             }
             ObjectMapper o = new ObjectMapper();
             JsonNode loginRequest = o.readTree(stringBuilder.toString());
-            System.out.println("loginRequest.findValue(\"blueTooth\").asText() = " + loginRequest.findValue("bluetooth").asText());
             return new CustomAuthenticationToken(
                     loginRequest.findValue("userId").asText(),
                     loginRequest.findValue("password").asText(),
-                    loginRequest.findValue("bluetooth").asText()
+                    loginRequest.findValue("identifier").asText()
             );
         } catch (Exception e) {
             e.printStackTrace();

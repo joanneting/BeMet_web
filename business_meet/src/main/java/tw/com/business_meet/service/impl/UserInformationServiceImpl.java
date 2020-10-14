@@ -80,9 +80,9 @@ public class UserInformationServiceImpl implements UserInformationService {
     }
 
     @Override
-    public UserInformationBean getByBluetooth(String bluetooth) {
+    public UserInformationBean getByIdentifier(String identifier) {
         UserInformationBean userInformationBean = new UserInformationBean();
-        userInformationBean.setBluetooth(bluetooth);
+        userInformationBean.setIdentifier(identifier);
         List<UserInformation> userInformationBeanList = userInformationDAO.search(userInformationBean);
         if (userInformationBeanList.size() != 0) {
             BeanUtility.copyProperties(userInformationBeanList.get(0), userInformationBean);

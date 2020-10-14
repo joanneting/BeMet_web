@@ -19,13 +19,13 @@ public class ActivityDateDAOImpl extends BaseDAOImpl<ActivityDate> implements Ac
         Date endDate = activityDateBean.getEndDate();
         Date startDate = activityDateBean.getStartDate();
         if (activityNo != null && activityNo !=0) {
-            detachedCriteria.add(Restrictions.eq("activity_no",activityNo));
+            detachedCriteria.add(Restrictions.eq("activityNo",activityNo));
         }
         if (endDate != null ) {
-            detachedCriteria.add(Restrictions.le("end_date",endDate));
+            detachedCriteria.add(Restrictions.le("endDate",endDate));
         }
         if (startDate != null ) {
-            detachedCriteria.add(Restrictions.ge("start_date",startDate));
+            detachedCriteria.add(Restrictions.ge("startDate",startDate));
         }
         return (List<ActivityDate>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
     }

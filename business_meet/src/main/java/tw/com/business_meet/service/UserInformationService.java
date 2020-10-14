@@ -15,5 +15,5 @@ public interface UserInformationService {
 
     public UserInformationBean getById(String userId);
 
-    public UserInformationBean getByBluetooth(String blurtooth);
+    public UserInformationBean getByIdentifier(String blurtooth);
 }

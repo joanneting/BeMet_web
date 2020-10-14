@@ -21,7 +21,7 @@ public class UserInformation implements UserDetails {
     private String gender;
     private String mail;
     private String profession;
-    private String bluetooth;
+    private String identifier;
     private String avatar;
     private String tel;
     private Integer roleNo;
@@ -126,13 +126,13 @@ public class UserInformation implements UserDetails {
     }
 
     @Basic
-    @Column(name = "bluetooth")
-    public String getBluetooth() {
-        return bluetooth;
+    @Column(name = "identifier")
+    public String getIdentifier() {
+        return identifier;
     }
 
-    public void setBluetooth(String bluetooth) {
-        this.bluetooth = bluetooth;
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 
     @Basic
@@ -251,7 +251,7 @@ public class UserInformation implements UserDetails {
         if (profession != null ? !profession.equals(that.profession) : that.profession != null) {
             return false;
         }
-        if (bluetooth != null ? !bluetooth.equals(that.bluetooth) : that.bluetooth != null) {
+        if (identifier != null ? !identifier.equals(that.identifier) : that.identifier != null) {
             return false;
         }
         if (createDate != null ? !createDate.equals(that.createDate) : that.createDate != null) {
@@ -273,7 +273,7 @@ public class UserInformation implements UserDetails {
         result = 31 * result + (mail != null ? mail.hashCode() : 0);
         result = 31 * result + (tel != null ? tel.hashCode() : 0);
         result = 31 * result + (profession != null ? profession.hashCode() : 0);
-        result = 31 * result + (bluetooth != null ? bluetooth.hashCode() : 0);
+        result = 31 * result + (identifier != null ? identifier.hashCode() : 0);
         result = 31 * result + (avatar != null ? avatar.hashCode() : 0);
         result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
         result = 31 * result + (modifyDate != null ? modifyDate.hashCode() : 0);

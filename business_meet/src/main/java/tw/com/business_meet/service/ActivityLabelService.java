@@ -14,4 +14,5 @@ public interface ActivityLabelService {
     public List<ActivityLabelBean> search(ActivityLabelBean activityLabelBean) throws Exception;
 
     public void delete(Integer activityLabelNo) throws Exception;
+    public ActivityLabelBean getById(Integer activityLabelNo) throws Exception;
 }

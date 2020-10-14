@@ -17,7 +17,7 @@ public class ActivityLabelDAOImpl extends BaseDAOImpl<ActivityLabel> implements 
         Integer activityNo = activityLabelBean.getActivityNo();
         String content = activityLabelBean.getContent();
         if (activityNo != null && activityNo != 0) {
-            detachedCriteria.add(Restrictions.eq("activityNp", activityNo));
+            detachedCriteria.add(Restrictions.eq("activityNo", activityNo));
         }
         if (content != null && !content.equals("")) {
             detachedCriteria.add(Restrictions.like("content", "%" + content + "%"));

@@ -27,7 +27,7 @@ public class UserInformationController {
             result.put("result", true);
             ArrayNode arrayNode = result.putArray("data");
             for (UserInformationBean ui : uibList) {
-                System.out.println("search : " + ui.getBluetooth() + " : " + ui.getName());
+                System.out.println("search : " + ui.getIdentifier() + " : " + ui.getName());
                 arrayNode.addPOJO(ui);
             }
         } catch (Exception e) {
@@ -56,12 +56,12 @@ public class UserInformationController {
 
     }
 
-    @PostMapping(path = "/getBluetooth/{bluetooth}", produces = "application/json;charset=utf-8")
-    public String getByBluetooth(@PathVariable String bluetooth) throws Exception {
+    @PostMapping(path = "/getbyidentifier/{identifier}", produces = "application/json;charset=utf-8")
+    public String getByIdentifier(@PathVariable String identifier) throws Exception {
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();
         try {
-            UserInformationBean userInformationBean = userInformationService.getByBluetooth(bluetooth);
+            UserInformationBean userInformationBean = userInformationService.getByIdentifier(identifier);
             if (userInformationBean != null) {
                 result.put("result", true);
                 result.putPOJO("data", userInformationBean);
@@ -84,8 +84,8 @@ public class UserInformationController {
         try {
             UserInformationBean check = userInformationService.getById(userInformationBean.getUserId());
             if(check == null) {
-                check = userInformationService.getByBluetooth(userInformationBean.getBluetooth());
-                System.out.println(check.getBluetooth());
+                check = userInformationService.getByIdentifier(userInformationBean.getIdentifier());
+
                 if(check == null) {
                     UserInformationBean uib = userInformationService.add(userInformationBean);
 
@@ -93,7 +93,7 @@ public class UserInformationController {
                     result.putPOJO("data", uib);
                 }else {
                     result.put("result", false);
-                    result.put("message", "此手機藍牙位置已註冊");
+                    result.put("message", "此手機識別碼已註冊");
                 }
             }else {
                 result.put("result", false);

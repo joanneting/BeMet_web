@@ -4,15 +4,15 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 
 public class CustomAuthenticationToken extends
         UsernamePasswordAuthenticationToken {
-    private String bluetooth;
+    private String identifier;
 
-    public CustomAuthenticationToken(String principal, String credentials, String bluetooth) {
+    public CustomAuthenticationToken(String principal, String credentials, String identifier) {
         super(principal, credentials);
-        this.bluetooth = bluetooth;
+        this.identifier = identifier;
     }
 
-    public String getBluetooth() {
-        return bluetooth;
+    public String getIdentifier() {
+        return identifier;
     }
 
 }

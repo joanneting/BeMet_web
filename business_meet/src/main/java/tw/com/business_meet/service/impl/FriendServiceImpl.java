@@ -29,6 +29,13 @@ public class FriendServiceImpl implements FriendService {
         }
         return fbList;
     }
+ @Override
+    public List<FriendBean> searchInviteList(FriendBean friendBean) throws Exception {
+
+        List<FriendBean> fbList = friendDAO.searchInviteList(friendBean);
+
+        return fbList;
+    }
 
     @Override
     public FriendBean add(FriendBean friendBean) throws Exception {
