@@ -78,6 +78,41 @@ public class TimelineController {
         ObjectNode result = o.createObjectNode();
         try {
             TimelineBean tb = timelineService.update(timelineBean);
+            Integer timelineNo = timelineBean.getTimelineNo();
+
+            if(timelineBean.getTimelinePropertiesNo() == 1){
+                ActivityLabelBean activityLabelBean = timelineBean.getActivityLabelBean();
+                activityLabelService.update(activityLabelBean);
+
+                ActivityDateBean searchActivityDateBean = new ActivityDateBean();
+                searchActivityDateBean.setActivityNo(timelineNo);
+                List<ActivityDateBean> activityDateBeanList = activityDateService.search(searchActivityDateBean);
+                ActivityDateBean activityDateBean = activityDateBeanList.get(0);
+                activityDateBean.setStartDate(timelineBean.getStartDate());
+                activityDateBean.setEndDate(timelineBean.getEndDate());
+                activityDateService.update(activityDateBean);
+
+                ActivityInviteBean searchInviteBean = new ActivityInviteBean();
+                searchInviteBean.setActivityNo(timelineNo);
+
+                List<ActivityInviteBean> deleteInviteBeanList = activityInviteService.search(searchInviteBean);
+                for (ActivityInviteBean deleteInviteBean : deleteInviteBeanList) {
+                    activityInviteService.delete(deleteInviteBean.getActivityInviteNo());
+                }
+                List<ActivityInviteBean> resultInviteList = new ArrayList<>();
+                List<ActivityInviteBean> activityInviteBeanList = timelineBean.getActivityInviteBeanList();
+                for (ActivityInviteBean activityInviteBean : activityInviteBeanList) {
+                    activityInviteBean.setActivityNo(tb.getTimelineNo());
+                    activityInviteBean.setStatus(activityInviteBean.getStatusCode()==null?1:activityInviteBean.getStatus());
+                    ActivityInviteBean resultBean = activityInviteService.add(activityInviteBean);
+                    resultInviteList.add(resultBean);
+                }
+                tb.setActivityLabelBean(activityLabelBean);
+                tb.setActivityInviteBeanList(activityInviteBeanList);
+                tb.setStartDate(activityDateBean.getStartDate());
+                tb.setEndDate(activityDateBean.getEndDate());
+
+            }
             result.put("result", true);
             result.putPOJO("data", tb);
         } catch (Exception e) {
@@ -111,7 +146,7 @@ public class TimelineController {
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();
         try {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E M月d日 aa h:m");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年M月d日 E aa h:m");
             TimelineBean timelineBean = timelineService.getById(timelineNo);
             if(timelineBean.getTimelinePropertiesNo()==1) {
                 ActivityInviteBean activityInviteBean = new ActivityInviteBean();
