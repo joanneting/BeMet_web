@@ -32,17 +32,16 @@ public class FriendDAOImpl extends BaseDAOImpl<Friend> implements FriendDAO {
         if (remark != null && !remark.equals("")) {
             detachedCriteria.add(Restrictions.eq("remark", remark));
         }
+        detachedCriteria.add(Restrictions.eq("status",2));
         return (List<Friend>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
     }
     @Override
-    public List<FriendBean> searchInviteList(FriendBean friendBean) {
-        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Friend.class,"friend");
-        detachedCriteria.createAlias("userInformationByFriendId","userInformation");
+    public Friend searchAddData(FriendBean friendBean) {
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Friend.class);
         String matchmakerId = friendBean.getMatchmakerId();
         String friendId = friendBean.getFriendId();
         String remark = friendBean.getRemark();
-        System.out.println("matched search matchmakerId: " + matchmakerId);
-        System.out.println("matched search friendId: " + friendId);
+
         if (matchmakerId != null && !matchmakerId.equals("")) {
             detachedCriteria.add(Restrictions.eq("matchmakerId", matchmakerId));
         }
@@ -52,6 +51,30 @@ public class FriendDAOImpl extends BaseDAOImpl<Friend> implements FriendDAO {
         if (remark != null && !remark.equals("")) {
             detachedCriteria.add(Restrictions.eq("remark", remark));
         }
+        List<Friend> addData =( List<Friend>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
+        if(addData.size() > 0) {
+            return addData.get(0);
+        }else {
+            return null;
+        }
+    }
+    @Override
+    public List<FriendBean> searchInviteList(FriendBean friendBean) {
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Friend.class,"friend");
+        detachedCriteria.createAlias("userInformationByFriendId","userInformation");
+        String matchmakerId = friendBean.getMatchmakerId();
+        String friendId = friendBean.getFriendId();
+        String remark = friendBean.getRemark();
+        if (matchmakerId != null && !matchmakerId.equals("")) {
+            detachedCriteria.add(Restrictions.eq("matchmakerId", matchmakerId));
+        }
+        if (friendId != null && !friendId.equals("")) {
+            detachedCriteria.add(Restrictions.eq("friendId", friendId));
+        }
+        if (remark != null && !remark.equals("")) {
+            detachedCriteria.add(Restrictions.eq("remark", remark));
+        }
+        detachedCriteria.add(Restrictions.eq("status",2));
         ProjectionList projectionList = Projections.projectionList();
 
         projectionList.add(Projections.property("friend.friendId").as("friendId"));
@@ -64,7 +87,35 @@ public class FriendDAOImpl extends BaseDAOImpl<Friend> implements FriendDAO {
         List<FriendBean> friendBeanList = new ArrayList<>();
         for (Object[] object : objects) {
             FriendBean resultBean = new FriendBean();
-            System.out.println("object[2] = " + object[2]);
+            resultBean.setFriendId(object[0].toString());
+            resultBean.setMatchmakerId(object[1].toString());
+            resultBean.setFriendName(object[2].toString());
+            resultBean.setFriendAvatar(object[3].toString());
+            friendBeanList.add(resultBean);
+        }
+        return friendBeanList;
+    }
+
+    @Override
+    public List<FriendBean> searchInviteNotification(String userId) {
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Friend.class,"friend");
+        detachedCriteria.createAlias("userInformationByFriendId","userInformation");
+
+        detachedCriteria.add(Restrictions.eq("friendId",userId));
+        detachedCriteria.add(Restrictions.eq("status",1));
+
+        ProjectionList projectionList = Projections.projectionList();
+
+        projectionList.add(Projections.property("friend.friendId").as("friendId"));
+        projectionList.add(Projections.property("friend.matchmakerId").as("matchmakerId"));
+        projectionList.add(Projections.property("userInformation.name").as("userName"));
+        projectionList.add(Projections.property("userInformation.avatar").as("userAvatar"));
+        detachedCriteria.setProjection(projectionList);
+        List<Object[]> objects = (List<Object[]>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
+
+        List<FriendBean> friendBeanList = new ArrayList<>();
+        for (Object[] object : objects) {
+            FriendBean resultBean = new FriendBean();
             resultBean.setFriendId(object[0].toString());
             resultBean.setMatchmakerId(object[1].toString());
             resultBean.setFriendName(object[2].toString());

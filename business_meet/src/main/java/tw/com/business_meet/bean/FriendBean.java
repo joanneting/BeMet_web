@@ -9,6 +9,7 @@ public class FriendBean {
     private String friendName;
     private String friendAvatar;
     private String remark;
+    private Integer status;
     private Date createDate;
     private Date modifyDate;
     private Integer statusCode;
@@ -64,6 +65,14 @@ public class FriendBean {
 
     public Date getCreateDate() {
         return createDate;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public void setCreateDate(Date createDate) {
