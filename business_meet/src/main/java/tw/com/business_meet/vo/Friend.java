@@ -11,6 +11,7 @@ public class Friend {
     private String matchmakerId;
     private String friendId;
     private String remark;
+    private Integer status;
     private Date createDate;
     private Date modifyDate;
     private Collection<FriendCustomization> friendCustomizationsByFriendNo;
@@ -41,6 +42,16 @@ public class Friend {
     }
 
     @Basic
+    @Column(name="status")
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    @Basic
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")
     public Date getCreateDate() {
@@ -63,6 +74,8 @@ public class Friend {
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
     }
+
+
 
     @Override
     public boolean equals(Object o) {

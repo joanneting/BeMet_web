@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface FriendDAO extends BaseDAO<Friend> {
     public List<Friend> search(FriendBean matchedBean);
+    public Friend searchAddData(FriendBean matchedBean);
     public List<FriendBean> searchInviteList(FriendBean matchedBean);
+    public List<FriendBean> searchInviteNotification(String userId);
 }
