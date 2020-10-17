@@ -53,7 +53,7 @@ public class FriendController {
             FriendBean searchBean = friendService.searchAddData(friendBean);
             if (searchBean!=null){
                 if (searchBean.getStatus() == 3){
-                    searchBean.setStatus(2);
+                    searchBean.setStatus(1);
                     resultBean = friendService.update(searchBean);
                 }else {
                     resultBean = searchBean;
