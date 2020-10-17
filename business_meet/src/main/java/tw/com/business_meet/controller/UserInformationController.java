@@ -3,9 +3,7 @@ package tw.com.business_meet.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import tw.com.business_meet.bean.UserInformationBean;
@@ -18,35 +16,60 @@ import java.util.List;
 public class UserInformationController {
     @Autowired
     UserInformationService userInformationService;
+
+
     @PostMapping(path = "/search", produces = "application/json;charset=UTF-8")
-    public String search(@RequestBody  UserInformationBean userInformationBean) throws Exception{
+    public String search(@RequestBody UserInformationBean userInformationBean) throws Exception {
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();
         try {
             List<UserInformationBean> uibList = userInformationService.search(userInformationBean);
-            result.put("result",true);
+            result.put("result", true);
             ArrayNode arrayNode = result.putArray("data");
             for (UserInformationBean ui : uibList) {
-                System.out.println("search : "+ ui.getBlueTooth()+" : "+ui.getUserName());
+                System.out.println("search : " + ui.getIdentifier() + " : " + ui.getName());
                 arrayNode.addPOJO(ui);
             }
-        }catch (Exception e){
-            result.put("result",false);
+        } catch (Exception e) {
+            result.put("result", false);
             e.printStackTrace();
         }
         return o.writeValueAsString(result);
     }
-    @PostMapping(path="/get/{blueTooth}", produces = "application/json;charset=utf-8")
-    public String getById(@PathVariable String blueTooth) throws  Exception{
+
+    @PostMapping(path = "/get/{userId}", produces = "application/json;charset=utf-8")
+    public String getById(@PathVariable String userId) throws Exception {
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();
         try {
-            UserInformationBean userInformationBean = userInformationService.getById(blueTooth);
-            result.put("result",true);
-            result.putPOJO("data",userInformationBean);
+            System.out.println(userId);
+            UserInformationBean userInformationBean = userInformationService.getById(userId);
+            result.put("result", true);
+            result.putPOJO("data", userInformationBean);
 
-        }catch(Exception e){
-            result.put("result",false);
+        } catch (Exception e) {
+            result.put("result", false);
+//            result.putObject("data");
+            e.printStackTrace();
+        }
+        return o.writeValueAsString(result);
+
+    }
+
+    @PostMapping(path = "/getbyidentifier/{identifier}", produces = "application/json;charset=utf-8")
+    public String getByIdentifier(@PathVariable String identifier) throws Exception {
+        ObjectMapper o = new ObjectMapper();
+        ObjectNode result = o.createObjectNode();
+        try {
+            UserInformationBean userInformationBean = userInformationService.getByIdentifier(identifier);
+            if (userInformationBean != null) {
+                result.put("result", true);
+                result.putPOJO("data", userInformationBean);
+            } else {
+                result.put("result", false);
+            }
+        } catch (Exception e) {
+            result.put("result", false);
 //            result.putObject("data");
             e.printStackTrace();
         }
@@ -55,43 +78,57 @@ public class UserInformationController {
     }
 
     @PostMapping(path = "/add", produces = "application/json;charset=UTF-8")
-    public String add(@RequestBody UserInformationBean userInformationBean) throws Exception{
+    public String add(@RequestBody UserInformationBean userInformationBean) throws Exception {
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();
-        System.out.println("uib.getUserName() = " + userInformationBean.getUserName());
-        try{
-            UserInformationBean uib = userInformationService.add(userInformationBean);
+        try {
+            UserInformationBean check = userInformationService.getById(userInformationBean.getUserId());
+            if(check == null) {
+                check = userInformationService.getByIdentifier(userInformationBean.getIdentifier());
 
-            result.put("result",true);
-            result.putPOJO("data",uib);
-        }catch(Exception e){
+                if(check == null) {
+                    UserInformationBean uib = userInformationService.add(userInformationBean);
+
+                    result.put("result", true);
+                    result.putPOJO("data", uib);
+                }else {
+                    result.put("result", false);
+                    result.put("message", "此手機識別碼已註冊");
+                }
+            }else {
+                result.put("result", false);
+                result.put("message", "此帳號已被註冊");
+            }
+        } catch (Exception e) {
             e.printStackTrace();
-            result.put("result",false);
+            result.put("result", false);
             result.putObject("data");
         }
         return o.writeValueAsString(result);
     }
 
     @PostMapping(path = "/update", produces = "application/json;charset=UTF-8")
-    public String update(@RequestBody UserInformationBean userInformationBean) throws Exception{
+    public String update(@RequestBody UserInformationBean userInformationBean) throws Exception {
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();
-        try{
-            userInformationService.update(userInformationBean);
-            result.put("result",true);
-        }catch(Exception e){
-            result.put("result",false);
+        try {
+            userInformationBean = userInformationService.update(userInformationBean);
+            result.put("result", true);
+            result.putPOJO("data", userInformationBean);
+        } catch (Exception e) {
+            result.put("result", false);
             e.printStackTrace();
         }
         return o.writeValueAsString(result);
     }
+
     @GetMapping(path = "/test")
-    public ModelAndView test(){
+    public ModelAndView test() {
         ModelAndView modelAndView = new ModelAndView("searchPage");
-        try{
+        try {
             List<UserInformationBean> userInformationBeanList = userInformationService.searchAll();
-            modelAndView.addObject("dataList",userInformationBeanList);
-        }catch (Exception e){
+            modelAndView.addObject("dataList", userInformationBeanList);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return modelAndView;

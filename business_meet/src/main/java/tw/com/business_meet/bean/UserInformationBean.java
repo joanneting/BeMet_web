@@ -1,88 +1,124 @@
 package tw.com.business_meet.bean;
 
-import java.io.Serializable;
 import java.util.Date;
 
 public class UserInformationBean {
-    private String blueTooth;
-    private String userName;
-    private String company;
-    private String position;
+    private String userId;
+    private String password;
+    private String name;
+    private String gender;
+    private String mail;
+    private String profession;
+    private String identifier;
     private String avatar;
     private String tel;
-    private String email;
     private Date createDate;
     private Date modifyDate;
+    private Integer roleNo;
+    private Integer statusCode;
 
-	public String getBlueTooth() {
-		return blueTooth;
-	}
+    public String getUserId() {
+        return userId;
+    }
 
-	public void setBlueTooth(String blueTooth) {
-		this.blueTooth = blueTooth;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public String getCompany() {
-		return company;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setCompany(String company) {
-		this.company = company;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getPosition() {
-		return position;
-	}
+    public String getGender() {
+        return gender;
+    }
 
-	public void setPosition(String position) {
-		this.position = position;
-	}
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
-	public String getAvatar() {
-		return avatar;
-	}
+    public String getMail() {
+        return mail;
+    }
 
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
-	}
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
 
-	public String getTel() {
-		return tel;
-	}
+    public String getAvatar() {
+        return avatar;
+    }
 
-	public void setTel(String tel) {
-		this.tel = tel;
-	}
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getTel() {
+        return tel;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
 
-	public Date getCreateDate() {
-		return createDate;
-	}
+    public String getProfession() {
+        return profession;
+    }
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
 
-	public Date getModifyDate() {
-		return modifyDate;
-	}
+    public String getIdentifier() {
+        return identifier;
+    }
 
-	public void setModifyDate(Date modifyDate) {
-		this.modifyDate = modifyDate;
-	}
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
+
+    public Integer getRoleNo() {
+        return roleNo;
+    }
+
+    public void setRoleNo(Integer roleNo) {
+        this.roleNo = roleNo;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getModifyDate() {
+        return modifyDate;
+    }
+
+    public void setModifyDate(Date modifyDate) {
+        this.modifyDate = modifyDate;
+    }
+
+
+    public Integer getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(Integer statusCode) {
+        this.statusCode = statusCode;
+    }
 }
