@@ -77,8 +77,12 @@ public class FriendController {
         ObjectNode result = o.createObjectNode();
         try {
             Integer status = friendBean.getStatus();
+            FriendBean friendMatchBean = new FriendBean();
+            friendMatchBean.setMatchmakerId(friendBean.getFriendId());
+            friendMatchBean.setFriendId(friendBean.getMatchmakerId());
+            friendMatchBean = friendService.searchAddData(friendMatchBean);
             if(status == null){
-                friendService.delete(friendBean.getFriendNo());
+                friendService.delete(friendMatchBean.getFriendNo());
             }else if (status == 2){
                 FriendBean searchBean = new FriendBean();
                 searchBean.setFriendId(friendBean.getFriendId());
@@ -91,10 +95,6 @@ public class FriendController {
                     searchResultBean.setStatus(2);
                     friendService.update(searchResultBean);
                 }
-                FriendBean friendMatchBean = new FriendBean();
-                friendMatchBean.setMatchmakerId(friendBean.getFriendId());
-                friendMatchBean.setFriendId(friendBean.getMatchmakerId());
-                friendMatchBean = friendService.searchAddData(friendMatchBean);
                 friendMatchBean.setStatus(2);
                 FriendBean resultBean = friendService.update(friendMatchBean);
                 result.putPOJO("data",resultBean);
