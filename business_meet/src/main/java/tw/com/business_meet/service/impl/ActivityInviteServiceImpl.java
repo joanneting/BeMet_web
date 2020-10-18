@@ -55,6 +55,36 @@ public class ActivityInviteServiceImpl implements ActivityInviteService {
         }
         return activityInviteBeanList;
     }
+    @Override
+    public List<ActivityInviteBean> searchAccept(ActivityInviteBean activityInviteBean) throws Exception {
+        List<ActivityInvite> activityInviteList = activityInviteDAO.searchAccept(activityInviteBean);
+        List<ActivityInviteBean> activityInviteBeanList = new ArrayList<>();
+        for (ActivityInvite activityInvite : activityInviteList) {
+            ActivityInviteBean aib = new ActivityInviteBean();
+            BeanUtility.copyProperties(activityInvite, aib);
+            UserInformation userInformation = userInformationDAO.getById(aib.getUserId());
+            Timeline timeline = timelineDAO.getById(aib.getActivityNo());
+            ActivityDateBean activityDateBean = new ActivityDateBean();
+            activityDateBean.setActivityNo(aib.getActivityNo());
+            ActivityDate activityDate = activityDateDAO.search(activityDateBean).get(0);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            Date startDate = activityDate.getStartDate();
+            Date endDate = activityDate.getEndDate();
+            aib.setCreateDateStr(new SimpleDateFormat("yyyy-MM-dd").format(aib.getCreateDate()));
+            aib.setActivityDate(simpleDateFormat.format(startDate)+"-"+simpleDateFormat.format(endDate));
+            aib.setPlace(timeline.getPlace());
+            aib.setTitle(timeline.getTitle());
+            aib.setUserName(userInformation.getName());
+            aib.setAvatar(userInformation.getAvatar());
+            activityInviteBeanList.add(aib);
+        }
+        return activityInviteBeanList;
+    }
+
+//    @Override
+//    public List<ActivityInviteBean> searchCommonActivity(ActivityInviteBean activityInviteBean) throws Exception {
+//        return null;
+//    }
 
     @Override
     public List<ActivityInviteBean> searchAll() throws Exception {

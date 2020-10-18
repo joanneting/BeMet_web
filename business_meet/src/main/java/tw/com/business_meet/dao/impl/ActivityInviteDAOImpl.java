@@ -29,4 +29,34 @@ public class ActivityInviteDAOImpl extends BaseDAOImpl<ActivityInvite> implement
 
         return (List<ActivityInvite>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
     }
+    @Override
+    public List<ActivityInvite> searchAccept(ActivityInviteBean activityInviteBean) {
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(ActivityInvite.class);
+        Integer activityNo = activityInviteBean.getActivityNo();
+        Integer status = activityInviteBean.getStatus();
+        String userId = activityInviteBean.getUserId();
+        if (activityNo != null && activityNo != 0) {
+            detachedCriteria.add(Restrictions.eq("activityNo", activityNo));
+        }
+            detachedCriteria.add(Restrictions.eq("status", 2));
+        if (userId != null && !userId.equals("")) {
+            detachedCriteria.add(Restrictions.eq("userId", userId));
+        }
+        return (List<ActivityInvite>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
+    }
+//    @Override
+//    public List<ActivityInvite> searchAccept(ActivityInviteBean activityInviteBean) {
+//        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(ActivityInvite.class);
+//        Integer activityNo = activityInviteBean.getActivityNo();
+//        Integer status = activityInviteBean.getStatus();
+//        String userId = activityInviteBean.getUserId();
+//        if (activityNo != null && activityNo != 0) {
+//            detachedCriteria.add(Restrictions.eq("activityNo", activityNo));
+//        }
+//            detachedCriteria.add(Restrictions.eq("status", 2));
+//        if (userId != null && !userId.equals("")) {
+//            detachedCriteria.add(Restrictions.eq("userId", userId));
+//        }
+//        return (List<ActivityInvite>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
+//    }
 }
