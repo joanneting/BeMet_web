@@ -14,5 +14,7 @@ public interface FriendGroupService {
     public List<FriendGroupBean> searchAll() throws Exception;
 
     public void delete(Integer friendGroupNo) throws Exception;
+    
+    public List<FriendGroupBean> searchGroupCount() throws  Exception;
 
 }

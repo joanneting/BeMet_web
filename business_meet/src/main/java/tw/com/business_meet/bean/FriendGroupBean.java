@@ -4,8 +4,11 @@ import java.util.Date;
 
 public class FriendGroupBean {
     private Integer friendGroupNo;
+    private String userId;
     private Integer groupNo;
+    private String groupName;
     private Integer friendNo;
+    private Integer count;
     private Date createDate;
     private Date modifyDate;
     private Integer statusCode;
@@ -18,6 +21,14 @@ public class FriendGroupBean {
         this.friendGroupNo = friendGroupNo;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public Integer getGroupNo() {
         return groupNo;
     }
@@ -26,12 +37,28 @@ public class FriendGroupBean {
         this.groupNo = groupNo;
     }
 
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
     public Integer getFriendNo() {
         return friendNo;
     }
 
     public void setFriendNo(Integer friendNo) {
         this.friendNo = friendNo;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
     public Date getCreateDate() {
