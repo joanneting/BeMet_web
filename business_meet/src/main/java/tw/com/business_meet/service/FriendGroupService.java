@@ -10,6 +10,7 @@ public interface FriendGroupService {
     public FriendGroupBean update(FriendGroupBean friendGroupBean) throws Exception;
 
     public List<FriendGroupBean> search(FriendGroupBean friendGroupBean) throws Exception;
+    public List<FriendGroupBean> searchFriendByGroup(Integer groupNo) throws Exception;
 
     public List<FriendGroupBean> searchAll() throws Exception;
 

@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'tw.com'
-version = '0.5.3'
+version = '0.5.5'
 sourceCompatibility = '11'
 
 repositories {

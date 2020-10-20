@@ -53,6 +53,15 @@ public class FriendGroupServiceImpl implements FriendGroupService {
     }
 
     @Override
+    public List<FriendGroupBean> searchFriendByGroup(Integer groupNo) throws Exception {
+        FriendGroupBean friendGroupBean = new FriendGroupBean();
+        friendGroupBean.setGroupNo(groupNo);
+        List<FriendGroupBean> friendGroupBeanList = friendGroupDAO.searchFriendByGroup(friendGroupBean);
+
+        return friendGroupBeanList;
+    }
+
+    @Override
     public List<FriendGroupBean> searchAll() throws Exception {
         List<FriendGroup> friendGroupList = friendGroupDAO.searchAll();
         List<FriendGroupBean> friendGroupBeanList = new ArrayList<>();

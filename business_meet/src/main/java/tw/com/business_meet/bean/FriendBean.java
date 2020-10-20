@@ -8,6 +8,7 @@ public class FriendBean {
     private String friendId;
     private String friendName;
     private String friendAvatar;
+    private String friendProfession;
     private String remark;
     private Integer status;
     private Date createDate;
@@ -53,6 +54,14 @@ public class FriendBean {
 
     public void setFriendAvatar(String friendAvatar) {
         this.friendAvatar = friendAvatar;
+    }
+
+    public String getFriendProfession() {
+        return friendProfession;
+    }
+
+    public void setFriendProfession(String friendProfession) {
+        this.friendProfession = friendProfession;
     }
 
     public String getRemark() {
