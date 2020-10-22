@@ -20,5 +20,6 @@ public interface FriendService {
 
     public List<FriendBean> searchAll() throws Exception;
     public List<FriendBean> inviteNotification() throws Exception;
+    public List<FriendBean> searchAllInvite() throws Exception;
     public FriendBean searchAddData(FriendBean friendBean) throws Exception;
 }

@@ -25,6 +25,7 @@ public class UserInformation implements UserDetails {
     private String avatar;
     private String tel;
     private Integer roleNo;
+    private String firebaseToken;
     private Date createDate;
     private Date modifyDate;
     private UserRole userRoleByRoleNo;
@@ -113,6 +114,15 @@ public class UserInformation implements UserDetails {
 
     public void setRoleNo(Integer roleNo) {
         this.roleNo = roleNo;
+    }
+
+    @Column(name = "firebase_token")
+    public String getFirebaseToken() {
+        return firebaseToken;
+    }
+
+    public void setFirebaseToken(String firebaseToken) {
+        this.firebaseToken = firebaseToken;
     }
 
     @Basic

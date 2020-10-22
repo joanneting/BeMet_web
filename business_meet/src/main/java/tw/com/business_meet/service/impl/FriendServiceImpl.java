@@ -53,6 +53,7 @@ public class FriendServiceImpl implements FriendService {
         return fbList;
     }
 
+
     @Override
     public FriendBean add(FriendBean friendBean) throws Exception {
         Friend f = new Friend();
@@ -112,6 +113,11 @@ public class FriendServiceImpl implements FriendService {
     public List<FriendBean> inviteNotification() throws Exception {
         UserInformation userInformation = (UserInformation)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<FriendBean> friendBeanList = friendDAO.searchInviteNotification(userInformation.getUserId());
+        return friendBeanList;
+    }
+    @Override
+    public List<FriendBean> searchAllInvite() throws Exception {
+        List<FriendBean> friendBeanList = friendDAO.searchAllInvite();
         return friendBeanList;
     }
 }

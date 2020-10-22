@@ -9,6 +9,7 @@ public class FriendBean {
     private String friendName;
     private String friendAvatar;
     private String friendProfession;
+    private String firebaseToken;
     private String remark;
     private Integer status;
     private Date createDate;
@@ -62,6 +63,14 @@ public class FriendBean {
 
     public void setFriendProfession(String friendProfession) {
         this.friendProfession = friendProfession;
+    }
+
+    public String getFirebaseToken() {
+        return firebaseToken;
+    }
+
+    public void setFirebaseToken(String firebaseToken) {
+        this.firebaseToken = firebaseToken;
     }
 
     public String getRemark() {
