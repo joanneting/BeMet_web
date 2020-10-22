@@ -184,18 +184,45 @@ public class TimelineController {
         ObjectNode result = o.createObjectNode();
         try {
             List<TimelineBean> timelineBeanList = timelineService.search(timelineBean);
-            ActivityInviteBean activityInviteBean = new ActivityInviteBean();
+
             UserInformation userInformation = (UserInformation)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            activityInviteBean.setUserId(userInformation.getUserId());
-            List<ActivityInviteBean> inviteList = activityInviteService.searchAccept(activityInviteBean);
-            for (ActivityInviteBean inviteBean : inviteList) {
-                timelineBeanList.add(timelineService.getById(inviteBean.getActivityNo()));
-            }
+
+
             if(timelineBean.getFriendId()!=null){
                 TimelineBean searchBean = new TimelineBean();
                 searchBean.setMatchmakerId(timelineBean.getMatchmakerId());
-                List<TimelineBean> resultList = timelineService.search(searchBean);
-                timelineBeanList.addAll(resultList);
+                List<TimelineBean> resultSelfList = timelineService.search(searchBean);
+                searchBean.setMatchmakerId(timelineBean.getFriendId());
+                List<TimelineBean> resultFriendList = timelineService.search(searchBean);
+
+                for (TimelineBean searchTimeBean : resultSelfList) {
+                    ActivityInviteBean activityInviteBean = new ActivityInviteBean();
+                    activityInviteBean.setUserId(timelineBean.getFriendId());
+                    activityInviteBean.setActivityNo(searchTimeBean.getTimelineNo());
+                    List<ActivityInviteBean> inviteList = activityInviteService.searchAccept(activityInviteBean);
+                    if (inviteList.size() > 0){
+                        timelineBeanList.add(searchTimeBean);
+                    }
+                }
+                for (TimelineBean searchTimeBean : resultFriendList) {
+                    ActivityInviteBean activityInviteBean = new ActivityInviteBean();
+                    activityInviteBean.setUserId(timelineBean.getMatchmakerId());
+                    activityInviteBean.setActivityNo(searchTimeBean.getTimelineNo());
+                    List<ActivityInviteBean> inviteList = activityInviteService.searchAccept(activityInviteBean);
+                    if (inviteList.size() > 0){
+                        timelineBeanList.add(searchTimeBean);
+                    }
+                }
+
+
+
+            }else{
+                ActivityInviteBean activityInviteBean = new ActivityInviteBean();
+                activityInviteBean.setUserId(userInformation.getUserId());
+                List<ActivityInviteBean> inviteList = activityInviteService.searchAccept(activityInviteBean);
+                for (ActivityInviteBean inviteBean : inviteList) {
+                    timelineBeanList.add(timelineService.getById(inviteBean.getActivityNo()));
+                }
             }
             for (int i = 0; i < timelineBeanList.size(); i++) {
                 TimelineBean tlb  = timelineBeanList.get(i);
