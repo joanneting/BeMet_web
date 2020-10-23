@@ -74,7 +74,7 @@ public class FriendDAOImpl extends BaseDAOImpl<Friend> implements FriendDAO {
         if (remark != null && !remark.equals("")) {
             detachedCriteria.add(Restrictions.eq("remark", remark));
         }
-        detachedCriteria.add(Restrictions.eq("status",1));
+        detachedCriteria.add(Restrictions.eq("status",2));
         ProjectionList projectionList = Projections.projectionList();
 
         projectionList.add(Projections.property("friend.friendId").as("friendId"));

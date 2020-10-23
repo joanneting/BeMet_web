@@ -19,7 +19,6 @@ public class FriendGroupDAOImpl extends BaseDAOImpl<FriendGroup> implements Frie
     @Override
     public List<FriendGroup> search(FriendGroupBean friendGroupBean) {
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(FriendGroup.class);
-        detachedCriteria.createAlias("groupsByGroupNo","groups");
         Integer friendNo = friendGroupBean.getFriendNo();
         Integer groupNo = friendGroupBean.getGroupNo();
         if (friendNo != null && friendNo != 0) {
