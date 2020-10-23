@@ -21,7 +21,6 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
     public CustomLoginFilter(AuthenticationManager authenticationManager, UserInformationDAO userInformationDAO) {
         Assert.notNull(authenticationManager, "AuthenticationManager不能為null");
         setAuthenticationManager(authenticationManager);
-        System.out.println("login");
         setUsernameParameter("userId");
         setPasswordParameter("password");
         setAuthenticationSuccessHandler(new CustomAuthenticationSuccessHandler(userInformationDAO));

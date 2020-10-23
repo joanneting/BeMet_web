@@ -52,7 +52,6 @@ public class FriendController {
 
     @PostMapping(path = "/add", produces = "application/json;charset=UTF-8")
     public String add(@RequestBody FriendBean friendBean) throws Exception {
-        System.out.println("success");
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();
         try {
@@ -121,11 +120,11 @@ public class FriendController {
                 friendMatchBean.setStatus(2);
                 FriendBean resultBean = friendService.update(friendMatchBean);
 
-                UserInformationBean userInformationBean = userInformationService.getById(friendMatchBean.getMatchmakerId());
-                String registrationToken = userInformationBean.getFirebaseToken();
+                UserInformationBean friendInformation = userInformationService.getById(friendBean.getMatchmakerId());
+                String registrationToken = friendInformation.getFirebaseToken();
                 AndroidConfig androidConfig = getAndroidConfig("friend"+resultBean.getFriendNo());
                 Message message = Message.builder()
-                        .setAndroidConfig(androidConfig).putData("type","acceptFriendInvite").putData("friendId",resultBean.getFriendId()).putData("friendName",userInformationBean.getName()).setToken(registrationToken)
+                        .setAndroidConfig(androidConfig).putData("type","acceptFriendInvite").putData("friendId",userInformation.getUserId()).putData("friendName",userInformation.getName()).setToken(registrationToken)
                         .build();
                 String response = FirebaseMessaging.getInstance().sendAsync(message).get();
                 result.putPOJO("data",resultBean);

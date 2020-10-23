@@ -59,7 +59,6 @@ public class FriendServiceImpl implements FriendService {
         Friend f = new Friend();
         BeanUtility.copyProperties(friendBean, f);
         f.setCreateDate(new Date());
-        System.out.println("f.getFriendNo()" + f.getFriendNo());
 
         Friend result = friendDAO.saveAndReturn(f);
         BeanUtility.copyProperties(result, friendBean);
@@ -75,7 +74,6 @@ public class FriendServiceImpl implements FriendService {
         if (friend!=null) {
             BeanUtility.copyProperties(friendBean, friend);
             friend.setModifyDate(new Date());
-            System.out.println("f.getStatus() = " + friend.getStatus());
             friendDAO.update(friend);
             BeanUtility.copyProperties(friend, friendBean);
             return friendBean;

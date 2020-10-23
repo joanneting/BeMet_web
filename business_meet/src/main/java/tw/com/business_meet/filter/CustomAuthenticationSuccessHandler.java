@@ -36,8 +36,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         List<? extends GrantedAuthority> authorities = (List<? extends GrantedAuthority>) authentication.getAuthorities();
         GrantedAuthority grantedAuthority = authorities.get(0);
         String authorityName = grantedAuthority.getAuthority();
-        System.out.println("userDetails.getUsername() = " + userDetails.getUsername());
-        System.out.println("userInformationDAO = " + userInformationDAO);
         UserInformation userInformation = userInformationDAO.getById(userDetails.getUsername());
         UserInformationBean userInformationBean = new UserInformationBean();
         BeanUtility.copyProperties(userInformation,userInformationBean);

@@ -49,7 +49,6 @@ public class TimelineController {
                 ActivityDateBean activityDate = new ActivityDateBean();
                 activityDate.setActivityNo(tb.getTimelineNo());
 //                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                System.out.println("timelineBean.getCreateDate() = " + timelineBean.getCreateDate());
                 activityDate.setStartDate(timelineBean.getStartDate());
                 activityDate.setEndDate(timelineBean.getEndDate());
                 activityDateService.add(activityDate);

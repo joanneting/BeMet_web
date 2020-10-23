@@ -21,8 +21,6 @@ public class FriendDAOImpl extends BaseDAOImpl<Friend> implements FriendDAO {
         String matchmakerId = friendBean.getMatchmakerId();
         String friendId = friendBean.getFriendId();
         String remark = friendBean.getRemark();
-        System.out.println("matched search matchmakerId: " + matchmakerId);
-        System.out.println("matched search friendId: " + friendId);
         if (matchmakerId != null && !matchmakerId.equals("")) {
             detachedCriteria.add(Restrictions.eq("matchmakerId", matchmakerId));
         }
