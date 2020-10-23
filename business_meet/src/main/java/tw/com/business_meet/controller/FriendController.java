@@ -120,13 +120,15 @@ public class FriendController {
                 friendMatchBean.setStatus(2);
                 FriendBean resultBean = friendService.update(friendMatchBean);
 
-                UserInformationBean friendInformation = userInformationService.getById(friendBean.getMatchmakerId());
+                UserInformationBean friendInformation = userInformationService.getById(friendMatchBean.getMatchmakerId());
                 String registrationToken = friendInformation.getFirebaseToken();
-                AndroidConfig androidConfig = getAndroidConfig("friend"+resultBean.getFriendNo());
-                Message message = Message.builder()
-                        .setAndroidConfig(androidConfig).putData("type","acceptFriendInvite").putData("friendId",userInformation.getUserId()).putData("friendName",userInformation.getName()).setToken(registrationToken)
-                        .build();
-                String response = FirebaseMessaging.getInstance().sendAsync(message).get();
+                if(registrationToken!=null) {
+                    AndroidConfig androidConfig = getAndroidConfig("friend" + resultBean.getFriendNo());
+                    Message message = Message.builder()
+                            .setAndroidConfig(androidConfig).putData("type", "acceptFriendInvite").putData("friendId", userInformation.getUserId()).putData("friendName", userInformation.getName()).setToken(registrationToken)
+                            .build();
+                    String response = FirebaseMessaging.getInstance().sendAsync(message).get();
+                }
                 result.putPOJO("data",resultBean);
             }
             result.put("result",true);
