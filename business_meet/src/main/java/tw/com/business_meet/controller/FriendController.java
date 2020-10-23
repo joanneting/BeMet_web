@@ -106,11 +106,8 @@ public class FriendController {
                 FriendBean searchBean = new FriendBean();
                 searchBean.setFriendId(friendBean.getFriendId());
                 searchBean.setMatchmakerId(friendBean.getMatchmakerId());
-                System.out.println("friendBean.getMatchmakerId() = " + friendBean.getMatchmakerId());
-                System.out.println("friendBean.getFriendId() = " + friendBean.getFriendId());
                 FriendBean searchResultBean = friendService.searchAddData(searchBean);
                 if(searchResultBean ==null) {
-                    System.out.println("add");
                     searchBean.setStatus(2);
                     friendService.add(searchBean);
                 }else {
@@ -120,15 +117,17 @@ public class FriendController {
                 friendMatchBean.setStatus(2);
                 FriendBean resultBean = friendService.update(friendMatchBean);
 
-                UserInformationBean friendInformation = userInformationService.getById(friendMatchBean.getMatchmakerId());
+                UserInformationBean friendInformation = userInformationService.getById(friendBean.getFriendId());
+                UserInformationBean myInformation = userInformationService.getById(friendBean.getMatchmakerId());
                 String registrationToken = friendInformation.getFirebaseToken();
                 if(registrationToken!=null) {
                     AndroidConfig androidConfig = getAndroidConfig("friend" + resultBean.getFriendNo());
                     Message message = Message.builder()
-                            .setAndroidConfig(androidConfig).putData("type", "acceptFriendInvite").putData("friendId", userInformation.getUserId()).putData("friendName", userInformation.getName()).setToken(registrationToken)
+                            .setAndroidConfig(androidConfig).putData("type", "acceptFriendInvite").putData("friendId", myInformation.getUserId()).putData("friendName", myInformation.getName()).setToken(registrationToken)
                             .build();
                     String response = FirebaseMessaging.getInstance().sendAsync(message).get();
                 }
+
                 result.putPOJO("data",resultBean);
             }
             result.put("result",true);
