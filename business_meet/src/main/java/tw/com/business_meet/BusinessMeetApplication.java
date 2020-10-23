@@ -7,7 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication(exclude = HibernateJpaAutoConfiguration.class)
-@EnableScheduling
+//@EnableScheduling
 public class BusinessMeetApplication {
 
     public static void main(String[] args) {

@@ -141,7 +141,7 @@ public class FriendController {
     public String delete(@PathVariable Integer friendNo) throws Exception{
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();
-        System.out.println("\"delete\" = " + "delete");
+
         try {
             FriendBean friendBean = friendService.getById(friendNo);
             friendBean.setStatus(3);
