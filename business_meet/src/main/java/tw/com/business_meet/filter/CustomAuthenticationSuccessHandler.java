@@ -39,14 +39,19 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         UserInformation userInformation = userInformationDAO.getById(userDetails.getUsername());
         UserInformationBean userInformationBean = new UserInformationBean();
         BeanUtility.copyProperties(userInformation,userInformationBean);
-        ResponseUtils.response(
-                response,
-                200,
-                true,
-                "",
-                "登入成功",
-                mapper.createObjectNode().put("identity", authorityName).putPOJO("userInformationBean",userInformationBean)
-        );
+        if (request.getContentType().startsWith("application/json")) {
+            ResponseUtils.response(
+                    response,
+                    200,
+                    true,
+                    "",
+                    "登入成功",
+                    mapper.createObjectNode().put("identity", authorityName).putPOJO("userInformationBean",userInformationBean)
+            );
+        } else {
+            response.sendRedirect("problemreport/add");
+        }
+
     }
 
 

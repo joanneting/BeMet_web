@@ -62,7 +62,7 @@ private UserInformationDAO userInformationDAO;
                 .antMatchers(HttpMethod.GET, "/logout", "/timeout", "/error**")
                 .permitAll()
                 .antMatchers(HttpMethod.POST, "/userinformation/add").permitAll()
-                .antMatchers("/index").permitAll()//登入後只有admin權限才可訪問
+                .antMatchers("/index").permitAll()
                 .anyRequest()// 表示除了上述請求，都需要權限
                 .authenticated()
                 .and()

@@ -15,13 +15,19 @@ public class CustomEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         authException.printStackTrace();
         ObjectMapper mapper = new ObjectMapper();
-        ResponseUtils.response(
-                response,
-                401,
-                false,
-                "User - NotLogin",
-                "您尚未登入，請登入後再試一次。",
-                request.getRequestURI().endsWith("search") ? mapper.createArrayNode() : mapper.createObjectNode()
-        );
+        System.out.println("request.getHeader(\"refer\") = " + request.getHeader("refer"));
+        System.out.println("request.getHeader(\"X-Requested-With\") = " + request.getHeader("X-Requested-With"));
+        if(request.getHeader("X-Requested-With")!=null) {
+            ResponseUtils.response(
+                    response,
+                    401,
+                    false,
+                    "User - NotLogin",
+                    "您尚未登入，請登入後再試一次。",
+                    request.getRequestURI().endsWith("search") ? mapper.createArrayNode() : mapper.createObjectNode()
+            );
+        }else{
+            response.sendRedirect("login");
+        }
     }
 }

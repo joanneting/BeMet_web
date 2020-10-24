@@ -64,7 +64,7 @@ public class ProblemReport {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	@Column(name = "startDate")
+	@Column(name = "start_date")
 	public LocalDateTime getStartDate() {
 		return startDate;
 	}
@@ -73,7 +73,7 @@ public class ProblemReport {
 		this.startDate = startDate;
 	}
 
-	@Column(name = "endDate")
+	@Column(name = "end_date")
 	public LocalDateTime getEndDate() {
 		return endDate;
 	}
@@ -82,7 +82,7 @@ public class ProblemReport {
 		this.endDate = endDate;
 	}
 
-	@Column(name = "createDate")
+	@Column(name = "create_date")
 	public LocalDateTime getCreateDate() {
 		return createDate;
 	}
@@ -91,7 +91,7 @@ public class ProblemReport {
 		this.createDate = createDate;
 	}
 
-	@Column(name = "modifyDate")
+	@Column(name = "modify_date")
 	public LocalDateTime getModifyDate() {
 		return modifyDate;
 	}
