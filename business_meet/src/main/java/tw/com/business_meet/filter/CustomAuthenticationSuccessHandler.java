@@ -49,7 +49,14 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                     mapper.createObjectNode().put("identity", authorityName).putPOJO("userInformationBean",userInformationBean)
             );
         } else {
-            response.sendRedirect("problemreport/add");
+            for (GrantedAuthority authority : userDetails.getAuthorities()) {
+                if(authority.getAuthority().equals("user")){
+                    response.sendRedirect("problemreport/add");
+                }else{
+                    response.sendRedirect("problemreport/");
+                }
+            }
+
         }
 
     }
