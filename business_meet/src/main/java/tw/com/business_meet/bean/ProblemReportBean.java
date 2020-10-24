@@ -1,17 +1,21 @@
 package tw.com.business_meet.bean;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class ProblemReportBean {
     private Integer problemReportNo;
     private String content;
     private String userId;
+    private String userName;
     private Integer status;
-    private String startDate;
-    private Date endDate;
-    private Date createDate;
-    private Date modifyDate;
-    private Integer statusCode;
+    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    private LocalDateTime startDate;
+    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    private LocalDateTime endDate;
+    private LocalDateTime createDate;
+    private LocalDateTime modifyDate;
 
     public Integer getProblemReportNo() {
         return problemReportNo;
@@ -45,43 +49,44 @@ public class ProblemReportBean {
         this.status = status;
     }
 
-    public String getStartDate() {
-        return startDate;
-    }
+	public LocalDateTime getStartDate() {
+		return startDate;
+	}
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
+	public void setStartDate(LocalDateTime startDate) {
+		this.startDate = startDate;
+	}
 
-    public Date getEndDate() {
-        return endDate;
-    }
+	public LocalDateTime getEndDate() {
+		return endDate;
+	}
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
+	public void setEndDate(LocalDateTime endDate) {
+		this.endDate = endDate;
+	}
 
-    public Date getCreateDate() {
-        return createDate;
-    }
+	public LocalDateTime getCreateDate() {
+		return createDate;
+	}
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
+	public void setCreateDate(LocalDateTime createDate) {
+		this.createDate = createDate;
+	}
 
-    public Date getModifyDate() {
-        return modifyDate;
-    }
+	public LocalDateTime getModifyDate() {
+		return modifyDate;
+	}
 
-    public void setModifyDate(Date modifyDate) {
-        this.modifyDate = modifyDate;
-    }
+	public void setModifyDate(LocalDateTime modifyDate) {
+		this.modifyDate = modifyDate;
+	}
 
-    public Integer getStatusCode() {
-        return statusCode;
-    }
+	public String getUserName() {
+		return userName;
+	}
 
-    public void setStatusCode(Integer statusCode) {
-        this.statusCode = statusCode;
-    }
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
 }
