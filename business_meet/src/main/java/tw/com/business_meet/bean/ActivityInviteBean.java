@@ -8,10 +8,14 @@ public class ActivityInviteBean {
     private Integer activityNo;
     private Integer status;
     private Date createDate;
+    private String createDateStr;
     private Date modifyDate;
     private Integer statusCode;
     private String userName;
     private String avatar;
+    private String title;
+    private String place;
+    private String activityDate;
 
     public Integer getActivityInviteNo() {
         return activityInviteNo;
@@ -53,6 +57,14 @@ public class ActivityInviteBean {
         this.createDate = createDate;
     }
 
+    public String getCreateDateStr() {
+        return createDateStr;
+    }
+
+    public void setCreateDateStr(String createDateStr) {
+        this.createDateStr = createDateStr;
+    }
+
     public Date getModifyDate() {
         return modifyDate;
     }
@@ -83,5 +95,29 @@ public class ActivityInviteBean {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getActivityDate() {
+        return activityDate;
+    }
+
+    public void setActivityDate(String activityDate) {
+        this.activityDate = activityDate;
     }
 }

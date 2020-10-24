@@ -12,6 +12,7 @@ public class UserInformationBean {
     private String identifier;
     private String avatar;
     private String tel;
+    private String firebaseToken;
     private Date createDate;
     private Date modifyDate;
     private Integer roleNo;
@@ -71,6 +72,14 @@ public class UserInformationBean {
 
     public void setTel(String tel) {
         this.tel = tel;
+    }
+
+    public String getFirebaseToken() {
+        return firebaseToken;
+    }
+
+    public void setFirebaseToken(String firebaseToken) {
+        this.firebaseToken = firebaseToken;
     }
 
     public String getProfession() {

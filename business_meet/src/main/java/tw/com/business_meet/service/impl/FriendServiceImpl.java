@@ -53,12 +53,12 @@ public class FriendServiceImpl implements FriendService {
         return fbList;
     }
 
+
     @Override
     public FriendBean add(FriendBean friendBean) throws Exception {
         Friend f = new Friend();
         BeanUtility.copyProperties(friendBean, f);
         f.setCreateDate(new Date());
-        System.out.println("f.getFriendNo()" + f.getFriendNo());
 
         Friend result = friendDAO.saveAndReturn(f);
         BeanUtility.copyProperties(result, friendBean);
@@ -74,7 +74,6 @@ public class FriendServiceImpl implements FriendService {
         if (friend!=null) {
             BeanUtility.copyProperties(friendBean, friend);
             friend.setModifyDate(new Date());
-            System.out.println("f.getStatus() = " + friend.getStatus());
             friendDAO.update(friend);
             BeanUtility.copyProperties(friend, friendBean);
             return friendBean;
@@ -112,6 +111,11 @@ public class FriendServiceImpl implements FriendService {
     public List<FriendBean> inviteNotification() throws Exception {
         UserInformation userInformation = (UserInformation)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<FriendBean> friendBeanList = friendDAO.searchInviteNotification(userInformation.getUserId());
+        return friendBeanList;
+    }
+    @Override
+    public List<FriendBean> searchAllInvite() throws Exception {
+        List<FriendBean> friendBeanList = friendDAO.searchAllInvite();
         return friendBeanList;
     }
 }

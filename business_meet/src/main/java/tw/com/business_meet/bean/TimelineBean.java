@@ -142,7 +142,7 @@ public class TimelineBean {
         try {
             this.startDate = simpleDateFormat.parse(startDate);
         } catch (ParseException e) {
-            e.printStackTrace();
+            System.out.println("parse error");
         }
     }
 
@@ -154,7 +154,7 @@ public class TimelineBean {
         try {
             startDate = simpleDateFormat.parse(startDateStr);
         } catch (ParseException e) {
-            e.printStackTrace();
+            System.out.println("parse error");
         }
         this.startDateStr = startDateStr;
     }
@@ -169,7 +169,7 @@ public class TimelineBean {
         try {
             this.endDate = simpleDateFormat.parse(endDate);
         } catch (ParseException e) {
-            e.printStackTrace();
+            System.out.println("parse error");
         }
     }
 
@@ -182,7 +182,7 @@ public class TimelineBean {
         try {
             endDate = simpleDateFormat.parse(endDateStr);
         } catch (ParseException e) {
-            e.printStackTrace();
+            System.out.println("parse error");
         }
         this.endDateStr = endDateStr;
     }

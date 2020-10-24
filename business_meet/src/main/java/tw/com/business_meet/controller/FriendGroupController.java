@@ -62,6 +62,42 @@ public class FriendGroupController {
         }
         return o.writeValueAsString(result);
     }
+    @PostMapping(value = "/search/friend/group/{groupNo}", produces = "application/json;charset=UTF-8")
+    public String searchFriendByGroup(@PathVariable Integer groupNo) throws Exception {
+        ObjectMapper o = new ObjectMapper();
+        ObjectNode result = o.createObjectNode();
+        try {
+
+            List<FriendGroupBean> friendGroupBeanList = friendGroupService.searchFriendByGroup(groupNo);
+            result.put("result", true);
+            ArrayNode arrayNode = result.putArray("data");
+            for (FriendGroupBean fgb :
+                    friendGroupBeanList) {
+                arrayNode.addPOJO(fgb);
+            }
+        } catch (Exception e) {
+            result.put("result", false);
+        }
+        return o.writeValueAsString(result);
+    }
+    @PostMapping(value = "/search/count", produces = "application/json;charset=UTF-8")
+    public String searchCount() throws Exception {
+        ObjectMapper o = new ObjectMapper();
+        ObjectNode result = o.createObjectNode();
+        try {
+            List<FriendGroupBean> friendGroupBeanList = friendGroupService.searchGroupCount();
+            result.put("result", true);
+            ArrayNode arrayNode = result.putArray("data");
+            for (FriendGroupBean fgb :
+                    friendGroupBeanList) {
+                arrayNode.addPOJO(fgb);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("result", false);
+        }
+        return o.writeValueAsString(result);
+    }
 
     @PostMapping(value = "/{friendGroupNo}/delete", produces = "application/json;charset=UTF-8")
     public String delete(@PathVariable Integer friendGroupNo) throws Exception {

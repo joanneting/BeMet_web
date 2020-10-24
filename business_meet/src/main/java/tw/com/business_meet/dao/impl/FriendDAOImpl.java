@@ -21,8 +21,6 @@ public class FriendDAOImpl extends BaseDAOImpl<Friend> implements FriendDAO {
         String matchmakerId = friendBean.getMatchmakerId();
         String friendId = friendBean.getFriendId();
         String remark = friendBean.getRemark();
-        System.out.println("matched search matchmakerId: " + matchmakerId);
-        System.out.println("matched search friendId: " + friendId);
         if (matchmakerId != null && !matchmakerId.equals("")) {
             detachedCriteria.add(Restrictions.eq("matchmakerId", matchmakerId));
         }
@@ -81,6 +79,7 @@ public class FriendDAOImpl extends BaseDAOImpl<Friend> implements FriendDAO {
         projectionList.add(Projections.property("friend.matchmakerId").as("matchmakerId"));
         projectionList.add(Projections.property("userInformation.name").as("userName"));
         projectionList.add(Projections.property("userInformation.avatar").as("userAvatar"));
+        projectionList.add(Projections.property("userInformation.firebaseToken").as("firebaseToken"));
         detachedCriteria.setProjection(projectionList);
         List<Object[]> objects = (List<Object[]>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
 
@@ -91,6 +90,7 @@ public class FriendDAOImpl extends BaseDAOImpl<Friend> implements FriendDAO {
             resultBean.setMatchmakerId(object[1].toString());
             resultBean.setFriendName(object[2].toString());
             resultBean.setFriendAvatar(object[3].toString());
+            resultBean.setFirebaseToken(object[4]==null?null:object[4].toString());
             friendBeanList.add(resultBean);
         }
         return friendBeanList;
@@ -120,6 +120,34 @@ public class FriendDAOImpl extends BaseDAOImpl<Friend> implements FriendDAO {
             resultBean.setMatchmakerId(object[1].toString());
             resultBean.setFriendName(object[2].toString());
             resultBean.setFriendAvatar(object[3].toString());
+            friendBeanList.add(resultBean);
+        }
+        return friendBeanList;
+    }
+    @Override
+    public List<FriendBean> searchAllInvite( ) {
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Friend.class,"friend");
+        detachedCriteria.createAlias("userInformationByFriendId","friendUserInformation");
+        detachedCriteria.createAlias("userInformationByMatchmakerId","matchmakerUserInformation");
+
+        detachedCriteria.add(Restrictions.eq("status",1));
+
+        ProjectionList projectionList = Projections.projectionList();
+
+        projectionList.add(Projections.property("friend.friendId").as("friendId"));
+        projectionList.add(Projections.property("friend.matchmakerId").as("matchmakerId"));
+        projectionList.add(Projections.property("matchmakerUserInformation.name").as("matchmakerName"));
+        projectionList.add(Projections.property("friendUserInformation.firebaseToken").as("firebaseToken"));
+        detachedCriteria.setProjection(projectionList);
+        List<Object[]> objects = (List<Object[]>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
+
+        List<FriendBean> friendBeanList = new ArrayList<>();
+        for (Object[] object : objects) {
+            FriendBean resultBean = new FriendBean();
+            resultBean.setFriendId(object[0].toString());
+            resultBean.setMatchmakerId(object[1].toString());
+            resultBean.setFriendName(object[2].toString());
+            resultBean.setFirebaseToken(object[3]==null?null:object[3].toString());
             friendBeanList.add(resultBean);
         }
         return friendBeanList;

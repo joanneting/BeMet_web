@@ -40,15 +40,12 @@ public class UserInformationServiceImpl implements UserInformationService {
         ui = userInformationDAO.saveAndReturn(ui);
         UserInformationBean uib = new UserInformationBean();
         BeanUtility.copyProperties(ui, uib);
-        System.out.println("userInformationBean.getName() : " + uib.getName());
-        System.out.println("uib.getRoleNo() = " + uib.getRoleNo());
         return uib;
     }
 
     @Override
     public UserInformationBean update(UserInformationBean userInformationBean) {
         UserInformation ui = userInformationDAO.getById(userInformationBean.getUserId());
-        System.out.println("ui.getCreateDate() = " + ui.getCreateDate());
         BeanUtility.copyProperties(userInformationBean, ui);
         ui.setModifyDate(new Date());
         userInformationDAO.update(ui);
@@ -86,8 +83,6 @@ public class UserInformationServiceImpl implements UserInformationService {
         List<UserInformation> userInformationBeanList = userInformationDAO.search(userInformationBean);
         if (userInformationBeanList.size() != 0) {
             BeanUtility.copyProperties(userInformationBeanList.get(0), userInformationBean);
-            System.out.println("userinformationServicce");
-            System.out.println(userInformationBean.getUserId());
             return userInformationBean;
         }
         return null;

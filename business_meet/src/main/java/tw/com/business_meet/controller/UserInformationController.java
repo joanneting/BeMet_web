@@ -27,7 +27,6 @@ public class UserInformationController {
             result.put("result", true);
             ArrayNode arrayNode = result.putArray("data");
             for (UserInformationBean ui : uibList) {
-                System.out.println("search : " + ui.getIdentifier() + " : " + ui.getName());
                 arrayNode.addPOJO(ui);
             }
         } catch (Exception e) {

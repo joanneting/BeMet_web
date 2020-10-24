@@ -10,4 +10,5 @@ public interface FriendDAO extends BaseDAO<Friend> {
     public Friend searchAddData(FriendBean matchedBean);
     public List<FriendBean> searchInviteList(FriendBean matchedBean);
     public List<FriendBean> searchInviteNotification(String userId);
+    public List<FriendBean> searchAllInvite();
 }

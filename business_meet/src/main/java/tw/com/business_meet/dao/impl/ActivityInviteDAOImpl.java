@@ -15,13 +15,13 @@ public class ActivityInviteDAOImpl extends BaseDAOImpl<ActivityInvite> implement
     public List<ActivityInvite> search(ActivityInviteBean activityInviteBean) {
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(ActivityInvite.class);
         Integer activityNo = activityInviteBean.getActivityNo();
-        Integer statusCode = activityInviteBean.getStatusCode();
+        Integer status = activityInviteBean.getStatus();
         String userId = activityInviteBean.getUserId();
         if (activityNo != null && activityNo != 0) {
             detachedCriteria.add(Restrictions.eq("activityNo", activityNo));
         }
-        if (statusCode != null && statusCode != 0) {
-            detachedCriteria.add(Restrictions.eq("statusCode", statusCode));
+        if (status != null && status != 0) {
+            detachedCriteria.add(Restrictions.eq("status", status));
         }
         if (userId != null && !userId.equals("")) {
             detachedCriteria.add(Restrictions.eq("userId", userId));
@@ -29,4 +29,34 @@ public class ActivityInviteDAOImpl extends BaseDAOImpl<ActivityInvite> implement
 
         return (List<ActivityInvite>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
     }
+    @Override
+    public List<ActivityInvite> searchAccept(ActivityInviteBean activityInviteBean) {
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(ActivityInvite.class);
+        Integer activityNo = activityInviteBean.getActivityNo();
+        Integer status = activityInviteBean.getStatus();
+        String userId = activityInviteBean.getUserId();
+        if (activityNo != null && activityNo != 0) {
+            detachedCriteria.add(Restrictions.eq("activityNo", activityNo));
+        }
+            detachedCriteria.add(Restrictions.eq("status", 2));
+        if (userId != null && !userId.equals("")) {
+            detachedCriteria.add(Restrictions.eq("userId", userId));
+        }
+        return (List<ActivityInvite>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
+    }
+//    @Override
+//    public List<ActivityInvite> searchAccept(ActivityInviteBean activityInviteBean) {
+//        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(ActivityInvite.class);
+//        Integer activityNo = activityInviteBean.getActivityNo();
+//        Integer status = activityInviteBean.getStatus();
+//        String userId = activityInviteBean.getUserId();
+//        if (activityNo != null && activityNo != 0) {
+//            detachedCriteria.add(Restrictions.eq("activityNo", activityNo));
+//        }
+//            detachedCriteria.add(Restrictions.eq("status", 2));
+//        if (userId != null && !userId.equals("")) {
+//            detachedCriteria.add(Restrictions.eq("userId", userId));
+//        }
+//        return (List<ActivityInvite>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
+//    }
 }

@@ -1,12 +1,14 @@
 package tw.com.business_meet.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import tw.com.business_meet.bean.FriendGroupBean;
 import tw.com.business_meet.dao.FriendGroupDAO;
 import tw.com.business_meet.service.FriendGroupService;
 import tw.com.business_meet.utils.BeanUtility;
 import tw.com.business_meet.vo.FriendGroup;
+import tw.com.business_meet.vo.UserInformation;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,6 +53,15 @@ public class FriendGroupServiceImpl implements FriendGroupService {
     }
 
     @Override
+    public List<FriendGroupBean> searchFriendByGroup(Integer groupNo) throws Exception {
+        FriendGroupBean friendGroupBean = new FriendGroupBean();
+        friendGroupBean.setGroupNo(groupNo);
+        List<FriendGroupBean> friendGroupBeanList = friendGroupDAO.searchFriendByGroup(friendGroupBean);
+
+        return friendGroupBeanList;
+    }
+
+    @Override
     public List<FriendGroupBean> searchAll() throws Exception {
         List<FriendGroup> friendGroupList = friendGroupDAO.searchAll();
         List<FriendGroupBean> friendGroupBeanList = new ArrayList<>();
@@ -67,5 +78,14 @@ public class FriendGroupServiceImpl implements FriendGroupService {
     public void delete(Integer friendGroupNo) throws Exception {
         FriendGroup friendGroup = friendGroupDAO.getById(friendGroupNo);
         friendGroupDAO.delete(friendGroup);
+    }
+
+    @Override
+    public List<FriendGroupBean> searchGroupCount() throws Exception {
+        FriendGroupBean friendGroupBean = new FriendGroupBean();
+        UserInformation userInformation = (UserInformation) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        friendGroupBean.setUserId(userInformation.getUserId());
+        List<FriendGroupBean> friendGroupBeanList = friendGroupDAO.searchGroupCount(friendGroupBean);
+        return friendGroupBeanList;
     }
 }

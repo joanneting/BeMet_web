@@ -65,7 +65,7 @@ public class FriendCustomizationController {
 
     }
 
-    @PostMapping(name = "/{friendCustomizationNo}/delete", produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "/delete/{friendCustomizationNo}", produces = "application/json;charset=UTF-8")
     public String delete(@PathVariable Integer friendCustomizationNo) throws Exception {
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();

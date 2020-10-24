@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface ActivityInviteService {
     public List<ActivityInviteBean> search(ActivityInviteBean activityInviteBean) throws Exception;
+    public List<ActivityInviteBean> searchAccept(ActivityInviteBean activityInviteBean) throws Exception;
+//    public List<ActivityInviteBean> searchCommonActivity(ActivityInviteBean activityInviteBean) throws Exception;
 
     public List<ActivityInviteBean> searchAll() throws Exception;
 

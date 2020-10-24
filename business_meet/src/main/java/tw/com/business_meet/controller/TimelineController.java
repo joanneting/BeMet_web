@@ -4,24 +4,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import tw.com.business_meet.bean.ActivityDateBean;
-import tw.com.business_meet.bean.ActivityInviteBean;
-import tw.com.business_meet.bean.ActivityLabelBean;
-import tw.com.business_meet.bean.TimelineBean;
+import tw.com.business_meet.bean.*;
 import tw.com.business_meet.dao.ActivityInviteDAO;
 import tw.com.business_meet.dao.ActivityLabelDAO;
-import tw.com.business_meet.service.ActivityDateService;
-import tw.com.business_meet.service.ActivityInviteService;
-import tw.com.business_meet.service.ActivityLabelService;
-import tw.com.business_meet.service.TimelineService;
-import tw.com.business_meet.vo.ActivityDate;
-import tw.com.business_meet.vo.ActivityInvite;
-import tw.com.business_meet.vo.ActivityLabel;
-import tw.com.business_meet.vo.Timeline;
+import tw.com.business_meet.service.*;
+import tw.com.business_meet.vo.*;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -35,6 +29,8 @@ public class TimelineController {
     ActivityLabelService activityLabelService;
     @Autowired
     ActivityDateService activityDateService;
+    @Autowired
+    UserInformationService userInformationService;
     @PostMapping(path = "/add", produces = "application/json;charset=UTF-8")
     public String add(@RequestBody TimelineBean timelineBean) throws Exception {
         ObjectMapper o = new ObjectMapper();
@@ -53,7 +49,6 @@ public class TimelineController {
                 ActivityDateBean activityDate = new ActivityDateBean();
                 activityDate.setActivityNo(tb.getTimelineNo());
 //                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                System.out.println("timelineBean.getCreateDate() = " + timelineBean.getCreateDate());
                 activityDate.setStartDate(timelineBean.getStartDate());
                 activityDate.setEndDate(timelineBean.getEndDate());
                 activityDateService.add(activityDate);
@@ -152,10 +147,15 @@ public class TimelineController {
                 ActivityInviteBean activityInviteBean = new ActivityInviteBean();
                 activityInviteBean.setActivityNo(timelineNo);
 
-                List<ActivityInviteBean> activityInviteList = activityInviteService.search(activityInviteBean);
+                List<ActivityInviteBean> activityInviteList = activityInviteService.searchAccept(activityInviteBean);
                 ActivityLabelBean activityLabelBean = new ActivityLabelBean();
                 activityLabelBean.setActivityNo(timelineNo);
                 activityLabelBean = activityLabelService.search(activityLabelBean).get(0);
+                ActivityInviteBean creater = new ActivityInviteBean();
+                UserInformationBean createrInformation = userInformationService.getById(timelineBean.getMatchmakerId());
+                creater.setUserName(createrInformation.getName());
+                creater.setUserId(createrInformation.getUserId());
+                activityInviteList.add(0,creater);
                 timelineBean.setActivityInviteBeanList(activityInviteList);
                 timelineBean.setActivityLabelBean(activityLabelBean);
                 ActivityDateBean activityDateBean = new ActivityDateBean();
@@ -183,6 +183,46 @@ public class TimelineController {
         ObjectNode result = o.createObjectNode();
         try {
             List<TimelineBean> timelineBeanList = timelineService.search(timelineBean);
+
+            UserInformation userInformation = (UserInformation)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+
+            if(timelineBean.getFriendId()!=null){
+                TimelineBean searchBean = new TimelineBean();
+                searchBean.setMatchmakerId(timelineBean.getMatchmakerId());
+                List<TimelineBean> resultSelfList = timelineService.search(searchBean);
+                searchBean.setMatchmakerId(timelineBean.getFriendId());
+                List<TimelineBean> resultFriendList = timelineService.search(searchBean);
+
+                for (TimelineBean searchTimeBean : resultSelfList) {
+                    ActivityInviteBean activityInviteBean = new ActivityInviteBean();
+                    activityInviteBean.setUserId(timelineBean.getFriendId());
+                    activityInviteBean.setActivityNo(searchTimeBean.getTimelineNo());
+                    List<ActivityInviteBean> inviteList = activityInviteService.searchAccept(activityInviteBean);
+                    if (inviteList.size() > 0){
+                        timelineBeanList.add(searchTimeBean);
+                    }
+                }
+                for (TimelineBean searchTimeBean : resultFriendList) {
+                    ActivityInviteBean activityInviteBean = new ActivityInviteBean();
+                    activityInviteBean.setUserId(timelineBean.getMatchmakerId());
+                    activityInviteBean.setActivityNo(searchTimeBean.getTimelineNo());
+                    List<ActivityInviteBean> inviteList = activityInviteService.searchAccept(activityInviteBean);
+                    if (inviteList.size() > 0){
+                        timelineBeanList.add(searchTimeBean);
+                    }
+                }
+
+
+
+            }else{
+                ActivityInviteBean activityInviteBean = new ActivityInviteBean();
+                activityInviteBean.setUserId(userInformation.getUserId());
+                List<ActivityInviteBean> inviteList = activityInviteService.searchAccept(activityInviteBean);
+                for (ActivityInviteBean inviteBean : inviteList) {
+                    timelineBeanList.add(timelineService.getById(inviteBean.getActivityNo()));
+                }
+            }
             for (int i = 0; i < timelineBeanList.size(); i++) {
                 TimelineBean tlb  = timelineBeanList.get(i);
                 if(tlb.getTimelinePropertiesNo() == 1){
@@ -195,6 +235,20 @@ public class TimelineController {
                 tlb.setCreateDateStr(new SimpleDateFormat("MM/dd").format(tlb.getCreateDate()));
                 timelineBeanList.set(i,tlb);
             }
+            Collections.sort(timelineBeanList, new Comparator<TimelineBean>() {
+                @Override
+                public int compare(TimelineBean o1, TimelineBean o2) {
+                    if(o1.getStartDateStr() == null && o2.getStartDateStr()==null){
+                        return o1.getCreateDateStr().compareTo(o2.getCreateDateStr());
+                    }else if(o1.getStartDateStr() == null){
+                        return o1.getCreateDateStr().compareTo(o2.getStartDateStr());
+                    }else if (o2.getStartDateStr() == null){
+                        return o1.getStartDateStr().compareTo(o2.getCreateDateStr());
+
+                    }
+                    return o1.getStartDateStr().compareTo(o2.getStartDateStr());
+                }
+            });
             ArrayNode arrayNode = result.putArray("data");
             for (TimelineBean tb :
                     timelineBeanList) {

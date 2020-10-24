@@ -5,8 +5,11 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tw.com.business_meet.bean.FriendGroupBean;
 import tw.com.business_meet.bean.GroupsBean;
+import tw.com.business_meet.service.FriendGroupService;
 import tw.com.business_meet.service.GroupsService;
+import tw.com.business_meet.vo.FriendGroup;
 
 import java.util.List;
 
@@ -15,6 +18,8 @@ import java.util.List;
 public class GrooupsController {
     @Autowired
     GroupsService groupsService;
+    @Autowired
+    FriendGroupService friendGroupService;
 
     @PostMapping(value = "/add", produces = "application/json;charset=UTF-8")
     public String add(@RequestBody GroupsBean groupsBean) throws Exception {
@@ -70,6 +75,12 @@ public class GrooupsController {
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();
         try {
+            FriendGroupBean friendGroupBean = new FriendGroupBean();
+            friendGroupBean.setFriendGroupNo(groupsNo);
+            List<FriendGroupBean> friendGroupBeanList = friendGroupService.search(friendGroupBean);
+            for (FriendGroupBean groupBean : friendGroupBeanList) {
+                friendGroupService.delete(groupBean.getFriendGroupNo());
+            }
             groupsService.delete(groupsNo);
             result.put("result", true);
         } catch (Exception e) {
