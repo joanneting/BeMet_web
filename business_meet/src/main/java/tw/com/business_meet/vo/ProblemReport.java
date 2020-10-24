@@ -1,149 +1,131 @@
 package tw.com.business_meet.vo;
 
-import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.Objects;
+
+import javax.annotation.Generated;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "problem_report", schema = "dbo", catalog = "BeMet")
 public class ProblemReport {
-    private Integer problemReportNo;
-    private String content;
-    private String userId;
-    private Integer status;
-    private String startDate;
-    private Date endDate;
-    private Date createDate;
-    private Date modifyDate;
-    private UserInformation userInformationByUserId;
+	private Integer problemReportNo;
+	private String content;
+	private String userId;
+	private Integer status;
+	private LocalDateTime startDate;
+	private LocalDateTime endDate;
+	private LocalDateTime createDate;
+	private LocalDateTime modifyDate;
+	private UserInformation userInformationByUserId;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "problem_report_no")
-    public Integer getProblemReportNo() {
-        return problemReportNo;
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "problem_report_no", nullable = false)
+	public Integer getProblemReportNo() {
+		return problemReportNo;
+	}
 
-    public void setProblemReportNo(Integer problemReportNo) {
-        this.problemReportNo = problemReportNo;
-    }
+	public void setProblemReportNo(Integer problemReportNo) {
+		this.problemReportNo = problemReportNo;
+	}
 
-    @Basic
-    @Column(name = "content")
-    public String getContent() {
-        return content;
-    }
+	@Column(name = "[content]", length = 3000)
+	public String getContent() {
+		return content;
+	}
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+	public void setContent(String content) {
+		this.content = content;
+	}
 
-    @Basic
-    @Column(name = "user_id")
-    public String getUserId() {
-        return userId;
-    }
+	@Column(name = "user_id", length = 100)
+	public String getUserId() {
+		return userId;
+	}
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-    @Column(name = "status", nullable = false)
-    public Integer getStatus() {
-        return status;
-    }
+	@Column(name = "status")
+	public Integer getStatus() {
+		return status;
+	}
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	@Column(name = "startDate")
+	public LocalDateTime getStartDate() {
+		return startDate;
+	}
 
-    @Column(name = "start_date")
-    public String getStartDate() {
-        return startDate;
-    }
+	public void setStartDate(LocalDateTime startDate) {
+		this.startDate = startDate;
+	}
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
+	@Column(name = "endDate")
+	public LocalDateTime getEndDate() {
+		return endDate;
+	}
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "end_date", nullable = true)
-    public Date getEndDate() {
-        return endDate;
-    }
+	public void setEndDate(LocalDateTime endDate) {
+		this.endDate = endDate;
+	}
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
+	@Column(name = "createDate")
+	public LocalDateTime getCreateDate() {
+		return createDate;
+	}
 
-    @Basic
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "create_date")
-    public Date getCreateDate() {
-        return createDate;
-    }
+	public void setCreateDate(LocalDateTime createDate) {
+		this.createDate = createDate;
+	}
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
+	@Column(name = "modifyDate")
+	public LocalDateTime getModifyDate() {
+		return modifyDate;
+	}
 
-    @Basic
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "modify_date")
-    public Date getModifyDate() {
-        return modifyDate;
-    }
+	public void setModifyDate(LocalDateTime modifyDate) {
+		this.modifyDate = modifyDate;
+	}
 
-    public void setModifyDate(Date modifyDate) {
-        this.modifyDate = modifyDate;
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(content, createDate, modifyDate, problemReportNo, userId, startDate, endDate, status);
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProblemReport other = (ProblemReport) obj;
+		return Objects.equals(content, other.content) && Objects.equals(createDate, other.createDate)&& Objects.equals(status, other.status)
+				&& Objects.equals(modifyDate, other.modifyDate)&& Objects.equals(startDate, other.startDate)&& Objects.equals(endDate, other.endDate)
+				&& Objects.equals(problemReportNo, other.problemReportNo) && Objects.equals(userId, other.userId);
+	}
 
-        ProblemReport that = (ProblemReport) o;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
+	public UserInformation getUserInformationByUserId() {
+		return userInformationByUserId;
+	}
 
-        if (problemReportNo != null ? !problemReportNo.equals(that.problemReportNo) : that.problemReportNo != null) {
-            return false;
-        }
-        if (content != null ? !content.equals(that.content) : that.content != null) {
-            return false;
-        }
-        if (userId != null ? !userId.equals(that.userId) : that.userId != null) {
-            return false;
-        }
-        if (createDate != null ? !createDate.equals(that.createDate) : that.createDate != null) {
-            return false;
-        }
-        if (modifyDate != null ? !modifyDate.equals(that.modifyDate) : that.modifyDate != null) {
-            return false;
-        }
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = problemReportNo != null ? problemReportNo.hashCode() : 0;
-        result = 31 * result + (content != null ? content.hashCode() : 0);
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
-        result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
-        result = 31 * result + (modifyDate != null ? modifyDate.hashCode() : 0);
-        return result;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
-    public UserInformation getUserInformationByUserId() {
-        return userInformationByUserId;
-    }
-
-    public void setUserInformationByUserId(UserInformation userInformationByUserId) {
-        this.userInformationByUserId = userInformationByUserId;
-    }
+	public void setUserInformationByUserId(UserInformation userInformationByUserId) {
+		this.userInformationByUserId = userInformationByUserId;
+	}
 }
