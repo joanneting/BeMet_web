@@ -69,7 +69,7 @@
 					</dd>
 				</dl>
 				-->
-				<form role="form" class="form" th:action="@{/problemreport/update}" method="Post">
+				<form role="form" class="form" id="updateform" th:action="@{/problemreport/update}" method="Post">
 					<div class="form-background">
 						<div class="form-group">
 							<label><span>id：</span></label>
@@ -81,9 +81,7 @@
 								<option value="3">3：已處理</option>
 							</select>
 							<div class="text-right">
-								<button type="submit" class="btn btn-primary login" th:onclick="'javascript:location.href('+ @{/problemreport}+')'"  >
-									送出
-								</button>
+								<button type="button" class="btn btn-primary login" th:onclick="'javascript: updatestatus()'">送出</button>
 							</div>
 						</div>
 					</div>
@@ -95,6 +93,35 @@
 	<script th:src="@{../../static/js/jquery.min.js}"></script>
 	<script th:src="@{../../static/js/bootstrap.min.js}"></script>
 	<script th:src="@{../../static/js/scripts.js}"></script>
+	<script th:inline="javascript">
+		function updatestatus(){
+			let url = /*[[@{/problemreport}]]*/"";
+			 
+			 // 設定請求發送，url = 網址、method = 請求發法，即後端的@{method}Mapping
+			 // 第一個.then表示請求的回應類型，後端一定是JSON回應，因此使用response.json()
+			 // 第二個.then表示後端回傳的資料，因為後端有傳result，因此可以使用response.result取得後端回傳結果
+			 // .catch表示請求錯誤，可將error輸出至console
+			 fetch(`${url}/update`, {
+			  "method": "POST",
+			   body: $("#updateform").serialize(),
+			   "headers": {
+			        "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
+			    }
+			 }).then(response => {
+			  return response.json();
+			 }).then(response => {
+			  if (response.result) {
+			   alert("更新成功");
+			   window.history.back();
+			  } else {
+			   alert("更新失敗");
+			  }
+			 }).catch(error => {
+			  console.error(error);
+			  alert("更新失敗");
+			 });
+			}
+	</script>
 </body>
 
 </html>
