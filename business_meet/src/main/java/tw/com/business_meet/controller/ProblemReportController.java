@@ -131,14 +131,16 @@ public class ProblemReportController {
         return o.writeValueAsString(result);
     }
 	
-	@GetMapping(path = "/update")
-	public ModelAndView updatePage() {
-		return new ModelAndView("problem_report/update");
+	@GetMapping(path = "/update/{problemReportNo}")
+	public ModelAndView updatePage(@PathVariable Integer problemReportNo) {
+		ModelAndView modelAndView = new ModelAndView("problem_report/update");
+	    modelAndView.addObject("problemReportNo",problemReportNo);
+		return modelAndView;
 	}
 	
 	@ResponseBody
 	@PostMapping(path = "/update", produces = "application/json;charset=UTF-8")
-    public String update(ProblemReportBean problemReportBean) throws Exception {
+    public ModelAndView update(ProblemReportBean problemReportBean) throws Exception {
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();
         try {
@@ -149,6 +151,8 @@ public class ProblemReportController {
             result.put("result", false);
             e.printStackTrace();
         }
-        return o.writeValueAsString(result);
+        ModelAndView index = new ModelAndView("problem_report/index");
+        index.addObject("problemReportBeanList", problemReportService.searchAll());
+        return index;
     }
 }

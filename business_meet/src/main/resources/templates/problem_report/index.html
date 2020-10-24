@@ -129,7 +129,7 @@
 								EndDate
 							</td>
 							<td>
-								<a th:href="@{/problemreport/update}">查看和修改</a>
+								<a th:href="@{'/problemreport/update/'+${problemReport.problemReportNo}}">查看和修改</a>
 							</td>
 							<td>
 								<a th:href="'javascript: deleteReport(' + ${problemReport.problemReportNo} + ')'">刪除</a>

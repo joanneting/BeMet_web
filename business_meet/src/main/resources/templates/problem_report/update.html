@@ -73,7 +73,7 @@
 					<div class="form-background">
 						<div class="form-group">
 							<label><span>id：</span></label>
-							<input type="text" class="form-control" id="problemReportNo" name="problemReportNo" />
+							<input class="form-control" th:value="${problemReportNo}" id="problemReportNo" name="problemReportNo" readonly/>
 							<label><span>Status：</span></label>
 							<select name="status" size="3">
 								<option value="1">1：未處理</option>
