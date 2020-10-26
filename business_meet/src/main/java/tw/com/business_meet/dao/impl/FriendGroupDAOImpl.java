@@ -33,6 +33,8 @@ public class FriendGroupDAOImpl extends BaseDAOImpl<FriendGroup> implements Frie
     @Override
     public List<FriendGroupBean> searchGroupCount(FriendGroupBean friendGroupBean) {
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(FriendGroup.class,"friendGroup");
+
+        detachedCriteria.createAlias("friendByFriendNo","friend",JoinType.RIGHT_OUTER_JOIN,Restrictions.eq("status",2));
         detachedCriteria.createAlias("groupsByGroupNo","groups", JoinType.RIGHT_OUTER_JOIN);
         Integer friendNo = friendGroupBean.getFriendNo();
         Integer groupNo = friendGroupBean.getGroupNo();
@@ -70,7 +72,7 @@ public class FriendGroupDAOImpl extends BaseDAOImpl<FriendGroup> implements Frie
     @Override
     public List<FriendGroupBean> searchFriendByGroup(FriendGroupBean friendGroupBean) {
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(FriendGroup.class,"friendGroup");
-        detachedCriteria.createAlias("friendByFriendNo","friend");
+        detachedCriteria.createAlias("friendByFriendNo","friend",JoinType.INNER_JOIN,Restrictions.eq("status",2));
         detachedCriteria.createAlias("friend.userInformationByFriendId","userInformation");
         Integer groupNo = friendGroupBean.getGroupNo();
 
