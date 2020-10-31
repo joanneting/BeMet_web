@@ -19,7 +19,6 @@ public class Timeline {
     private Collection<ActivityInvite> activityInvitesByTimelineNo;
     private Collection<ActivityLabel> activityLabelsByTimelineNo;
     private Collection<ActivityRemind> activityRemindsByTimelineNo;
-    private TimelineProperties timelinePropertiesByTimelinePropertiesNo;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -201,13 +200,4 @@ public class Timeline {
         this.activityRemindsByTimelineNo = activityRemindsByTimelineNo;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "timeline_properties_no", referencedColumnName = "timeline_properties_no", nullable = false, insertable = false, updatable = false)
-    public TimelineProperties getTimelinePropertiesByTimelinePropertiesNo() {
-        return timelinePropertiesByTimelinePropertiesNo;
-    }
-
-    public void setTimelinePropertiesByTimelinePropertiesNo(TimelineProperties timelinePropertiesByTimelinePropertiesNo) {
-        this.timelinePropertiesByTimelinePropertiesNo = timelinePropertiesByTimelinePropertiesNo;
-    }
 }
