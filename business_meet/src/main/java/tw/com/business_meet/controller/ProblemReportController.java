@@ -55,7 +55,7 @@ public class ProblemReportController {
         }
         return o.writeValueAsString(result);
     }
-//    @PreAuthorize("hasAnyRole('admin')")
+    @PreAuthorize("hasAnyAuthority('admin')")
 	@GetMapping(path = "")
 	public ModelAndView indexPage(ProblemReportBean condition) {
 		ModelAndView index = new ModelAndView("problem_report/index");
