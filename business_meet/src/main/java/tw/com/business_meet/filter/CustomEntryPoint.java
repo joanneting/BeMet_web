@@ -27,7 +27,7 @@ public class CustomEntryPoint implements AuthenticationEntryPoint {
                     request.getRequestURI().endsWith("search") ? mapper.createArrayNode() : mapper.createObjectNode()
             );
         }else{
-            response.sendRedirect("login");
+            response.sendRedirect("login?error=fail");
         }
     }
 }

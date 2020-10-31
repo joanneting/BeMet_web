@@ -101,9 +101,7 @@ public class MvcConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/protected/**").addResourceLocations("file:D:\\business_meet\\protected\\");
 	}
 
-	/**
-	 * listener，設置多次登入時，取消舊登入，配合SecurityConfig中的maximumSessions = 1
-	 */
+
 	
 	 @Bean
 	 public WebInterceptor demoInterceptor(){

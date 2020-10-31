@@ -3,6 +3,7 @@ package tw.com.business_meet.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,10 +18,15 @@ public class RouteController {
 
     @GetMapping(path = "/login")
     public ModelAndView loginPage(@RequestParam(value = "error", required = false) String error) throws Exception {
+        System.out.println("error = " + error);
+        ModelAndView modelAndView = new ModelAndView("login");
         if (error != null) {
-            return new ModelAndView("fail");
+            modelAndView.addObject("message","登入失敗");
+        }else{
+            modelAndView.addObject("message","");
         }
-        return new ModelAndView("login");
+
+        return modelAndView;
     }
 
     @GetMapping(path = "/logout")

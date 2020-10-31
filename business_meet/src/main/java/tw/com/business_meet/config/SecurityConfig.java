@@ -59,7 +59,7 @@ private UserInformationDAO userInformationDAO;
                 .addFilterBefore(new CustomLoginFilter(authenticationManager(),userInformationDAO),
                         UsernamePasswordAuthenticationFilter.class)//取request傳送的值//設定登入驗證參數//設定自定義登入(失敗&成功)處理
                 .authorizeRequests()// 設定Requests的權限需求
-                .antMatchers(HttpMethod.GET, "/logout", "/timeout", "/error**")
+                .antMatchers(HttpMethod.GET, "/logout", "/timeout", "/error**","/login*")
                 .permitAll()
                 .antMatchers(HttpMethod.POST, "/userinformation/add").permitAll()
                 .antMatchers("/index").permitAll()
