@@ -48,15 +48,15 @@ public class TimelineController {
                 }
                 ActivityDateBean activityDate = new ActivityDateBean();
                 activityDate.setActivityNo(tb.getTimelineNo());
-//                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 activityDate.setStartDate(timelineBean.getStartDate());
                 activityDate.setEndDate(timelineBean.getEndDate());
-                activityDateService.add(activityDate);
+                ActivityDateBean activityDateBean = activityDateService.add(activityDate);
                 ActivityLabelBean activityLabelBean = timelineBean.getActivityLabelBean();
                 activityLabelBean.setActivityNo(tb.getTimelineNo());
                 activityLabelBean = activityLabelService.add(activityLabelBean);
                 tb.setActivityInviteBeanList(resultInviteList);
                 tb.setActivityLabelBean(activityLabelBean);
+                tb.setActivityDateBean(activityDateBean);
             }
             result.put("result", true);
             result.putPOJO("data", tb);

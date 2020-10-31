@@ -18,6 +18,7 @@ public class TimelineBean {
     private String title;
     private String remark;
     private Integer timelinePropertiesNo;
+
     private String color;
     private Date createDate;
     private String createDateStr;
@@ -29,6 +30,7 @@ public class TimelineBean {
 //    @DateTimeFormat(pattern = "MMM dd, yyyy a hh:mm")
     private Date endDate;
     private String endDateStr;
+    private ActivityDateBean activityDateBean;
     private ActivityLabelBean activityLabelBean;
     private List<ActivityInviteBean> activityInviteBeanList;
     private Integer statusCode;
@@ -185,6 +187,14 @@ public class TimelineBean {
             System.out.println("parse error");
         }
         this.endDateStr = endDateStr;
+    }
+
+    public ActivityDateBean getActivityDateBean() {
+        return activityDateBean;
+    }
+
+    public void setActivityDateBean(ActivityDateBean activityDateBean) {
+        this.activityDateBean = activityDateBean;
     }
 
     public ActivityLabelBean getActivityLabelBean() {
