@@ -81,11 +81,6 @@ public class ActivityInviteServiceImpl implements ActivityInviteService {
         return activityInviteBeanList;
     }
 
-//    @Override
-//    public List<ActivityInviteBean> searchCommonActivity(ActivityInviteBean activityInviteBean) throws Exception {
-//        return null;
-//    }
-
     @Override
     public List<ActivityInviteBean> searchAll() throws Exception {
         List<ActivityInvite> activityInviteList = activityInviteDAO.searchAll();

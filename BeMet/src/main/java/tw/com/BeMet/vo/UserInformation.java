@@ -234,9 +234,7 @@ public class UserInformation implements UserDetails {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
         UserInformation that = (UserInformation) o;
-
         if (userId != null ? !userId.equals(that.userId) : that.userId != null) {
             return false;
         }
@@ -270,7 +268,6 @@ public class UserInformation implements UserDetails {
         if (modifyDate != null ? !modifyDate.equals(that.modifyDate) : that.modifyDate != null) {
             return false;
         }
-
         return true;
     }
 

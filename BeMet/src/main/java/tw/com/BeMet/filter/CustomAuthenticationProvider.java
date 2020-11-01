@@ -43,13 +43,11 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
         }
         if (user != null && !user.getUserId().isEmpty()
                 && BCryUtility.matches(password, user.getPassword())) {
-//            System.out.println(user.getRoleNo());
             user.setAuthorities();
             System.out.println(user.getAuthorities());
             return user;
 
         }
-
         throw new AuthenticationServiceException("請檢查帳號或是密碼是否有錯誤。");
 
     }
@@ -60,3 +58,5 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
         // 登入第三個進入點，如果想做點額外的檢查,可以在這個方法裡處理,校驗不通時,直接拋異常即可
     }
 }
+
+

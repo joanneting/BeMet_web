@@ -90,9 +90,7 @@ public class ActivityDate {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
         ActivityDate that = (ActivityDate) o;
-
         if (activityDateNo != null ? !activityDateNo.equals(that.activityDateNo) : that.activityDateNo != null) {
             return false;
         }
@@ -117,7 +115,6 @@ public class ActivityDate {
         result = 31 * result + (modifyDate != null ? modifyDate.hashCode() : 0);
         return result;
     }
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "activity_no", referencedColumnName = "timeline_no", nullable = false, insertable = false, updatable = false)

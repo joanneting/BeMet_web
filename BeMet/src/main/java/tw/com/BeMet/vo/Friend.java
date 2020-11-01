@@ -58,7 +58,6 @@ public class Friend {
         return createDate;
     }
 
-
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
@@ -175,3 +174,4 @@ public class Friend {
         this.userInformationByFriendId = userInformationByFriendId;
     }
 }
+

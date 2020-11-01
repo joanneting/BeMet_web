@@ -50,7 +50,7 @@ public class TimelineServiceImpl implements TimelineService {
 
         return timelineBeanList;
     }
-@Override
+    @Override
     public TimelineBean getById(Integer timelineNo) throws Exception {
         Timeline timeline = timelineDAO.getById(timelineNo);
         TimelineBean timelineBean = new TimelineBean();

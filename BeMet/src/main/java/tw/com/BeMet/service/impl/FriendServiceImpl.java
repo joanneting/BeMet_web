@@ -31,6 +31,7 @@ public class FriendServiceImpl implements FriendService {
         }
         return fbList;
     }
+
     @Override
     public FriendBean searchAddData(FriendBean friendBean) throws Exception {
 
@@ -42,15 +43,10 @@ public class FriendServiceImpl implements FriendService {
         return null;
     }
 
-
- @Override
+    @Override
     public List<FriendBean> searchInviteList(FriendBean friendBean) throws Exception {
-
-        List<FriendBean> fbList = friendDAO.searchInviteList(friendBean);
-
-        return fbList;
+        return friendDAO.searchInviteList(friendBean);
     }
-
 
     @Override
     public FriendBean add(FriendBean friendBean) throws Exception {

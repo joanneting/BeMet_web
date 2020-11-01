@@ -46,8 +46,6 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
             }
 
             // 這裡將原來的UsernamePasswordAuthenticationToken換成我們自訂的CustomAuthenticationToken
-
-
             // 這裡就將token傳到後續驗證環節了
             setDetails(request, authentication);
             session = request.getSession();

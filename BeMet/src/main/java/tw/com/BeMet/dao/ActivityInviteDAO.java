@@ -8,6 +8,5 @@ import java.util.List;
 public interface ActivityInviteDAO extends BaseDAO<ActivityInvite> {
     public List<ActivityInvite> search(ActivityInviteBean activityInviteBean);
     public List<ActivityInvite> searchAccept(ActivityInviteBean activityInviteBean);
-//    public List<ActivityInvite> searchCommonActivity(ActivityInviteBean activityInviteBean);
 
 }
