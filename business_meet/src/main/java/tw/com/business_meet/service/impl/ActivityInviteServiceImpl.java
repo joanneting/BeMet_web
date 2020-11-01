@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tw.com.business_meet.bean.ActivityDateBean;
 import tw.com.business_meet.bean.ActivityInviteBean;
+import tw.com.business_meet.converter.LocalDateTimeConverter;
 import tw.com.business_meet.dao.ActivityDateDAO;
 import tw.com.business_meet.dao.ActivityInviteDAO;
 import tw.com.business_meet.dao.TimelineDAO;
@@ -105,6 +106,7 @@ public class ActivityInviteServiceImpl implements ActivityInviteService {
         BeanUtility.copyProperties(activityInviteBean, activityInvite);
         activityInvite = activityInviteDAO.saveAndReturn(activityInvite);
         BeanUtility.copyProperties(activityInvite, activityInviteBean);
+        activityInviteBean.setCreateDateStr(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(activityInvite.getCreateDate()));
         return activityInviteBean;
     }
 
@@ -115,6 +117,7 @@ public class ActivityInviteServiceImpl implements ActivityInviteService {
         BeanUtility.copyProperties(activityInviteBean, activityInvite);
         activityInviteDAO.update(activityInvite);
         BeanUtility.copyProperties(activityInvite, activityInviteBean);
+        activityInviteBean.setModifyDateStr(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(activityInvite.getModifyDate()));
 
         return activityInviteBean;
     }

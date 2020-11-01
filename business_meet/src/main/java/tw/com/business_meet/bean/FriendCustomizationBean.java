@@ -10,9 +10,7 @@ public class FriendCustomizationBean {
     private Date createDate;
     private Date modifyDate;
     private String content;
-
     private Integer statusCode;
-
 
     public Integer getFriendCustomizationNo() {
         return friendCustomizationNo;

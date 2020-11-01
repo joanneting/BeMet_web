@@ -24,10 +24,8 @@ public class TimelineBean {
     private String createDateStr;
     private Date modifyDate;
     private String modifyDateStr;
-//    @DateTimeFormat(pattern = "MMM dd, yyyy a hh:mm")
     private Date startDate;
     private String startDateStr;
-//    @DateTimeFormat(pattern = "MMM dd, yyyy a hh:mm")
     private Date endDate;
     private String endDateStr;
     private ActivityDateBean activityDateBean;
@@ -131,7 +129,6 @@ public class TimelineBean {
         this.modifyDate = modifyDate;
     }
 
-
     public Date getStartDate() {
         return startDate;
     }
@@ -180,7 +177,6 @@ public class TimelineBean {
     }
 
     public void setEndDateStr(String endDateStr) {
-
         try {
             endDate = simpleDateFormat.parse(endDateStr);
         } catch (ParseException e) {

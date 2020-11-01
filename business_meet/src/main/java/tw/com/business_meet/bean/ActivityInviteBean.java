@@ -10,6 +10,7 @@ public class ActivityInviteBean {
     private Date createDate;
     private String createDateStr;
     private Date modifyDate;
+    private String modifyDateStr;
     private Integer statusCode;
     private String userName;
     private String avatar;
@@ -71,6 +72,14 @@ public class ActivityInviteBean {
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public String getModifyDateStr() {
+        return modifyDateStr;
+    }
+
+    public void setModifyDateStr(String modifyDateStr) {
+        this.modifyDateStr = modifyDateStr;
     }
 
     public Integer getStatusCode() {
