@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.springframework.org/security/tags"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <sec:authentication property="principal.userId" var="user"></sec:authentication>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/login" method="POST">
+    帳號 : <input type="text" name="userId">
+    密碼 : <input type="password" name="password">
+    <label th:text="${message}"></label>
+    <input type="submit" value="確定" id="action">
+</form>
+</body>
+</html>
