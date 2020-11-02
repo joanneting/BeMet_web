@@ -1,0 +1,146 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700");
+:root {
+    --mainWhite: #f0f0f0;
+    --mainBlack: #222;
+    --mainGrey: #6B747B;
+    --Primay: #6BB5A7;
+    --darkPrimay: #548f84;
+    --lightPrimay:#81d8c8;
+    --darkenRed: #b71c1c;
+  
+    --mainSpacing: 0.1rem;
+    --mainTransition: all 0.3s linear;
+  }
+
+
+body{
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.my-wrapper {
+    margin-top: 15%;
+  }
+
+main {
+    flex: 1 0 auto;
+  }
+      
+/* nav */
+nav{
+    background-color: var(--mainWhite);
+    color: var(--mainBlack);
+}
+
+nav .brand-logo{
+    color: var(--mainBlack);
+    font-family: 'Philosopher', sans-serif;
+}
+
+nav ul a{
+    color: var(--mainBlack);
+}
+
+.logo-img{
+    max-width: 100%;
+    height: auto;
+    max-height: 50px;
+    margin: 1% 2%;
+}
+
+
+.btn{
+color: var(--mainWhite);
+background-color: var(--Primay)
+}
+
+.btn:hover{
+    background-color: var(--lightPrimay);
+}
+
+/* nav */
+
+nav .material-icons{
+    color: var(--Primay);
+}
+
+
+blockquote{
+    font-weight: bold;
+    font-size: 26px;
+    border-left: 5px solid #6BB5A7;
+}
+
+/* table */
+
+table{
+    table-layout: fixed;
+}
+
+td, .mulline{
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+/* table */
+
+.search{
+    margin-top: 8px;
+}
+
+.web-background{
+    width: 40%;
+    margin: 8px 0 16px;
+}
+
+textarea{
+    border:2px #6BB5A7 solid;
+    height: 20rem;
+    margin: 10px 0px;
+}
+
+h4{
+    font-weight: bold;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.web-background-large{
+    width: 60%;
+    margin: 16px;
+}
+
+.materialize-textarea{
+    width: 50%;
+}
+.page-footer{
+    background-color: var(--mainWhite);
+    padding: 0px;
+
+}
+
+.small{
+    width: 80%;
+}
+
+.modal .modal-content{
+    padding: 35px;
+}
+
+.modal{
+    width: 50%;
+}
+
+.modal .modal-footer .btn{
+    margin: 8px;
+}
+
+.footer-copyright .container{
+    color: var(--mainBlack);
+}
+
