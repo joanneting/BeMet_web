@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeMet-問題回報</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="/static/css/materialize.min.css"
+          th:href="@{/static/css/materialize.min.css}" media="screen,projection"/>
+    <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/static/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Rubik:wght@500&display=swap" rel="stylesheet">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Philosopher:wght@700&family=Roboto&display=swap"
+            rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body>
+<nav>
+    <div class="container">
+        <div class="nav-wrapper col">
+            <img class="logo-img" src="../../static/images/logo.png" alt="">
+            <a href="#" class="brand-logo">BeMet</a>
+
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li th:text="${session.userName}"></li>
+                <!--                    <li><a href="search.html"><i class="material-icons">search</i></a></li>-->
+                <li><a href="../logout.html" class="waves-effect waves-light btn">登出</a></li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<main>
+
+    <div class="container">
+        <div class="row search">
+            <form id="searchForm" class="col s12">
+                <div class="row">
+                    <div class="input-field col s2">
+                        <input id="user_name" name="userName" type="text" class="validate">
+                        <label for="user_name">使用者名稱</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <input id="content" name="content" type="text" class="validate">
+                        <label for="content">內容</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <select name="status">
+                            <option></option>
+                            <option th:each="codeTableMap:${codeTableMap}" th:value="${codeTableMap.key}"
+                                    th:text="${codeTableMap.value}"></option>
+
+                        </select>
+                        <label>狀態</label>
+                    </div>
+
+                    <div class="input-field col s2">
+                        <input id="start_date" name="startDate" type="date" class="validate">
+                        <label for="start_date">處理日期</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <input id="end_date" name="endDate" type="date" class="validate">
+                        <label for="end_date">處理完成日期</label>
+                    </div>
+
+                    <div class="col s2">
+                        <button type="button" onclick="search()" class="btn">查詢</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+
+        <table class="highlight">
+            <thead>
+            <tr>
+                <th>使用者名稱</th>
+                <th>內容</th>
+                <th>狀態</th>
+                <th>處理日期</th>
+                <th>處理完成日期</th>
+                <th style="width:8%;"></th>
+                <th style="width:8%;"></th>
+            </tr>
+            </thead>
+
+            <tbody id="searchTbody">
+            <tr th:each="problemReportBean : ${problemReportBeanList}">
+                <td th:text="${problemReportBean.getUserName()}"></td>
+                <td th:text="${problemReportBean.getContent()}"></td>
+                <td th:text="${problemReportBean.getStatusStr()}"></td>
+                <td th:text="${problemReportBean.getStartDateStr()}"></td>
+                <td th:text="${problemReportBean.getEndDateStr()}"></td>
+
+                <td>
+                    <button href="#edit-page" th:onclick="updateSearch([[${problemReportBean.getProblemReportNo()}]])"
+                            class="waves-effect waves-light btn-flat modal-trigger"><i
+                            class="material-icons">edit</i></button>
+                </td>
+                <td>
+                    <button href="#delete-page" th:onclick="deleteCheck([[${problemReportBean.getProblemReportNo()}]])"
+                            class="waves-effect waves-light btn-flat modal-trigger"><i
+                            class="material-icons">delete</i></button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Modal Structure -->
+    <div id="edit-page" class="modal">
+        <div class="modal-content small">
+            <h4>處理狀態修改</h4>
+            <div class="">
+                <form id="updateForm">
+                    <input type="hidden" id="problemReportNo" name="problemReportNo">
+                    <label>回報者帳號</label>
+                    <p id="userId" name="userId"></p>
+                    <label>回報者姓名</label>
+                    <p id="userName" name="userName">Alice Lee</p>
+                    <label>問題內容</label>
+                    <p class="mulline" id="content" name="content"></p>
+                    <label>狀態</label>
+                    <select id="status" name="status">
+                        <option th:each="codeTableMap:${codeTableMap}" th:value="${codeTableMap.key}"
+                                th:text="${codeTableMap.value}"></option>
+                    </select>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn red">取消</a>
+            <button onclick="update()" class="modal-close waves-effect waves-red btn">確定</button>
+        </div>
+    </div>
+    <div id="delete-page" class="modal">
+        <input type="hidden" id="problemReportNo" value="">
+        <div class="modal-content">
+            <h4>刪除資料</h4>
+            <p>
+                你確定要刪除資料?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn red">取消</a>
+            <button onclick="deleteProblemReport()" class="modal-close waves-effect waves-red btn">確定</button>
+        </div>
+    </div>
+</main>
+
+
+<footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container center">
+            © 2020 Copyright BeMet
+        </div>
+    </div>
+</footer>
+
+
+<script src="../../static/js/script.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="../../static/js/init.js"></script>
+</body>
+</html>
+<script th:inline="javascript">
+    var updateSearchURL =/*[[@{/problemreport/get/}]]*/"";
+    var updateURL =/*[[@{/problemreport/update/}]]*/"";
+    var deleteURL =/*[[@{/problemreport/delete/}]]*/"";
+    var searchURL =/*[[@{/problemreport/search/}]]*/"";
+
+    function updateSearch(problemReportNo) {
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: updateSearchURL + problemReportNo,
+            async: false,
+            success: function (data) {
+                if (data.result) {
+                    var $updateForm = $("#updateForm");
+                    $updateForm.find("#problemReportNo").val(data.problemReportNo);
+                    $updateForm.find("#userId").text(data.userId);
+                    $updateForm.find("#userName").text(data.userName);
+                    $updateForm.find("#content").text(data.content);
+                    $updateForm.find("#status").val(data.status);
+                    $('#status').formSelect()
+                    // $("#edit-page").show();
+                }
+            }
+        });
+    }
+
+    function update() {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: updateURL,
+            async: false,
+            data: $("#updateForm").serialize(),
+            success: function (data) {
+                console.log(data);
+                if (data.result) {
+                    alert(data.message);
+                    window.location.reload();
+                } else {
+                    alert(data.message);
+                }
+            }
+        });
+    }
+
+    function deleteCheck(problemReportNo) {
+        console.log(problemReportNo);
+        $("#delete-page").find("#problemReportNo").val(problemReportNo);
+    }
+
+    function deleteProblemReport() {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: deleteURL + $("#delete-page").find("#problemReportNo").val(),
+            async: false,
+            success: function (data) {
+                if (data.result) {
+                    alert(data.message);
+                    window.location.reload();
+                } else {
+                    alert(data.message);
+                }
+            }
+        });
+    }
+
+    function search() {
+        console.log($("searchForm").find("end_date").val());
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: searchURL,
+            data: $("#searchForm").serialize(),
+            async: false,
+            success: function (data) {
+                if (data.result) {
+                    var array = data.array;
+                    console.log(array.length);
+                    var html = "";
+                    for (let i = 0; i < array.length; i++) {
+                        var problemReportBean = array[i];
+                        html += `<tr>
+                            <td  >${problemReportBean.userName}</td>
+                            <td >${problemReportBean.content}</td>
+                            <td >${problemReportBean.statusStr}</td>
+                            <td >${problemReportBean.startDateStr}</td>
+                            <td >${problemReportBean.endDateStr}</td>
+                            <td><button href="#edit-page" onclick="updateSearch(${problemReportBean.problemReportNo})"    class="waves-effect waves-light btn-flat modal-trigger"><i
+                                class="material-icons">edit</i></button></td>
+                            <td><button href="#delete-page" onclick="deleteCheck(${problemReportBean.problemReportNo})" class="waves-effect waves-light btn-flat modal-trigger"><i
+                                class="material-icons">delete</i></button></td>
+                        </tr>`;
+                    }
+                    $("#searchTbody").empty();
+                    $("#searchTbody").append(html);
+                }
+
+            }
+        })
+    }
+</script>
+
