@@ -2,18 +2,17 @@ package tw.com.BeMet.bean;
 
 import java.time.LocalDateTime;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 public class ProblemReportBean {
     private Integer problemReportNo;
     private String content;
     private String userId;
     private String userName;
     private Integer status;
-    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    private String statusStr;
     private LocalDateTime startDate;
-    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    private String startDateStr;
     private LocalDateTime endDate;
+    private String endDateStr;
     private LocalDateTime createDate;
     private LocalDateTime modifyDate;
 
@@ -49,44 +48,68 @@ public class ProblemReportBean {
         this.status = status;
     }
 
-	public LocalDateTime getStartDate() {
-		return startDate;
-	}
+    public String getStatusStr() {
+        return statusStr;
+    }
 
-	public void setStartDate(LocalDateTime startDate) {
-		this.startDate = startDate;
-	}
+    public void setStatusStr(String statusStr) {
+        this.statusStr = statusStr;
+    }
 
-	public LocalDateTime getEndDate() {
-		return endDate;
-	}
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
 
-	public void setEndDate(LocalDateTime endDate) {
-		this.endDate = endDate;
-	}
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
 
-	public LocalDateTime getCreateDate() {
-		return createDate;
-	}
+    public String getStartDateStr() {
+        return startDateStr;
+    }
 
-	public void setCreateDate(LocalDateTime createDate) {
-		this.createDate = createDate;
-	}
+    public void setStartDateStr(String startDateStr) {
+        this.startDateStr = startDateStr;
+    }
 
-	public LocalDateTime getModifyDate() {
-		return modifyDate;
-	}
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
 
-	public void setModifyDate(LocalDateTime modifyDate) {
-		this.modifyDate = modifyDate;
-	}
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    public String getEndDateStr() {
+        return endDateStr;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	
+    public void setEndDateStr(String endDateStr) {
+        this.endDateStr = endDateStr;
+    }
+
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
+    }
+
+    public LocalDateTime getModifyDate() {
+        return modifyDate;
+    }
+
+    public void setModifyDate(LocalDateTime modifyDate) {
+        this.modifyDate = modifyDate;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
 }
