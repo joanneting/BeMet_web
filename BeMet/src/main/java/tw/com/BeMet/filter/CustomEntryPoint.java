@@ -15,8 +15,6 @@ public class CustomEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         authException.printStackTrace();
         ObjectMapper mapper = new ObjectMapper();
-        System.out.println("request.getHeader(\"refer\") = " + request.getHeader("refer"));
-        System.out.println("request.getHeader(\"X-Requested-With\") = " + request.getHeader("X-Requested-With"));
         if(request.getHeader("X-Requested-With")!=null) {
             ResponseUtils.response(
                     response,
@@ -27,7 +25,7 @@ public class CustomEntryPoint implements AuthenticationEntryPoint {
                     request.getRequestURI().endsWith("search") ? mapper.createArrayNode() : mapper.createObjectNode()
             );
         }else{
-            response.sendRedirect("login?error=fail");
+            response.sendRedirect(request.getContextPath()+"/login?error=fail");
         }
     }
 }

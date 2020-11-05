@@ -29,8 +29,8 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
                     mapper.createObjectNode()
             );
         } else {
-
-                    response.sendRedirect("login?error=fail");
+            System.out.println("request.getContextPath() = " + request.getContextPath());
+            response.sendRedirect(request.getContextPath()+"/login?error=fail");
 
 
         }

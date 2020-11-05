@@ -31,11 +31,13 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
         ObjectMapper mapper = new ObjectMapper();
         List<? extends GrantedAuthority> authorities = (List<? extends GrantedAuthority>) authentication.getAuthorities();
         GrantedAuthority grantedAuthority = authorities.get(0);
         String authorityName = grantedAuthority.getAuthority();
         UserInformation userInformation = userInformationDAO.getById(userDetails.getUsername());
+        request.getSession().setAttribute("userName",userInformation.getName());
         UserInformationBean userInformationBean = new UserInformationBean();
         BeanUtility.copyProperties(userInformation,userInformationBean);
         if (request.getContentType().startsWith("application/json")) {

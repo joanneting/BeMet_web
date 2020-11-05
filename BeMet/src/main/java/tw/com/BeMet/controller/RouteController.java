@@ -41,6 +41,11 @@ public class RouteController {
         }
         return o.writeValueAsString(result);
     }
+    @GetMapping(path = "/error403")
+    public ModelAndView errorPage() throws Exception {
+        ModelAndView modelAndView = new ModelAndView("error403");
+        return modelAndView;
+    }
 
 //    @PostMapping(path = "/login", produces = "application/json;charset=UTF-8")
 //    public String login(@RequestBody UserInformationBean userInformationBean) throws Exception {
