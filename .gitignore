@@ -6,3 +6,9 @@ business_meet/META-INF/MANIFEST.MF
 .idea/
 
 business_meet/gradle.properties
+
+BeMet/.gradle/
+
+BeMet/build/
+
+BeMet/src/main/resources/application-local.properties
