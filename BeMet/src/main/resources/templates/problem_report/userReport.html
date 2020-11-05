@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeMet-問題回報</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Rubik:wght@500&display=swap" rel="stylesheet">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Philosopher:wght@700&family=Roboto&display=swap"
+            rel="stylesheet">
+</head>
+
+<body>
+<nav>
+    <div class="container">
+        <div class="nav-wrapper col">
+            <img class="logo-img" src="../../static/images/logo.png" alt="">
+            <a href="#" class="brand-logo">BeMet</a>
+            <a href="#" data-target="slide-out" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
+
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li th:text="${session.userName}"></li>
+                <li><a href="../logout.html" class="waves-effect waves-light btn">登出</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<ul id="slide-out" class="sidenav">
+    <li>
+        <div class="user-view">
+    <li><a class="subheader">User Name</a></li>
+    <li><a href="../logout.html" class="waves-effect waves-light btn">登出</a></li>
+    </div>
+    </li>
+</ul>
+
+<main>
+    <div class="container">
+        <blockquote>問題回報</blockquote>
+
+        <p>我們會於24-48小時內盡快處理</p>
+        <form id="addForm">
+            <input type="hidden" th:value="${session.userId}">
+            <textarea class="textarea" name="content" id="content" cols="30" rows="10" placeholder="請寫下您的問題"></textarea>
+        </form>
+        <img src="../../static/images/undraw_QA_engineers_dg5p.svg" class="web-background right">
+        <a>
+            <button class="btn waves-effect waves-light" onclick="add()" type="submit" name="action">送出
+                <i class="material-icons right">send</i>
+            </button>
+        </a>
+    </div>
+</main>
+
+
+<footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container center">
+            © 2020 Copyright BeMet
+        </div>
+    </div>
+</footer>
+
+
+<script src="../../static/js/script.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="../../static/js/init.js"></script>
+
+</body>
+<script th:inline="javascript">
+    var addURL = /*[[@{/problemreport/add/}]]*/"";
+    var addSuccessURL = /*[[@{/problemreport/add/success/}]]*/"";
+
+    function add() {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: addURL,
+            data: $("#addForm").serialize(),
+            async: false,
+            success: function (data) {
+                if (data.result) {
+                    alert(data.message);
+                    window.location.href = addSuccessURL;
+                }
+            }
+        })
+    }
+</script>
+</html>
+
