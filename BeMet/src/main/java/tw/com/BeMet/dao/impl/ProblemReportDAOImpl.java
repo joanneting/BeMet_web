@@ -1,62 +1,66 @@
 package tw.com.BeMet.dao.impl;
 
-import java.util.List;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-
 import tw.com.BeMet.bean.ProblemReportBean;
 import tw.com.BeMet.dao.ProblemReportDAO;
 import tw.com.BeMet.vo.ProblemReport;
+
+import java.util.List;
 
 @Repository
 @SuppressWarnings("unchecked")
 public class ProblemReportDAOImpl extends BaseDAOImpl<ProblemReport> implements ProblemReportDAO {
 
-	@Override
-	public List<ProblemReport> search(ProblemReportBean condition) {
-		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(ProblemReport.class);
-		detachedCriteria.createAlias("userInformationByUserId","userInformation");
-		
-		// SELECT * FROM ProblemReport;
-		// 塞條件 -> WHERE
-		if (condition != null) { 
-			if (condition.getUserId() != null && !condition.getUserId().isBlank()) {
-				// SELECT * FROM ProblemReport WHERE userNo = 1
-				detachedCriteria.add(Restrictions.eq("userId", condition.getUserId()));
-			}
-			
-			if (condition.getContent() != null && !condition.getContent().isBlank()) {
-				detachedCriteria.add(Restrictions.like("content", "%" + condition.getContent() + "%"));
-			}
-			
-			if (condition.getStatus() != null) {
-				detachedCriteria.add(Restrictions.eq("status", condition.getStatus()));
-			}
-			
-			if (condition.getStartDate() != null && condition.getEndDate() != null) {
-				
-				detachedCriteria.add(Restrictions.between(
-						"endDate",
-						condition.getStartDate(),
-						condition.getEndDate()
-				));
-			} else if(condition.getStartDate() != null) {
-				detachedCriteria.add(Restrictions.ge(
-						"startDate",
-						condition.getStartDate()
-				));
-			} else if(condition.getEndDate() != null) {
-				detachedCriteria.add(Restrictions.lt(
-						"endDate",
-						condition.getEndDate()
-				));
-				}
-			}
-		
-		
-		return (List<ProblemReport>) getHibernateTemplate().findByCriteria(detachedCriteria);
-	}
+    @Override
+    public List<ProblemReport> search(ProblemReportBean problemReportBean) {
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(ProblemReport.class);
+        detachedCriteria.createAlias("userInformationByUserId", "userInformation");
+
+        // SELECT * FROM ProblemReport;
+        // 塞條件 -> WHERE
+        if (problemReportBean != null) {
+            if (problemReportBean.getUserId() != null && !problemReportBean.getUserId().isBlank()) {
+                // SELECT * FROM ProblemReport WHERE userNo = 1
+                detachedCriteria.add(Restrictions.eq("userId", problemReportBean.getUserId()));
+            }
+            if (problemReportBean.getUserName() != null && !problemReportBean.getUserName().isBlank()) {
+                // SELECT * FROM ProblemReport WHERE userNo = 1
+                detachedCriteria.add(Restrictions.eq("userInformation.name", problemReportBean.getUserName()));
+            }
+            System.out.println("problemReportBean.getContent() = " + problemReportBean.getContent());
+            if (problemReportBean.getContent() != null && !problemReportBean.getContent().isBlank()) {
+                System.out.println("problemReportBean.getContent().isBlank() = " + problemReportBean.getContent().isBlank());
+                detachedCriteria.add(Restrictions.like("content", "%" + problemReportBean.getContent() + "%"));
+            }
+
+            if (problemReportBean.getStatus() != null) {
+                detachedCriteria.add(Restrictions.eq("status", problemReportBean.getStatus()));
+            }
+
+            if (problemReportBean.getStartDate() != null && problemReportBean.getEndDate() != null) {
+
+                detachedCriteria.add(Restrictions.between(
+                        "endDate",
+                        problemReportBean.getStartDate(),
+                        problemReportBean.getEndDate().plusHours(23).plusMinutes(59)
+                ));
+            } else if (problemReportBean.getStartDate() != null) {
+                detachedCriteria.add(Restrictions.ge(
+                        "startDate",
+                        problemReportBean.getStartDate()
+                ));
+            } else if (problemReportBean.getEndDate() != null) {
+                detachedCriteria.add(Restrictions.lt(
+                        "endDate",
+                        problemReportBean.getEndDate().plusHours(23).plusMinutes(59)
+                ));
+            }
+        }
+
+
+        return (List<ProblemReport>) getHibernateTemplate().findByCriteria(detachedCriteria);
+    }
 
 }
