@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -13,54 +13,57 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Rubik:wght@500&display=swap" rel="stylesheet">
     <link
-        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Philosopher:wght@700&family=Roboto&display=swap"
-        rel="stylesheet">
+            href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Philosopher:wght@700&family=Roboto&display=swap"
+            rel="stylesheet">
 </head>
 
 <body>
-    <nav>
-        <div class="container">
-            <div class="nav-wrapper col">
-                <img class="logo-img" src="../static/images/logo.png" alt="">
-                <a href="#" class="brand-logo">BeMet</a>
+<nav>
+    <div class="container">
+        <div class="nav-wrapper col">
+            <img class="logo-img" src="../static/images/logo.png" alt="">
+            <a href="#" class="brand-logo">BeMet</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li th:text="${session.userName}"></li>
+                <!--                    <li><a href="search.html"><i class="material-icons">search</i></a></li>-->
+                <li><a th:if="${session.userName == null || session.userName == '' }" href="@{/user/login}"
+                       class="waves-effect waves-light btn">登入</a>
+                <li><a th:unless="${session.userName == null || session.userName == ''}" href="@{/user/logout}"
+                       class="waves-effect waves-light btn">登出</a>
+                </li>
 
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li>User Name</li>
-                    <li><a href="logout.html" class="waves-effect waves-light btn">登出</a></li>
-
-                </ul>
-            </div>
+            </ul>
         </div>
-    </nav>
-    <main>
+    </div>
+</nav>
+<main>
 
-        <div class="container">
+    <div class="container">
 
-            <h4 class="center">您的權限不足</h4>
-            <div class="center">
-                <img class="web-background-large" src="../static/images/undraw_feeling_blue_4b7q.svg" alt=""></div>
+        <h4 class="center">您的權限不足</h4>
+        <div class="center">
+            <img class="web-background-large" src="../static/images/undraw_feeling_blue_4b7q.svg" alt=""></div>
+    </div>
+
+
+    </div>
+</main>
+
+
+<footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container center">
+            © 2020 Copyright BeMet
         </div>
+    </div>
+</footer>
 
 
-
-        </div>
-    </main>
-
-
-    <footer class="page-footer">
-        <div class="footer-copyright">
-            <div class="container center">
-                © 2020 Copyright BeMet
-            </div>
-        </div>
-    </footer>
-
-
-    <script src="../static/js/script.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+<script src="../static/js/script.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="../static/js/init.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="../static/js/init.js"></script>
 
 </body>
 
