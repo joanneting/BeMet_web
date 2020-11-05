@@ -14,69 +14,71 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Rubik:wght@500&display=swap" rel="stylesheet">
     <link
-        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Philosopher:wght@700&family=Roboto&display=swap"
-        rel="stylesheet">
+            href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Philosopher:wght@700&family=Roboto&display=swap"
+            rel="stylesheet">
 </head>
 <script th:inline="javascript">
     var userName = /*[[@{session.userName}]]*/"userName";
 </script>
 <body>
-    <nav>
-        <div class="container">
-            <div class="nav-wrapper">
-                <div>
-                    <img class="logo-img" src="../static/images/logo.png" alt="">
-                    <a href="#" class="brand-logo">BeMet</a>
-                </div>
-
+<nav>
+    <div class="container">
+        <div class="nav-wrapper">
+            <div>
+                <img class="logo-img" src="../static/images/logo.png" alt="">
+                <a href="#" class="brand-logo">BeMet</a>
             </div>
+
         </div>
-    </nav>
-    <main>
+    </div>
+</nav>
+<main>
 
-        <div class="container">
+    <div class="container">
 
-            <div class="row my-wrapper  ">
-                <div class="col s12 m6"> <img style="width: 100%;" src="../static/images/undraw_Login_re_4vu2.svg" alt="">
-                </div>
-                <div class="col s12 m6">
-                    <h4>Sign in</h4>
-                    <form action="/login" method="post">
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input id="user_id" name="userId" type="text" class="validate">
-                                <label for="user_id">User Id</label>
-                            </div>
+        <div class="row my-wrapper  ">
+            <div class="col s12 m6"><img style="width: 100%;" src="../static/images/undraw_Login_re_4vu2.svg" alt="">
+            </div>
+            <div class="col s12 m6">
+                <h4>登入</h4>
+                <form action="/login" method="post">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="user_id" name="userId" type="text" class="validate">
+                            <label for="user_id">帳號</label>
                         </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input id="password" name="password" type="password" class="validate">
-                                <label for="password">Password</label>
-                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="password" name="password" type="password" class="validate">
+                            <label for="password">密碼</label>
                         </div>
-                        <button type="submit"  class="waves-effect waves-light btn">登入</button>
-                    </form>
-                </div>
-            </div>
-           
-        </div>
-    </main>
+                        <label class="red-text" th:text="${message}"></label>
+                    </div>
 
-
-    <footer class="page-footer">
-        <div class="footer-copyright">
-            <div class="container center">
-                © 2020 Copyright BeMet
+                    <button type="submit" class="waves-effect waves-light btn">登入</button>
+                </form>
             </div>
         </div>
-    </footer>
+
+    </div>
+</main>
 
 
-    <script src="../static/js/script.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+<footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container center">
+            © 2020 Copyright BeMet
+        </div>
+    </div>
+</footer>
+
+
+<script src="../static/js/script.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="../static/js/init.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="../static/js/init.js"></script>
 
 </body>
 
