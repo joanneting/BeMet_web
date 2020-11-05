@@ -24,9 +24,10 @@
             <img class="logo-img" src="../../static/images/logo.png" alt="">
             <a href="userReport.html" class="brand-logo">BeMet</a>
 
+
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li>User Name</li>
-                <li><a href="../logout.html" class="waves-effect waves-light btn">登出</a></li>
+                <li th:text="${session.userName}"></li>
+                <li><a th:href="@{/user/logout}" class="waves-effect waves-light btn">登出</a></li>
 
             </ul>
         </div>
@@ -38,7 +39,7 @@
 
         <h4 class="center">我們已收到您的回報</h4>
         <div class="center">
-            <img class="web-background-large" src="../../static/images/undraw_done_a34v.svg" alt=""></div>
+            <img class="web-background-large" th:src="@{/static/images/undraw_done_a34v.svg}" alt=""></div>
     </div>
 
 

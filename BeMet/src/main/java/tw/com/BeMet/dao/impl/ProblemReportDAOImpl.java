@@ -41,9 +41,12 @@ public class ProblemReportDAOImpl extends BaseDAOImpl<ProblemReport> implements 
 
             if (problemReportBean.getStartDate() != null && problemReportBean.getEndDate() != null) {
 
-                detachedCriteria.add(Restrictions.between(
+                detachedCriteria.add(Restrictions.ge(
+                        "startDate",
+                        problemReportBean.getStartDate()
+                ));
+                detachedCriteria.add(Restrictions.le(
                         "endDate",
-                        problemReportBean.getStartDate(),
                         problemReportBean.getEndDate().plusHours(23).plusMinutes(59)
                 ));
             } else if (problemReportBean.getStartDate() != null) {

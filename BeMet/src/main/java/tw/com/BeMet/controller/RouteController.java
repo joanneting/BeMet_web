@@ -1,7 +1,5 @@
 package tw.com.BeMet.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,27 +18,21 @@ public class RouteController {
         System.out.println("error = " + error);
         ModelAndView modelAndView = new ModelAndView("login");
         if (error != null) {
-            modelAndView.addObject("message","登入失敗");
-        }else{
-            modelAndView.addObject("message","");
+            modelAndView.addObject("message", "登入失敗");
+        } else {
+            modelAndView.addObject("message", "");
         }
 
         return modelAndView;
     }
 
     @GetMapping(path = "/logout")
-    public String logoutPage() throws Exception {
-        ObjectMapper o = new ObjectMapper();
-        ObjectNode result = o.createObjectNode();
-        try {
-            result.put("message", "請先登入");
-            result.put("result", false);
-        } catch (Exception e) {
-            e.printStackTrace();
-            result.put("message", e.getMessage());
-        }
-        return o.writeValueAsString(result);
+    public ModelAndView logoutPage() throws Exception {
+
+        return new ModelAndView("logout");
+
     }
+
     @GetMapping(path = "/error403")
     public ModelAndView errorPage() throws Exception {
         ModelAndView modelAndView = new ModelAndView("error403");

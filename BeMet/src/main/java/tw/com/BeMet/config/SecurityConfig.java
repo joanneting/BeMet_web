@@ -28,8 +28,9 @@ import javax.transaction.Transactional;
 @EnableGlobalMethodSecurity(prePostEnabled = true) // 表示可使用@PreAuthority註解
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
-@Autowired
-private UserInformationDAO userInformationDAO;
+    @Autowired
+    private UserInformationDAO userInformationDAO;
+
     // private UserAccountService userService;//帳號
     @Autowired
     public SecurityConfig(DataSource dataSource, UserInformationService userService) {
@@ -56,10 +57,10 @@ private UserInformationDAO userInformationDAO;
                 .accessDeniedHandler(new CustomerAccessDeniedHandler())// 偵測權限不足的處理
                 .authenticationEntryPoint(new CustomEntryPoint())//自定義未登入處理
                 .and().authenticationProvider(new CustomAuthenticationProvider())// 內部是寫add，所以可以多個//權限設定，額外登入判斷處理
-                .addFilterBefore(new CustomLoginFilter(authenticationManager(),userInformationDAO),
+                .addFilterBefore(new CustomLoginFilter(authenticationManager(), userInformationDAO),
                         UsernamePasswordAuthenticationFilter.class)//取request傳送的值//設定登入驗證參數//設定自定義登入(失敗&成功)處理
                 .authorizeRequests()// 設定Requests的權限需求
-                .antMatchers(HttpMethod.GET, "/logout", "/timeout", "/error**","/login*")
+                .antMatchers(HttpMethod.GET, "/logout", "/timeout", "/error**", "/login*")
                 .permitAll()
                 .antMatchers(HttpMethod.POST, "/userinformation/add").permitAll()
                 .antMatchers("/index").permitAll()
@@ -77,7 +78,7 @@ private UserInformationDAO userInformationDAO;
                 .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout", "GET"))// 設定Logout
                 // URL
                 // .invalidateHttpSession(true)
-                .logoutSuccessUrl("/login")// 設定登出成功後的URL
+                .logoutSuccessUrl("/logout")// 設定登出成功後的URL
                 .deleteCookies("JSESSIONID")
                 .and()
                 .sessionManagement()// Session管理
