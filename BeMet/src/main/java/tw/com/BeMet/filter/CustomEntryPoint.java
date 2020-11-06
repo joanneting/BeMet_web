@@ -15,7 +15,7 @@ public class CustomEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         authException.printStackTrace();
         ObjectMapper mapper = new ObjectMapper();
-        if(request.getHeader("X-Requested-With")!=null) {
+        if (request.getHeader("X-Requested-With") != null) {
             ResponseUtils.response(
                     response,
                     401,
@@ -24,8 +24,8 @@ public class CustomEntryPoint implements AuthenticationEntryPoint {
                     "您尚未登入，請登入後再試一次。",
                     request.getRequestURI().endsWith("search") ? mapper.createArrayNode() : mapper.createObjectNode()
             );
-        }else{
-            response.sendRedirect(request.getContextPath()+"/login?error=fail");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/login?error=nologin");
         }
     }
 }

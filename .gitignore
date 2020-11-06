@@ -12,3 +12,5 @@ BeMet/.gradle/
 BeMet/build/
 
 BeMet/src/main/resources/application-local.properties
+
+BeMet/src/main/resources/static/google/admin.json
