@@ -52,7 +52,7 @@ public class ProblemReportController {
 
     @GetMapping(path = "/add/success")
     public ModelAndView addSuccessPage() throws Exception {
-        ModelAndView modelAndView = new ModelAndView("/problem_report/userSuccess");
+        ModelAndView modelAndView = new ModelAndView("problem_report/userSuccess");
         return modelAndView;
     }
 
@@ -88,7 +88,7 @@ public class ProblemReportController {
         return o.writeValueAsString(result);
     }
 
-    
+
     @ResponseBody
     @GetMapping(path = "/search", produces = "application/json;charset=UTF-8")
     public String search(ProblemReportBean condition) throws Exception {
