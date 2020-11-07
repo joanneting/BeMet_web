@@ -105,8 +105,10 @@ public class ProblemReportController {
                 problemReportNode.put("userId", problemReportBean.getUserId());
                 problemReportNode.put("userName", problemReportBean.getUserName());
                 problemReportNode.put("statusStr", problemReportBean.getStatusStr());
-                problemReportNode.put("startDateStr", problemReportBean.getStartDate() != null ? problemReportBean.getStartDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : "");
-                problemReportNode.put("endDateStr", problemReportBean.getEndDate() != null ? problemReportBean.getEndDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : "");
+                problemReportNode.put("startDateStr", problemReportBean.getStartDate() != null ?
+                        problemReportBean.getStartDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : "");
+                problemReportNode.put("endDateStr", problemReportBean.getEndDate() != null ?
+                        problemReportBean.getEndDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : "");
             }
         } catch (Exception e) {
             e.printStackTrace();

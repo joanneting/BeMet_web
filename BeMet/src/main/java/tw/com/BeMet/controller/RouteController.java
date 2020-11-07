@@ -38,14 +38,4 @@ public class RouteController {
         ModelAndView modelAndView = new ModelAndView("error403");
         return modelAndView;
     }
-
-//    @PostMapping(path = "/login", produces = "application/json;charset=UTF-8")
-//    public String login(@RequestBody UserInformationBean userInformationBean) throws Exception {
-//        ObjectMapper o = new ObjectMapper();
-//        ObjectNode result = o.createObjectNode();
-//        try {
-//
-//        }
-//    }
-
 }

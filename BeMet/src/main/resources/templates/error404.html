@@ -26,9 +26,9 @@
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li th:text="${session.userName}"></li>
                 <!--                    <li><a href="search.html"><i class="material-icons">search</i></a></li>-->
-                <li><a th:if="${session.userName == null || session.userName == '' }" href="@{/user/login}"
+                <li><a th:if="${session.userName == null || session.userName == '' }" th:href="@{/user/login}"
                        class="waves-effect waves-light btn">登入</a>
-                <li><a th:unless="${session.userName == null || session.userName == ''}" href="@{/user/logout}"
+                <li><a th:unless="${session.userName == null || session.userName == ''}" th:href="@{/user/logout}"
                        class="waves-effect waves-light btn">登出</a>
                 </li>
 
@@ -69,6 +69,3 @@
 
 </html>
 
-</body>
-
-</html>
