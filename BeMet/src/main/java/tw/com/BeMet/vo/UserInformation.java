@@ -33,7 +33,6 @@ public class UserInformation implements UserDetails {
     private Collection<Friend> friendsByUserId;
     private Collection<Groups> groupsByUserId;
     private Collection<ProblemReport> problemReportsByUserId;
-    private Collection<UserCustomization> userCustomizationsByUserId;
     private Collection<Friend> friendsByUserId_0;
 
     @Id
@@ -214,15 +213,6 @@ public class UserInformation implements UserDetails {
 
     public void setProblemReportsByUserId(Collection<ProblemReport> problemReportsByUserId) {
         this.problemReportsByUserId = problemReportsByUserId;
-    }
-
-    @OneToMany(mappedBy = "userInformationByUserId")
-    public Collection<UserCustomization> getUserCustomizationsByUserId() {
-        return userCustomizationsByUserId;
-    }
-
-    public void setUserCustomizationsByUserId(Collection<UserCustomization> userCustomizationsByUserId) {
-        this.userCustomizationsByUserId = userCustomizationsByUserId;
     }
 
 
