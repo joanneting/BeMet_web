@@ -40,16 +40,16 @@
     <div class="container">
         <div class="row search">
             <form id="searchForm" class="col s12">
-                <div class="row">
-                    <div class="input-field col s2">
+                <div class="row center right">
+                    <div class="input-field col s1.5">
                         <input id="user_name" name="userName" type="text" class="validate">
                         <label for="user_name">使用者名稱</label>
                     </div>
-                    <div class="input-field col s2">
+                    <div class="input-field col s1.5">
                         <input id="content" name="content" type="text" class="validate">
                         <label for="content">內容</label>
                     </div>
-                    <div class="input-field col s2">
+                    <div class="input-field col s1.5">
                         <select name="status">
                             <option></option>
                             <option th:each="codeTableMap:${codeTableMap}" th:value="${codeTableMap.key}"
@@ -59,11 +59,11 @@
                         <label>狀態</label>
                     </div>
 
-                    <div class="input-field col s2">
+                    <div class="input-field col s2.5">
                         <input id="start_date" name="startDate" type="date" class="validate">
                         <label for="start_date">處理日期</label>
                     </div>
-                    <div class="input-field col s2">
+                    <div class="input-field col s2.5">
                         <input id="end_date" name="endDate" type="date" class="validate">
                         <label for="end_date">處理完成日期</label>
                     </div>
