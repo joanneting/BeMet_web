@@ -29,7 +29,6 @@ public class ProblemReportDAOImpl extends BaseDAOImpl<ProblemReport> implements 
                 // SELECT * FROM ProblemReport WHERE userNo = 1
                 detachedCriteria.add(Restrictions.eq("userInformation.name", problemReportBean.getUserName()));
             }
-            System.out.println("problemReportBean.getContent() = " + problemReportBean.getContent());
             if (problemReportBean.getContent() != null && !problemReportBean.getContent().isBlank()) {
                 System.out.println("problemReportBean.getContent().isBlank() = " + problemReportBean.getContent().isBlank());
                 detachedCriteria.add(Restrictions.like("content", "%" + problemReportBean.getContent() + "%"));
@@ -67,3 +66,4 @@ public class ProblemReportDAOImpl extends BaseDAOImpl<ProblemReport> implements 
     }
 
 }
+
