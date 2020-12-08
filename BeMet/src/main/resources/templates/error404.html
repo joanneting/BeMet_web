@@ -22,9 +22,11 @@
     <div class="container">
         <div class="nav-wrapper col">
             <img class="logo-img" src="../static/images/logo.png" th:src="@{/static/images/logo.png}" alt="">
-            <a th:if="${session.userName == null || session.userName == '' }" th:href="@{/user/login}"
+            <a th:if="${session.roleNo != 3}"
+               th:href="@{/problemreport}"
                class="brand-logo">BeMet</a>
-            <a th:unless="${session.userName == null || session.userName == ''}" th:href="@{/user/logout}"
+            <a th:if="${session.roleNo == 3}"
+               th:href="@{/problemreport/add}"
                class="brand-logo">BeMet</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li th:text="${session.userName}"></li>
@@ -44,7 +46,8 @@
     <div class="container">
         <h4 class="center">找不到頁面...</h4>
         <div class="center">
-            <img class="web-background-large" src="../static/images/undraw_page_not_found_su7k.svg" alt=""></div>
+            <img class="web-background-large" src="../static/images/undraw_page_not_found_su7k.svg"
+                 th:src="@{/static/images/undraw_page_not_found_su7k.svg}" alt=""></div>
     </div>
     </div>
 </main>

@@ -22,6 +22,7 @@ import java.util.List;
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     private UserInformationDAO userInformationDAO;
+
     @Autowired
     public CustomAuthenticationSuccessHandler(UserInformationDAO userInformationDAO) {
         this.userInformationDAO = userInformationDAO;
@@ -37,9 +38,10 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         GrantedAuthority grantedAuthority = authorities.get(0);
         String authorityName = grantedAuthority.getAuthority();
         UserInformation userInformation = userInformationDAO.getById(userDetails.getUsername());
-        request.getSession().setAttribute("userName",userInformation.getName());
+        request.getSession().setAttribute("userName", userInformation.getName());
+        request.getSession().setAttribute("roleNo", userInformation.getRoleNo());
         UserInformationBean userInformationBean = new UserInformationBean();
-        BeanUtility.copyProperties(userInformation,userInformationBean);
+        BeanUtility.copyProperties(userInformation, userInformationBean);
         if (request.getContentType().startsWith("application/json")) {
             ResponseUtils.response(
                     response,
@@ -47,13 +49,13 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                     true,
                     "",
                     "登入成功",
-                    mapper.createObjectNode().put("identity", authorityName).putPOJO("userInformationBean",userInformationBean)
+                    mapper.createObjectNode().put("identity", authorityName).putPOJO("userInformationBean", userInformationBean)
             );
         } else {
             for (GrantedAuthority authority : userDetails.getAuthorities()) {
-                if(authority.getAuthority().equals("user")){
+                if (authority.getAuthority().equals("user")) {
                     response.sendRedirect("problemreport/add");
-                }else{
+                } else {
                     response.sendRedirect("problemreport/");
                 }
             }
