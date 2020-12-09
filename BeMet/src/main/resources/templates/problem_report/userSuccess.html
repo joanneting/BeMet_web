@@ -21,10 +21,8 @@
 <nav>
     <div class="container">
         <div class="nav-wrapper col">
-            <img class="logo-img" src="../../static/images/logo.png" alt="">
-            <a href="userReport.html" class="brand-logo">BeMet</a>
-
-
+            <img class="logo-img" src="../static/images/logo.png" th:src="@{/static/images/logo.png}" alt="">
+            <a th:href="@{/problemreport/add}" href="userReport.html" class="brand-logo">BeMet</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li th:text="${session.userName}"></li>
                 <li><a th:href="@{/user/logout}" class="waves-effect waves-light btn">登出</a></li>
@@ -66,6 +64,3 @@
 
 </html>
 
-</body>
-
-</html>

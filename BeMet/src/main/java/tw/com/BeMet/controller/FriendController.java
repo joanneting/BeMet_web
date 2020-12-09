@@ -3,7 +3,10 @@ package tw.com.BeMet.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.google.firebase.messaging.*;
+import com.google.firebase.messaging.AndroidConfig;
+import com.google.firebase.messaging.AndroidNotification;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +27,7 @@ public class FriendController {
     FriendService friendService;
     @Autowired
     UserInformationService userInformationService;
+
     @PostMapping(path = "/search", produces = "application/json;charset=UTF-8")
     public String search(@RequestBody FriendBean friendBean) throws Exception {
         ObjectMapper o = new ObjectMapper();
@@ -54,24 +58,24 @@ public class FriendController {
         try {
             FriendBean resultBean = new FriendBean();
             FriendBean searchBean = friendService.searchAddData(friendBean);
-            if (searchBean!=null){
-                if (searchBean.getStatus() == 3){
+            if (searchBean != null) {
+                if (searchBean.getStatus() == 3) {
                     searchBean.setStatus(1);
                     resultBean = friendService.update(searchBean);
-                }else {
+                } else {
                     resultBean = searchBean;
                 }
-            }else{
-                 friendBean.setStatus(1);
-                 resultBean = friendService.add(friendBean);
+            } else {
+                friendBean.setStatus(1);
+                resultBean = friendService.add(friendBean);
             }
             UserInformationBean userInformationBean = userInformationService.getById(friendBean.getFriendId());
             UserInformation myInformation = (UserInformation) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             String registrationToken = userInformationBean.getFirebaseToken();
             // See documentation on defining a message payload.
-            AndroidConfig androidConfig = getAndroidConfig("friend"+friendBean.getFriendNo());
+            AndroidConfig androidConfig = getAndroidConfig("friend" + friendBean.getFriendNo());
             Message message = Message.builder()
-                    .setAndroidConfig(androidConfig).putData("type","friendInvite").putData("friendId",myInformation.getUserId()).putData("friendName",myInformation.getName()).setToken(registrationToken)
+                    .setAndroidConfig(androidConfig).putData("type", "friendInvite").putData("friendId", myInformation.getUserId()).putData("friendName", myInformation.getName()).setToken(registrationToken)
                     .build();
             // Send a message to the device corresponding to the provided
             // registration token.
@@ -85,31 +89,32 @@ public class FriendController {
         }
         return o.writeValueAsString(result);
     }
+
     @PostMapping(path = "/invite", produces = "application/json;charset=UTF-8")
-    public String invite(@RequestBody FriendBean friendBean) throws Exception{
+    public String invite(@RequestBody FriendBean friendBean) throws Exception {
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();
         try {
-            UserInformation userInformation =(UserInformation) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            UserInformation userInformation = (UserInformation) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             Integer status = friendBean.getStatus();
             friendBean.setMatchmakerId(userInformation.getUserId());
             FriendBean friendMatchBean = new FriendBean();
             friendMatchBean.setMatchmakerId(friendBean.getFriendId());
             friendMatchBean.setFriendId(friendBean.getMatchmakerId());
             friendMatchBean = friendService.searchAddData(friendMatchBean);
-            if(status == null){
+            if (status == null) {
                 friendService.delete(friendMatchBean.getFriendNo());
-            }else if (status == 2){
+            } else if (status == 2) {
                 FriendBean searchBean = new FriendBean();
                 searchBean.setFriendId(friendBean.getFriendId());
                 searchBean.setMatchmakerId(friendBean.getMatchmakerId());
                 FriendBean searchResultBean = friendService.searchAddData(searchBean);
-                if(searchResultBean ==null) {
+                if (searchResultBean == null) {
                     searchBean.setStatus(2);
                     friendService.add(searchBean);
-                }else {
+                } else {
                     searchResultBean.setStatus(2);
-                    friendService.update(searchResultBean);
+                    searchResultBean = friendService.update(searchResultBean);
                 }
                 friendMatchBean.setStatus(2);
                 FriendBean resultBean = friendService.update(friendMatchBean);
@@ -117,7 +122,7 @@ public class FriendController {
                 UserInformationBean friendInformation = userInformationService.getById(friendBean.getFriendId());
                 UserInformationBean myInformation = userInformationService.getById(friendBean.getMatchmakerId());
                 String registrationToken = friendInformation.getFirebaseToken();
-                if(registrationToken!=null) {
+                if (registrationToken != null) {
                     AndroidConfig androidConfig = getAndroidConfig("friend" + resultBean.getFriendNo());
                     Message message = Message.builder()
                             .setAndroidConfig(androidConfig).putData("type", "acceptFriendInvite").putData("friendId", myInformation.getUserId()).putData("friendName", myInformation.getName()).setToken(registrationToken)
@@ -125,17 +130,18 @@ public class FriendController {
                     String response = FirebaseMessaging.getInstance().sendAsync(message).get();
                 }
 
-                result.putPOJO("data",resultBean);
+                result.putPOJO("data", searchResultBean);
             }
-            result.put("result",true);
+            result.put("result", true);
         } catch (Exception e) {
-            result.put("result",false);
+            result.put("result", false);
             e.printStackTrace();
         }
         return o.writeValueAsString(result);
     }
+
     @PostMapping(path = "/delete/{friendNo}", produces = "application/json;charset=UTF-8")
-    public String delete(@PathVariable Integer friendNo) throws Exception{
+    public String delete(@PathVariable Integer friendNo) throws Exception {
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();
 
@@ -143,9 +149,9 @@ public class FriendController {
             FriendBean friendBean = friendService.getById(friendNo);
             friendBean.setStatus(3);
             friendService.update(friendBean);
-            result.put("result",true);
+            result.put("result", true);
         } catch (Exception e) {
-            result.put("result",false);
+            result.put("result", false);
             e.printStackTrace();
         }
         return o.writeValueAsString(result);
@@ -187,8 +193,9 @@ public class FriendController {
         }
         return o.writeValueAsString(result);
     }
-    @PostMapping(path = "/invite/notification",produces = "application/json")
-    public String inviteNotification() throws Exception{
+
+    @PostMapping(path = "/invite/notification", produces = "application/json")
+    public String inviteNotification() throws Exception {
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();
         try {
@@ -197,9 +204,9 @@ public class FriendController {
             for (FriendBean friendBean : friendBeanList) {
                 arrayNode.addPOJO(friendBean);
             }
-            result.put("result",true);
+            result.put("result", true);
         } catch (Exception e) {
-            result.put("result",false);
+            result.put("result", false);
             e.printStackTrace();
         }
         return o.writeValueAsString(result);
@@ -219,11 +226,10 @@ public class FriendController {
     }
 
 
-
     private AndroidConfig getAndroidConfig(String topic) {
         AndroidConfig build = AndroidConfig.builder()
-                        .setCollapseKey(topic)
-                        .setPriority(AndroidConfig.Priority.HIGH)
+                .setCollapseKey(topic)
+                .setPriority(AndroidConfig.Priority.HIGH)
                 .setNotification(AndroidNotification.builder().build()).build();
         return build;
     }

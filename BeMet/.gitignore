@@ -38,3 +38,7 @@ out/
 /src/main/resources/hibernate.properties
 
 /src/main/resources/hibernate.reveng.xml
+
+/src/main/resources/static/google/admin.json
+/src/main/resources/static/google
+

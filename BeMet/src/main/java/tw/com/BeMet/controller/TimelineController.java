@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import tw.com.BeMet.bean.*;
 import tw.com.BeMet.service.*;
-import tw.com.BeMet.vo.*;
+import tw.com.BeMet.vo.UserInformation;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,6 +29,7 @@ public class TimelineController {
     ActivityDateService activityDateService;
     @Autowired
     UserInformationService userInformationService;
+
     @PostMapping(path = "/add", produces = "application/json;charset=UTF-8")
     public String add(@RequestBody TimelineBean timelineBean) throws Exception {
         ObjectMapper o = new ObjectMapper();
@@ -36,11 +37,11 @@ public class TimelineController {
         try {
             TimelineBean tb = timelineService.add(timelineBean);
             List<ActivityInviteBean> resultInviteList = new ArrayList<>();
-            if(timelineBean.getTimelinePropertiesNo() == 1){
+            if (timelineBean.getTimelinePropertiesNo() == 1) {
                 List<ActivityInviteBean> activityInviteBeanList = timelineBean.getActivityInviteBeanList();
                 for (ActivityInviteBean activityInviteBean : activityInviteBeanList) {
-                   activityInviteBean.setActivityNo(tb.getTimelineNo());
-                   activityInviteBean.setStatus(1);
+                    activityInviteBean.setActivityNo(tb.getTimelineNo());
+                    activityInviteBean.setStatus(1);
                     ActivityInviteBean resultBean = activityInviteService.add(activityInviteBean);
                     resultInviteList.add(resultBean);
                 }
@@ -73,7 +74,7 @@ public class TimelineController {
             TimelineBean tb = timelineService.update(timelineBean);
             Integer timelineNo = timelineBean.getTimelineNo();
 
-            if(timelineBean.getTimelinePropertiesNo() == 1){
+            if (timelineBean.getTimelinePropertiesNo() == 1) {
                 ActivityLabelBean activityLabelBean = timelineBean.getActivityLabelBean();
                 activityLabelService.update(activityLabelBean);
 
@@ -96,7 +97,7 @@ public class TimelineController {
                 List<ActivityInviteBean> activityInviteBeanList = timelineBean.getActivityInviteBeanList();
                 for (ActivityInviteBean activityInviteBean : activityInviteBeanList) {
                     activityInviteBean.setActivityNo(tb.getTimelineNo());
-                    activityInviteBean.setStatus(activityInviteBean.getStatusCode()==null?1:activityInviteBean.getStatus());
+                    activityInviteBean.setStatus(activityInviteBean.getStatusCode() == null ? 1 : activityInviteBean.getStatus());
                     ActivityInviteBean resultBean = activityInviteService.add(activityInviteBean);
                     resultInviteList.add(resultBean);
                 }
@@ -134,6 +135,7 @@ public class TimelineController {
         }
         return o.writeValueAsString(result);
     }
+
     @PostMapping(path = "/get/{timelineNo}", produces = "application/json;charset=UTF-8")
     public String getById(@PathVariable Integer timelineNo) throws Exception {
         ObjectMapper o = new ObjectMapper();
@@ -141,7 +143,7 @@ public class TimelineController {
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年M月d日 E aa h:m");
             TimelineBean timelineBean = timelineService.getById(timelineNo);
-            if(timelineBean.getTimelinePropertiesNo()==1) {
+            if (timelineBean.getTimelinePropertiesNo() == 1) {
                 ActivityInviteBean activityInviteBean = new ActivityInviteBean();
                 activityInviteBean.setActivityNo(timelineNo);
 
@@ -153,7 +155,7 @@ public class TimelineController {
                 UserInformationBean createrInformation = userInformationService.getById(timelineBean.getMatchmakerId());
                 creater.setUserName(createrInformation.getName());
                 creater.setUserId(createrInformation.getUserId());
-                activityInviteList.add(0,creater);
+                activityInviteList.add(0, creater);
                 timelineBean.setActivityInviteBeanList(activityInviteList);
                 timelineBean.setActivityLabelBean(activityLabelBean);
                 ActivityDateBean activityDateBean = new ActivityDateBean();
@@ -175,17 +177,17 @@ public class TimelineController {
         return o.writeValueAsString(result);
     }
 
- @PostMapping(path = "/searchlist", produces = "application/json;charset=UTF-8")
+    @PostMapping(path = "/searchlist", produces = "application/json;charset=UTF-8")
     public String searchList(@RequestBody TimelineBean timelineBean) throws Exception {
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();
         try {
             List<TimelineBean> timelineBeanList = timelineService.search(timelineBean);
 
-            UserInformation userInformation = (UserInformation)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            UserInformation userInformation = (UserInformation) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 
-            if(timelineBean.getFriendId()!=null){
+            if (timelineBean.getFriendId() != null) {
                 TimelineBean searchBean = new TimelineBean();
                 searchBean.setMatchmakerId(timelineBean.getMatchmakerId());
                 List<TimelineBean> resultSelfList = timelineService.search(searchBean);
@@ -197,7 +199,7 @@ public class TimelineController {
                     activityInviteBean.setUserId(timelineBean.getFriendId());
                     activityInviteBean.setActivityNo(searchTimeBean.getTimelineNo());
                     List<ActivityInviteBean> inviteList = activityInviteService.searchAccept(activityInviteBean);
-                    if (inviteList.size() > 0){
+                    if (inviteList.size() > 0) {
                         timelineBeanList.add(searchTimeBean);
                     }
                 }
@@ -206,14 +208,13 @@ public class TimelineController {
                     activityInviteBean.setUserId(timelineBean.getMatchmakerId());
                     activityInviteBean.setActivityNo(searchTimeBean.getTimelineNo());
                     List<ActivityInviteBean> inviteList = activityInviteService.searchAccept(activityInviteBean);
-                    if (inviteList.size() > 0){
+                    if (inviteList.size() > 0) {
                         timelineBeanList.add(searchTimeBean);
                     }
                 }
 
 
-
-            }else{
+            } else {
                 ActivityInviteBean activityInviteBean = new ActivityInviteBean();
                 activityInviteBean.setUserId(userInformation.getUserId());
                 List<ActivityInviteBean> inviteList = activityInviteService.searchAccept(activityInviteBean);
@@ -222,25 +223,25 @@ public class TimelineController {
                 }
             }
             for (int i = 0; i < timelineBeanList.size(); i++) {
-                TimelineBean tlb  = timelineBeanList.get(i);
-                if(tlb.getTimelinePropertiesNo() == 1){
+                TimelineBean tlb = timelineBeanList.get(i);
+                if (tlb.getTimelinePropertiesNo() == 1) {
                     ActivityDateBean activityDateBean = new ActivityDateBean();
                     activityDateBean.setActivityNo(tlb.getTimelineNo());
                     List<ActivityDateBean> activityDateBeanList = activityDateService.search(activityDateBean);
-                    if(activityDateBeanList.size() > 0)
+                    if (activityDateBeanList.size() > 0)
                         tlb.setStartDateStr(new SimpleDateFormat("MM/dd").format(activityDateBeanList.get(0).getStartDate()));
                 }
                 tlb.setCreateDateStr(new SimpleDateFormat("MM/dd").format(tlb.getCreateDate()));
-                timelineBeanList.set(i,tlb);
+                timelineBeanList.set(i, tlb);
             }
             Collections.sort(timelineBeanList, new Comparator<TimelineBean>() {
                 @Override
                 public int compare(TimelineBean o1, TimelineBean o2) {
-                    if(o1.getStartDateStr() == null && o2.getStartDateStr()==null){
+                    if (o1.getStartDateStr() == null && o2.getStartDateStr() == null) {
                         return o1.getCreateDateStr().compareTo(o2.getCreateDateStr());
-                    }else if(o1.getStartDateStr() == null){
+                    } else if (o1.getStartDateStr() == null) {
                         return o1.getCreateDateStr().compareTo(o2.getStartDateStr());
-                    }else if (o2.getStartDateStr() == null){
+                    } else if (o2.getStartDateStr() == null) {
                         return o1.getStartDateStr().compareTo(o2.getCreateDateStr());
 
                     }
@@ -266,13 +267,14 @@ public class TimelineController {
         ObjectNode result = o.createObjectNode();
         try {
             TimelineBean timelineBean = timelineService.getById(timelineNo);
-            if(timelineBean.getTimelinePropertiesNo() == 1){
+            if (timelineBean.getTimelinePropertiesNo() == 1) {
                 ActivityDateBean activityDateBean = new ActivityDateBean();
                 activityDateBean.setActivityNo(timelineNo);
                 ActivityLabelBean activityLabelBean = new ActivityLabelBean();
                 activityLabelBean.setActivityNo(timelineNo);
                 ActivityInviteBean activityInviteBean = new ActivityInviteBean();
                 activityInviteBean.setActivityNo(timelineNo);
+
 
                 List<ActivityDateBean> activityDateBeanList = activityDateService.search(activityDateBean);
                 for (ActivityDateBean adb : activityDateBeanList) {
@@ -290,6 +292,7 @@ public class TimelineController {
             timelineService.delete(timelineNo);
             result.put("result", true);
         } catch (Exception e) {
+            e.printStackTrace();
             result.put("result", false);
         }
         return o.writeValueAsString(result);

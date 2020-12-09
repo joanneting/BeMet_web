@@ -36,7 +36,6 @@
     </div>
 </nav>
 <main>
-
     <div class="container">
         <div class="row search">
             <form id="searchForm" class="col s12">
@@ -54,7 +53,6 @@
                             <option></option>
                             <option th:each="codeTableMap:${codeTableMap}" th:value="${codeTableMap.key}"
                                     th:text="${codeTableMap.value}"></option>
-
                         </select>
                         <label>狀態</label>
                     </div>
@@ -73,10 +71,7 @@
                     </div>
                 </div>
             </form>
-
         </div>
-
-
         <table class="highlight">
             <thead>
             <tr>
@@ -161,9 +156,7 @@
     </div>
 </footer>
 
-
 <script src="../../static/js/script.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="../../static/js/init.js"></script>
 </body>
@@ -252,16 +245,18 @@
                     for (let i = 0; i < array.length; i++) {
                         var problemReportBean = array[i];
                         html += `<tr>
-                            <td  >${problemReportBean.userName}</td>
-                            <td >${problemReportBean.content}</td>
-                            <td >${problemReportBean.statusStr}</td>
-                            <td >${problemReportBean.startDateStr}</td>
-                            <td >${problemReportBean.endDateStr}</td>
-                            <td><button href="#edit-page" onclick="updateSearch(${problemReportBean.problemReportNo})"    class="waves-effect waves-light btn-flat modal-trigger"><i
-                                class="material-icons">edit</i></button></td>
-                            <td><button href="#delete-page" onclick="deleteCheck(${problemReportBean.problemReportNo})" class="waves-effect waves-light btn-flat modal-trigger"><i
-                                class="material-icons">delete</i></button></td>
-                        </tr>`;
+                                    <td  >${problemReportBean.userName}</td>
+                                    <td >${problemReportBean.content}</td>
+                                    <td >${problemReportBean.statusStr}</td>
+                                    <td >${problemReportBean.startDateStr}</td>
+                                    <td >${problemReportBean.endDateStr}</td>
+                                    <td><button href="#edit-page" onclick="updateSearch(${problemReportBean.problemReportNo})"
+                                                    class="waves-effect waves-light btn-flat modal-trigger">
+                                                    <i class="material-icons">edit</i></button></td>
+                                    <td><button href="#delete-page" onclick="deleteCheck(${problemReportBean.problemReportNo})"
+                                                    class="waves-effect waves-light btn-flat modal-trigger">
+                                                    <i class="material-icons">delete</i></button></td>
+                                </tr>`;
                     }
                     $("#searchTbody").empty();
                     $("#searchTbody").append(html);
