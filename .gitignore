@@ -14,3 +14,5 @@ BeMet/build/
 BeMet/src/main/resources/application-local.properties
 
 BeMet/src/main/resources/static/google/admin.json
+
+BeMet/src/main/resources/static/google/
