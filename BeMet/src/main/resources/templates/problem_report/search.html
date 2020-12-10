@@ -26,6 +26,7 @@
         <div class="nav-wrapper col">
             <img class="logo-img" src="../../static/images/logo.png" alt="">
             <a href="#" class="brand-logo">BeMet</a>
+            <a href="#" data-target="slide-out" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
 
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li th:text="${session.userName}"></li>
@@ -35,6 +36,11 @@
         </div>
     </div>
 </nav>
+<ul id="slide-out" class="sidenav">
+    <li><a class="subheader" th:text="${session.userName}"></a></li>
+    <li><a th:href="@{/user/logout}" class="waves-effect waves-light btn">登出</a></li>
+
+</ul>
 <main>
     <div class="container">
         <div class="row search">
@@ -165,7 +171,7 @@
     var updateSearchURL =/*[[@{/problemreport/get/}]]*/"";
     var updateURL =/*[[@{/problemreport/update/}]]*/"";
     var deleteURL =/*[[@{/problemreport/delete/}]]*/"";
-    var searchURL =/*[[@{/problemreport/search/}]]*/"";
+    var searchURL =/*[[@{/problemreport/manage/search/}]]*/"";
 
     function updateSearch(problemReportNo) {
         $.ajax({

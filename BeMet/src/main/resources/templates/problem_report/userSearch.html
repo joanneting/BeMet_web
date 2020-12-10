@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeMet-問題回報</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+
+    <link type="text/css" rel="stylesheet" href="/static/css/materialize.min.css"
+          th:href="@{/static/css/materialize.min.css}" media="screen,projection"/>
+    <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/static/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Rubik:wght@500&display=swap" rel="stylesheet">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Philosopher:wght@700&family=Roboto&display=swap"
+            rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body>
+<nav>
+    <div class="container">
+        <div class="nav-wrapper col">
+            <img class="logo-img" src="../../static/images/logo.png" alt="">
+            <a href="#" class="brand-logo">BeMet</a>
+            <a href="#" data-target="slide-out" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
+
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li th:text="${session.userName}"></li>
+                <li><a th:href="@{/problemreport/add}" class="waves-effect waves-light btn">問題回報</a></li>
+                <li><a th:href="@{/user/logout}" class="waves-effect waves-light btn">登出</a></li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<ul id="slide-out" class="sidenav">
+    <li><a class="subheader" th:text="${session.userName}"></a></li>
+    <li><a th:href="@{/problemreport/add}" class="waves-effect waves-light btn">問題回報</a></li>
+    <li><a th:href="@{/user/logout}" class="waves-effect waves-light btn">登出</a></li>
+
+</ul>
+<main>
+    <div class="container">
+        <table class="highlight">
+            <thead>
+            <tr>
+                <th>內容</th>
+                <th>狀態</th>
+                <th>處理日期</th>
+                <th>處理完成日期</th>
+                <th style="width:8%;"></th>
+            </tr>
+            </thead>
+
+            <tbody id="searchTbody">
+            <tr th:each="problemReportBean : ${problemReportBeanList}">
+                <td th:text="${problemReportBean.getUserName()}"></td>
+                <td th:text="${problemReportBean.getContent()}"></td>
+                <td th:text="${problemReportBean.getStatusStr()}"></td>
+                <td th:text="${problemReportBean.getStartDateStr()}"></td>
+                <td th:text="${problemReportBean.getEndDateStr()}"></td>
+
+                <td>
+                    <button href="#edit-page" th:onclick="updateSearch([[${problemReportBean.getProblemReportNo()}]])"
+                            class="waves-effect waves-light btn-flat modal-trigger"><i
+                            class="material-icons">edit</i></button>
+                </td>
+                <td>
+                    <button href="#delete-page" th:onclick="deleteCheck([[${problemReportBean.getProblemReportNo()}]])"
+                            class="waves-effect waves-light btn-flat modal-trigger"><i
+                            class="material-icons">delete</i></button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Modal Structure -->
+    <div id="edit-page" class="modal">
+        <div class="modal-content small">
+            <h4>問題詳細內容</h4>
+            <div class="">
+                <form id="detailForm">
+                    <input type="hidden" id="problemReportNo" name="problemReportNo">
+                    <label>問題內容</label>
+                    <p class="detail-content" id="content" name="content"></p>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn red">關閉</a>
+        </div>
+    </div>
+
+</main>
+
+
+<footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container center">
+            © 2020 Copyright BeMet
+        </div>
+    </div>
+</footer>
+
+<script src="../../static/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="../../static/js/init.js"></script>
+</body>
+</html>
+<script th:inline="javascript">
+    var searchURL =/*[[@{/problemreport/search/}]]*/"";
+    var getDetailURL =/*[[@{/problemreport/get/}]]*/"";
+    $(function () {
+        search();
+    });
+
+    function getDetail(problemReportNo) {
+        console.log(getDetailURL + problemReportNo);
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: getDetailURL + problemReportNo,
+            async: false,
+            success: function (data) {
+                if (data.result) {
+                    const $detailForm = $("#detailForm");
+                    $detailForm.find("#problemReportNo").val(data.problemReportNo);
+                    $detailForm.find("#content").text(data.content);
+
+                    // $("#edit-page").show();
+                }
+            }
+        });
+    }
+
+    function search() {
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: searchURL,
+            async: false,
+            success: function (data) {
+                if (data.result) {
+                    var array = data.array;
+                    console.log(array.length);
+                    var html = "";
+                    for (let i = 0; i < array.length; i++) {
+                        var problemReportBean = array[i];
+                        html += `<tr>
+                                    <td >${problemReportBean.content}</td>
+                                    <td >${problemReportBean.statusStr}</td>
+                                    <td >${problemReportBean.startDateStr}</td>
+                                    <td >${problemReportBean.endDateStr}</td>
+                                    <td><button href="#edit-page" onclick="getDetail(${problemReportBean.problemReportNo})"
+                                                    class="waves-effect waves-light btn-flat modal-trigger">
+                                                    <i class="material-icons">details</i></button></td>
+                                </tr>`;
+                    }
+                    $("#searchTbody").empty();
+                    $("#searchTbody").append(html);
+                }
+
+            }
+        })
+    }
+</script>
+

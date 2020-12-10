@@ -27,6 +27,7 @@
             <a href="#" data-target="slide-out" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li th:text="${session.userName}"></li>
+                <li><a th:href="@{/problemreport/search}" class="waves-effect waves-light btn">問題列表</a></li>
                 <li><a th:href="@{/user/logout}" class="waves-effect waves-light btn">登出</a></li>
 
             </ul>
@@ -34,12 +35,10 @@
     </div>
 </nav>
 <ul id="slide-out" class="sidenav">
-    <li>
-        <div class="user-view">
-    <li><a class="subheader">User Name</a></li>
-    <li><a href="../logout.html" class="waves-effect waves-light btn">登出</a></li>
-    </div>
-    </li>
+    <li><a class="subheader" th:text="${session.userName}"></a></li>
+    <li><a th:href="@{/problemreport/search}" class="waves-effect waves-light btn">問題列表</a></li>
+    <li><a th:href="@{/user/logout}" class="waves-effect waves-light btn">登出</a></li>
+
 </ul>
 <main>
     <div class="container">

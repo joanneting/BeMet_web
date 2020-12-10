@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,6 +14,7 @@ import tw.com.BeMet.bean.UserInformationBean;
 import tw.com.BeMet.service.CodeTableService;
 import tw.com.BeMet.service.ProblemReportService;
 import tw.com.BeMet.service.UserInformationService;
+import tw.com.BeMet.vo.UserInformation;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -73,13 +75,13 @@ public class ProblemReportController {
         try {
             System.out.println(problemReportNo);
             ProblemReportBean problemReportBean = problemReportService.getById(problemReportNo);
-            System.out.println("problemReportBean = " + problemReportBean.getContent());
             result.put("result", true);
             result.put("problemReportNo", problemReportBean.getProblemReportNo());
             result.put("content", problemReportBean.getContent());
             result.put("userId", problemReportBean.getUserId());
             result.put("userName", problemReportBean.getUserName());
             result.put("status", problemReportBean.getStatus());
+            result.put("statusStr", problemReportBean.getStatusStr());
 
         } catch (Exception e) {
             result.put("result", false);
@@ -90,25 +92,26 @@ public class ProblemReportController {
 
 
     @ResponseBody
-    @GetMapping(path = "/search", produces = "application/json;charset=UTF-8")
-    public String search(ProblemReportBean condition) throws Exception {
+    @GetMapping(path = "/manage/search", produces = "application/json;charset=UTF-8")
+    public String manageSearch(ProblemReportBean problemReportBean) throws Exception {
         ObjectMapper o = new ObjectMapper();
         ObjectNode result = o.createObjectNode();
         try {
-            List<ProblemReportBean> problemReportBeanList = problemReportService.search(condition);
+
+            List<ProblemReportBean> problemReportBeanList = problemReportService.search(problemReportBean);
             result.put("result", true);
             ArrayNode data = result.putArray("array");
-            for (ProblemReportBean problemReportBean : problemReportBeanList) {
+            for (ProblemReportBean pb : problemReportBeanList) {
                 ObjectNode problemReportNode = data.addObject();
-                problemReportNode.put("problemReportNo", problemReportBean.getProblemReportNo());
-                problemReportNode.put("content", problemReportBean.getContent());
-                problemReportNode.put("userId", problemReportBean.getUserId());
-                problemReportNode.put("userName", problemReportBean.getUserName());
-                problemReportNode.put("statusStr", problemReportBean.getStatusStr());
-                problemReportNode.put("startDateStr", problemReportBean.getStartDate() != null ?
-                        problemReportBean.getStartDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : "");
-                problemReportNode.put("endDateStr", problemReportBean.getEndDate() != null ?
-                        problemReportBean.getEndDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : "");
+                problemReportNode.put("problemReportNo", pb.getProblemReportNo());
+                problemReportNode.put("content", pb.getContent());
+                problemReportNode.put("userId", pb.getUserId());
+                problemReportNode.put("userName", pb.getUserName());
+                problemReportNode.put("statusStr", pb.getStatusStr());
+                problemReportNode.put("startDateStr", pb.getStartDate() != null ?
+                        pb.getStartDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : "");
+                problemReportNode.put("endDateStr", pb.getEndDate() != null ?
+                        pb.getEndDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : "");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -116,6 +119,43 @@ public class ProblemReportController {
         }
         return o.writeValueAsString(result);
     }
+
+    @GetMapping(path = "/search")
+    public ModelAndView userSearchPage() {
+        return new ModelAndView("problem_report/userSearch");
+    }
+
+    @ResponseBody
+    @GetMapping(path = "/search", produces = "application/json;charset=UTF-8")
+    public String search() throws Exception {
+        ObjectMapper o = new ObjectMapper();
+        ObjectNode result = o.createObjectNode();
+        try {
+            ProblemReportBean problemReportBean = new ProblemReportBean();
+            UserInformation userInformation = (UserInformation) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            problemReportBean.setUserId(userInformation.getUserId());
+            List<ProblemReportBean> problemReportBeanList = problemReportService.search(problemReportBean);
+            result.put("result", true);
+            ArrayNode data = result.putArray("array");
+            for (ProblemReportBean pb : problemReportBeanList) {
+                ObjectNode problemReportNode = data.addObject();
+                problemReportNode.put("problemReportNo", pb.getProblemReportNo());
+                problemReportNode.put("content", pb.getContent());
+                problemReportNode.put("userId", pb.getUserId());
+                problemReportNode.put("userName", pb.getUserName());
+                problemReportNode.put("statusStr", pb.getStatusStr());
+                problemReportNode.put("startDateStr", pb.getStartDate() != null ?
+                        pb.getStartDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : "");
+                problemReportNode.put("endDateStr", pb.getEndDate() != null ?
+                        pb.getEndDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : "");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("result", false);
+        }
+        return o.writeValueAsString(result);
+    }
+
 
     @ResponseBody
     @GetMapping(path = "/filter")
